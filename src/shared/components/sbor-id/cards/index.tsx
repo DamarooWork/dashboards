@@ -10,9 +10,8 @@ export function Cards() {
       <Card title="Объекты">
         <div className=" flex-1 overflow-hidden self-center">
           <Doughnut
-            className=""
             data={{
-              labels: ['Серверы', 'Каналы', 'Участники', 'Сообщения', ''],
+              labels: ['КРН', 'КРС', 'РС', 'РП', 'Всего'],
               datasets: [
                 {
                   data: [10, 20, 30, 40, 40],

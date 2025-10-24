@@ -21,7 +21,7 @@ export function Card({
     <div
       className={cn(
         className,
-        'rounded-xl bg-card border border-border overflow-hidden p-3.5 shadow  min-h-42   flex flex-col '
+        'rounded-xl bg-card border border-border overflow-hidden p-3.5 shadow  min-h-42   flex flex-col  '
       )}
     >
       {title && <h3 className="font-extrabold mb-1.5 text-sm">{title}</h3>}
