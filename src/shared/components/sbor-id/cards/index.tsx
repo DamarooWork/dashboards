@@ -1,46 +1,16 @@
 'use client'
-
 import { Card } from '@/shared/components/card'
-import { Chart as ChartJS, ArcElement, Tooltip, plugins } from 'chart.js'
-import { Doughnut } from 'react-chartjs-2'
-ChartJS.register(ArcElement, Tooltip)
+
+
 export function Cards() {
   return (
-    <div className="grid grid-cols-5 gap-4 mt-4 max-h-42">
-      <Card title="Объекты">
-        <div className=" flex-1 overflow-hidden self-center">
-          <Doughnut
-            data={{
-              labels: ['КРН', 'КРС', 'РС', 'РП', 'Всего'],
-              datasets: [
-                {
-                  data: [10, 20, 30, 40, 40],
-                  backgroundColor: [
-                    'oklch(0.488 0.243 264.376)',
-                    'oklch(0.696 0.17 162.48)',
-                    ' oklch(0.769 0.188 70.08)',
-                    'oklch(0.627 0.265 303.9)',
-                    'grey',
-                  ],
-                  hoverOffset: 1,
-                },
-              ],
-            }}
-            options={{
-              plugins: {
-                legend: {
-                  display: false,
-                },
-              },
-            }}
-          />
-        </div>
-      </Card>
+    <div className="grid grid-cols-4 gap-4 mt-4 max-h-42">
+     
       <Card title="Телеграмма ИД">
-        <div className="text-muted-foreground text-sm">
-          <p>Отправлена: 12.01.2026</p>
+        <div className="text-muted-foreground text-2xl">
+          <p>Отправлена: <b className='text-2xl text-foreground'>12.01.2026</b> </p>
           <p>
-            Предоставить до: <b>25.01.2026</b>
+            Предоставить до: <b className='text-2xl text-foreground'>25.01.2026</b>
           </p>
           <p>Прошло дней:14 · До дедлайна: 9</p>
         </div>
@@ -52,7 +22,7 @@ export function Cards() {
         kpiResult="success"
       >
         <div>
-          <p className="text-muted-foreground text-sm">68% из 62 объектов</p>
+          <p className="text-muted-foreground text-2xl">68% из 62 объектов</p>
         </div>
       </Card>
       <Card
@@ -61,10 +31,10 @@ export function Cards() {
         kpiChange={0}
         kpiResult="neutral"
       >
-        <p className="text-muted-foreground text-sm">29% из 62 объектов</p>
+        <p className="text-muted-foreground text-2xl">29% из 62 объектов</p>
       </Card>
       <Card title="Дата прошла" kpiValue={5} kpiChange={3} kpiResult="failure">
-        <p className="text-muted-foreground text-sm">8% из 62 объектов</p>
+        <p className="text-muted-foreground text-2xl">8% из 62 объектов</p>
       </Card>
     </div>
   )

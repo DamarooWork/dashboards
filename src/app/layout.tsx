@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Menu } from '@/widgets'
 
 export const metadata: Metadata = {
   title: 'Dashboards',
@@ -17,9 +18,10 @@ export default async function RootLayout({
         <link rel="icon/jpg" href="icon.jpg" />
       </head>
       <body
-        className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto p-5 max-h-screen`}
+        className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto  max-h-screen h-screen relative`}
       >
-        <main className="flex flex-1">{children}</main>
+        <main className="flex flex-1 max-h-screen p-5">{children}</main>
+        <Menu />
       </body>
     </html>
   )

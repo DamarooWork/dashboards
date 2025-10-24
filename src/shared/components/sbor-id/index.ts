@@ -1,2 +1,2 @@
 export { Cards } from './cards'
-export { Dashboard } from './dashboard'
+export { Dashboards } from './dashboards'

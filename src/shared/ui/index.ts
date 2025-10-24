@@ -1,4 +1,7 @@
 export { Button } from './button'
+export {Label} from './label'
+export {Switch} from './switch'
 export * from './radio-group'
 export * from './sheet'
 export * from './drawer'
+export * from './chart'
