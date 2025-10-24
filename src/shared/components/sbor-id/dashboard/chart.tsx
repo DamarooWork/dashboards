@@ -1,29 +1,29 @@
 import { faker } from '@faker-js/faker'
 import {
   Chart as ChartJS,
-  CategoryScale,
   LinearScale,
+  CategoryScale,
   BarElement,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  LineController,
   PointElement,
-} from 'chart.js'
+  LineElement,
+  Legend,
+  Tooltip,
+  LineController,
+  BarController,
+}  from 'chart.js'
 import { Chart } from 'react-chartjs-2'
 
 ChartJS.register(
-  CategoryScale,
   LinearScale,
+  CategoryScale,
   BarElement,
-  LineController,
-  LineElement,
   PointElement,
-  Title,
+  LineElement,
+  Legend,
   Tooltip,
-  Legend
-)
+  LineController,
+  BarController
+);
 
 export const options = {
   plugins: {
