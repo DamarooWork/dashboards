@@ -1,11 +1,6 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
 import './globals.css'
 
-const roboto = Roboto({
-  subsets: ['latin'],
-  weight: ['400'],
-})
 export const metadata: Metadata = {
   title: 'Dashboards',
   description: 'Demo dashboards',
@@ -17,12 +12,14 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ru" suppressHydrationWarning>
+    <html lang="ru">
       <head>
         <link rel="icon/jpg" href="icon.jpg" />
       </head>
-      <body className={`${roboto.className} antialiased`}>
-        <main>{children}</main>
+      <body
+        className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto p-5 max-h-screen`}
+      >
+        <main className="flex flex-1">{children}</main>
       </body>
     </html>
   )

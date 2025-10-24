@@ -1,7 +1,4 @@
-export default  async function Home() {
-  return (
-    <div>
-      <h1 className="text-4xl font-bold">Dashboards</h1>
-    </div>
-  )
+import { redirect } from 'next/navigation'
+export default async function Home() {
+  redirect('/sbor-id')
 }
