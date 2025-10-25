@@ -29,6 +29,8 @@ ChartJS.register(
 )
 
 export const options = {
+  responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     title: {
       display: false,
@@ -102,7 +104,7 @@ export const data = {
       data: roads.map(() => faker.number.int({ min: 1, max: 30 })),
       backgroundColor: 'rgb(34 197 94)',
       order: 1,
-      barPercentage: 0.3,
+      barPercentage: 0.5,
       categoryPercentage: 0.8,
     },
     {
@@ -110,7 +112,7 @@ export const data = {
       data: roads.map(() => faker.number.int({ min: 1, max: 30 })),
       backgroundColor: 'rgb(186 230 253)',
       order: 2,
-      barPercentage: 0.3,
+      barPercentage: 0.5,
       categoryPercentage: 0.8,
     },
     {
@@ -131,5 +133,9 @@ export const data = {
 }
 
 export function ChartRoads() {
-  return <Chart type="bar" options={options} data={data} />
+  return (
+    <div className="px-24 w-full h-full">
+      <Chart type="bar" options={options} data={data} />
+    </div>
+  )
 }
