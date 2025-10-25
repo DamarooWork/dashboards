@@ -23,7 +23,7 @@ export function Card({
     <div
       className={cn(
         className,
-        'rounded-xl bg-card/95 border border-border overflow-hidden p-3.5 shadow  min-h-42   flex flex-col',
+        'rounded-xl bg-card border border-border overflow-hidden p-3.5 shadow  min-h-42   flex flex-col',
         dashboard && 'active:scale-90 will-change-transform transition-all duration-200'
       )}
     >

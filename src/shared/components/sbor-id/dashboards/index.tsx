@@ -34,13 +34,15 @@ export function Dashboards({ className }: Props) {
         </Card>
       )}
       {chartSwitchStatus === 'performers' && (
+        <>
+        
         <Card
           className={
             'mt-6 flex-1  flex items-center justify-center bg-background'
           }
         >
           <ChartPerformers />
-        </Card>
+        </Card></>
       )}
     </>
   )

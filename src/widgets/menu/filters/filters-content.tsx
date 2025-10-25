@@ -16,21 +16,21 @@ export function FiltersContent() {
       <SheetHeader>
         <SheetTitle className="text-4xl">Фильтр</SheetTitle>
       </SheetHeader>
-      <div className="grid flex-1 auto-rows-min gap-6 px-4">
+      <div className="grid flex-1 auto-rows-min gap-2 px-4">
         <Label className="text-2xl">Год</Label>
-        <div className="grid gap-3">
+        <div className="grid gap-3 ">
           <RadioGroup defaultValue={'2025'}>
             <div className="flex items-center gap-3">
-              <RadioGroupItem value="2023" id="r1" />
-              <Label htmlFor="r1">2023</Label>
-            </div>
-            <div className="flex items-center gap-3">
               <RadioGroupItem value="2024" id="r2" />
-              <Label htmlFor="r2">2024</Label>
+              <Label  htmlFor="r2">2024</Label>
             </div>
             <div className="flex items-center gap-3">
               <RadioGroupItem value="2025" id="r3" />
-              <Label htmlFor="r3">2025</Label>
+              <Label  htmlFor="r3">2025</Label>
+            </div>
+            <div className="flex items-center gap-3">
+              <RadioGroupItem value="2026" id="r4" />
+              <Label  htmlFor="r4">2026</Label>
             </div>
           </RadioGroup>
         </div>
@@ -42,9 +42,9 @@ export function FiltersContent() {
               <Label htmlFor="all">{'Все дороги'}</Label>
             </div>
             {roads.map((road) => (
-              <div className="flex items-center gap-3 " key={road}>
-                <RadioGroupItem value={road} id={road} />
-                <Label htmlFor={road}>{road}</Label>
+              <div className="flex items-center gap-3 " key={road.name}>
+                <RadioGroupItem value={road.name} id={road.name} />
+                <Label htmlFor={road.name}>{road.name}</Label>
               </div>
             ))}
           </RadioGroup>

@@ -12,6 +12,7 @@ import {
   LineController,
   BarController,
 } from 'chart.js'
+import datalabels from 'chartjs-plugin-datalabels'
 import { Chart } from 'react-chartjs-2'
 
 ChartJS.register(
@@ -23,7 +24,8 @@ ChartJS.register(
   Legend,
   Tooltip,
   LineController,
-  BarController
+  BarController,
+  datalabels
 )
 
 export const options = {
@@ -36,6 +38,14 @@ export const options = {
     },
     legend: {
       display: false,
+    },
+    datalabels: {
+      // Здесь настраиваются опции для отображения меток
+      display: true, // Включить отображение меток
+      color: '#000', // Цвет текста метки
+      font: {
+        weight: 'bold' as const,
+      },
     },
   },
   scales: {
@@ -70,6 +80,7 @@ export const options = {
       grid: {
         display: false,
       },
+
       ticks: {
         font: {
           size: 24,
@@ -84,7 +95,7 @@ export const options = {
 }
 
 export const data = {
-  labels: roads,
+  labels: roads.map((road) => road.shortName),
   datasets: [
     {
       label: 'План',
@@ -112,6 +123,9 @@ export const data = {
       tension: 0.5,
       yAxisID: 'y1',
       order: 0,
+      datalabels: {
+        display: false, // Отключаем datalabels для этого датасета
+      },
     },
   ],
 }
