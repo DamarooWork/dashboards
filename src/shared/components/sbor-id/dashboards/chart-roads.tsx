@@ -42,11 +42,10 @@ export const options = {
       display: false,
     },
     datalabels: {
-      // Здесь настраиваются опции для отображения меток
       display: true, // Включить отображение меток
       color: '#000', // Цвет текста метки
       font: {
-        weight: 'bold' as const,
+        size: 24,
       },
     },
   },
