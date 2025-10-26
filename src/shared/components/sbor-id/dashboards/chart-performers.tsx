@@ -1,6 +1,5 @@
 'use client'
 
-
 import { Bar, BarChart, XAxis, YAxis } from 'recharts'
 
 import {
@@ -10,49 +9,93 @@ import {
   ChartTooltipContent,
 } from '@/shared/ui'
 
-export const description = 'A horizontal bar chart'
+export const description = 'Предоставление ИД по Исполнителям'
 
-const chartData = [
-  { month: 'January', desktop: 186 },
-  { month: 'February', desktop: 305 },
-  { month: 'March', desktop: 237 },
-  { month: 'April', desktop: 73 },
-  { month: 'May', desktop: 209 },
-  { month: 'June', desktop: 214 },
+interface ChartData {
+  name: string
+  value: number
+  total: number
+  percent: number
+}
+
+const chartData: ChartData[] = [
+  { name: 'ПЧ', value: 152, total: 200, percent: 76 },
+  { name: 'РЦДМ', value: 122, total: 200, percent: 61 },
+  { name: 'ДРП', value: 116, total: 200, percent: 58 },
+  { name: 'Д', value: 110, total: 200, percent: 55 },
+  { name: 'ЭЧ', value: 98, total: 200, percent: 49 },
+  { name: 'ШЧ', value: 92, total: 200, percent: 46 },
+  { name: 'НС', value: 82, total: 200, percent: 41 },
+  { name: 'ДТВ', value: 74, total: 200, percent: 37 },
 ]
 
 const chartConfig = {
-  desktop: {
-    label: 'Desktop',
-    color: 'var(--chart-1)',
+  value: {
+    label: 'Значение',
+    color: 'var(--chart-2)',
   },
 } satisfies ChartConfig
 
+const renderLabel = (props: any) => {
+  const { x, y, width, height, value } = props
+
+  const index = chartData.findIndex((d) => d.value === value)
+  if (index === -1) return <text />
+
+  const data = chartData[index]
+  const xPos = Number(x) + Number(width) + 10
+  const yPos = Number(y) + Number(height) / 2
+
+  return (
+    <text
+      x={xPos}
+      y={yPos}
+      fill="#666"
+      fontSize={20}
+      fontWeight="bold"
+      textAnchor="start"
+      dominantBaseline="middle"
+    >
+      {data.value}/{data.total} · {data.percent}%
+    </text>
+  )
+}
+
 export function ChartPerformers() {
   return (
-    <ChartContainer config={chartConfig}>
+    <ChartContainer config={chartConfig} className="h-full w-full pl-20 pb-4">
       <BarChart
         accessibilityLayer
         data={chartData}
         layout="vertical"
         margin={{
-          left: -20,
+          left: 30,
+          right: 120,
         }}
       >
-        <XAxis type="number" dataKey="desktop" hide />
+        <XAxis type="number" dataKey="value" hide />
         <YAxis
-          dataKey="month"
+          dataKey="name"
           type="category"
           tickLine={false}
-          tickMargin={10}
+          tickMargin={20}
           axisLine={false}
-          tickFormatter={(value) => value.slice(0, 3)}
+          tick={{
+            fontSize: 20,
+            fontWeight: 'bold',
+          }}
         />
         <ChartTooltip
           cursor={false}
           content={<ChartTooltipContent hideLabel />}
         />
-        <Bar dataKey="desktop" fill="var(--color-desktop)" radius={5} />
+        <Bar
+          dataKey="value"
+          fill="var(--color-value)"
+          radius={20}
+          label={renderLabel}
+          barSize={20}
+        />
       </BarChart>
     </ChartContainer>
   )

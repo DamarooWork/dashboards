@@ -4,6 +4,7 @@ import { ChartRoads } from './chart-roads'
 import { ChartPerformers } from './chart-performers'
 import { useState } from 'react'
 import { Switch } from '@/shared/ui'
+import { ChartStatus } from './chart-status'
 
 interface Props {
   className?: string
@@ -26,23 +27,24 @@ export function Dashboards({ className }: Props) {
       </Switch>
       {chartSwitchStatus === 'roads' && (
         <Card
-          className={
-            'mt-6 flex-1  flex items-center justify-center bg-background'
-          }
+          className={'mt-6 flex-1 '}
+          title="План vs Факт по железным дорогам России"
         >
           <ChartRoads />
         </Card>
       )}
       {chartSwitchStatus === 'performers' && (
-        <>
-        
-        <Card
-          className={
-            'mt-6 flex-1  flex items-center justify-center bg-background'
-          }
-        >
-          <ChartPerformers />
-        </Card></>
+        <section className="mt-6 flex gap-4 overflow-hidden">
+          <Card className="flex-1" title="Предоставление ИД по Исполнителям">
+            <ChartPerformers />
+          </Card>
+          <Card
+            className={'basis-1/3 h-full w-full'}
+            title="Статусы комплектности"
+          >
+            <ChartStatus />
+          </Card>
+        </section>
       )}
     </>
   )

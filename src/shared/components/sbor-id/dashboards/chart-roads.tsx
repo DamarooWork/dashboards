@@ -37,7 +37,8 @@ export const options = {
     },
     labels: {
       display: false,
-    },
+    }, 
+   
     legend: {
       display: false,
     },
