@@ -4,7 +4,7 @@ export const roads = [
   { id: 3, name: 'Дальневосточная', shortName: 'ДВОСТ' },
   { id: 4, name: 'Забайкальская', shortName: 'ЗАБ' },
   { id: 5, name: 'Западно-Сибирская', shortName: 'З-СИБ' },
-  { id: 6, name: 'Калининградская', shortName: 'КЛНГ' },
+  { id: 6, name: 'Калининградская', shortName: 'Клг' },
   { id: 7, name: 'Красноярская', shortName: 'КРАС' },
   { id: 8, name: 'Куйбышевская', shortName: 'КБШ' },
   { id: 9, name: 'Московская', shortName: 'МОСК' },
