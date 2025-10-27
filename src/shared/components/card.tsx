@@ -31,12 +31,7 @@ export function Card({
       )}
     >
       {title && (
-        <h3
-          className={cn(
-            'font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0',
-            !dashboard && 'border-b-2 border-fill'
-          )}
-        >
+        <h3 className={cn('font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0')}>
           {title}
         </h3>
       )}
@@ -44,7 +39,7 @@ export function Card({
         <div className="text-4xl  text-center flex-1 flex items-center justify-center">
           <span className="mr-2">{kpiValue}</span>
 
-          <span>{kpiAll ? `из ${kpiAll}` : ''}</span>
+          <span>{kpiAll ? `из ${kpiAll} объектов` : 'объектов'}</span>
         </div>
       )}
 

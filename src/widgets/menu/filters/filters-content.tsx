@@ -52,7 +52,7 @@ export function FiltersContent() {
           </div>
         </div>
         <Label className="text-2xl">Дорога</Label>
-        <div className="flex flex-col gap-1 overflow-auto flex-1">
+        <div className="flex flex-col gap-1 overflow-auto max-h-[74vh]">
           {roadsFilters.map((roadItem) => (
             <FilterButton
               key={roadItem.id}
@@ -62,16 +62,16 @@ export function FiltersContent() {
               isActive={road === roadItem.name}
             />
           ))}
+        
         </div>
       </div>
-      {/* <SheetFooter>
+      <SheetFooter className="-mt-3 ">
         <SheetClose asChild>
-          <Button type="submit">Применить</Button>
+          <Button type="submit">
+            Применить
+          </Button>
         </SheetClose>
-        <SheetClose asChild>
-          <Button variant="outline">Закрыть</Button>
-        </SheetClose>
-      </SheetFooter> */}
+      </SheetFooter>
     </SheetContent>
   )
 }

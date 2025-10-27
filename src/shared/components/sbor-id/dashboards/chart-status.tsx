@@ -55,8 +55,7 @@ export function ChartStatus({ className }: Props) {
               dataKey="name"
               position="bottom"
               style={{
-                fontSize: '18px',
-                fontWeight: 'bold',
+                fontSize: '20px',
                 fill: 'hsl(var(--foreground))',
               }}
               offset={10}

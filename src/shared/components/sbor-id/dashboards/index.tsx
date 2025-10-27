@@ -31,14 +31,14 @@ export function Dashboards({ className }: Props) {
         </Card>
       )}
       {chartSwitchStatus === 'performers' && (
-        <section className="flex flex-1 gap-8 overflow-hidden min-h-0">
+        <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
           <Card
             className="flex-1 min-h-0"
-            title="Предоставление ИД по Исполнителям"
+            title="Предоставление исполнителями"
           >
             <ChartPerformers />
           </Card>
-          <Card className={'basis-1/3 min-h-0'} title="Статусы комплектности">
+          <Card className={'basis-1/3 min-h-0'} title="Статус комплектности">
             <ChartStatus />
           </Card>
         </section>

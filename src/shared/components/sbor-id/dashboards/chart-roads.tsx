@@ -62,8 +62,7 @@ export const options = {
       ticks: {
         color: 'hsl(var(--foreground))',
         font: {
-          size: 16,
-          weight: 'bold' as const,
+          size: 20,
         },
       },
     },
@@ -191,7 +190,7 @@ export function ChartRoads() {
   }, [])
 
   return (
-    <div className="pl-14 w-full h-full">
+    <div className="pl-14  w-full h-full">
       {chartData ? (
         <Chart ref={chartRef} type="bar" options={options} data={chartData} />
       ) : (
