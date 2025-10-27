@@ -35,6 +35,9 @@ const chartConfig = {
     label: 'Значение',
     color: 'var(--chart-2)',
   },
+  remaining: {
+    label: 'Осталось',
+  },
 } satisfies ChartConfig
 
 const renderLabel = (props: any) => {
@@ -102,14 +105,14 @@ export function ChartPerformers() {
           dataKey="value"
           fill="url(#performerGradient)"
           radius={[20, 0, 0, 20]}
-          barSize={30}
+          barSize={28}
           stackId="a"
         />
         <Bar
           dataKey="remaining"
           fill="#e5e7eb"
           radius={[0, 20, 20, 0]}
-          barSize={20}
+          barSize={28}
           stackId="a"
           label={renderLabel}
         />

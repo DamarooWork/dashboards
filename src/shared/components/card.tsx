@@ -31,23 +31,6 @@ export function Card({
       {kpiValue && (
         <div className="flex items-end gap-2.5">
           <b className="text-4xl font-black">{kpiValue} </b>
-          <span
-            className={`text-3xl ${
-              kpiResult === 'success'
-                ? 'text-chart-2'
-                : kpiResult === 'failure'
-                ? 'text-chart-1'
-                : 'text-[#ca8a04]'
-            }`}
-          >
-            {kpiResult === 'success' ? (
-              <span>▲ +{kpiChange}%</span>
-            ) : kpiResult === 'failure' ? (
-              <span>▼ +{kpiChange}%</span>
-            ) : (
-              <span>● </span>
-            )}
-          </span>
         </div>
       )}
 

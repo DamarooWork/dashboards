@@ -47,7 +47,7 @@ export function ChartStatus({ className }: Props) {
             cursor={false}
             content={<ChartTooltipContent hideLabel />}
           />
-          <Bar dataKey="value" radius={[8, 8, 0, 0]} barSize={50}>
+          <Bar dataKey="value" radius={[14, 14, 10, 10]} barSize={30}>
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
@@ -64,10 +64,11 @@ export function ChartStatus({ className }: Props) {
             <LabelList
               dataKey="value"
               position="inside"
+              
               style={{
                 fontSize: '24px',
                 fontWeight: 'bold',
-                fill: '#ffffff',
+                fill: '#fff',
               }}
             />
           </Bar>

@@ -78,14 +78,12 @@ export const options = {
         },
       },
     },
-
     y1: {
       type: 'linear' as const,
       position: 'right' as const,
       grid: {
         display: false,
       },
-
       ticks: {
         font: {
           size: 24,
@@ -131,11 +129,11 @@ export function ChartRoads() {
               'rgb(22 163 74)'
             ),
             order: 1,
-            barPercentage: 0.5,
-            categoryPercentage: 0.8,
+            barPercentage: 0.3,
+            categoryPercentage: 1,
             borderRadius: {
-              bottomLeft: 14,
-              bottomRight: 14,
+              bottomLeft: 12,
+              bottomRight: 12,
             },
             borderSkipped: false,
           },
@@ -148,12 +146,11 @@ export function ChartRoads() {
               'rgb(125 211 252)'
             ),
             order: 2,
-            barPercentage: 0.5,
-            categoryPercentage: 0.8,
+            barPercentage: 0.3,
+            categoryPercentage: 1,
             borderRadius: {
-              topLeft: 14,
-              topRight: 14,
-             
+              topLeft: 12,
+              topRight: 12,
             },
             borderSkipped: false,
           },
@@ -163,7 +160,6 @@ export function ChartRoads() {
             data: roads.map(() => faker.number.int({ min: 1, max: 100 })),
             backgroundColor: 'oklch(0.769 0.188 70.08)',
             borderColor: 'oklch(0.769 0.188 70.08)',
-            fill: false,
             tension: 0.5,
             yAxisID: 'y1',
             order: 0,
