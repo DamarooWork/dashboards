@@ -68,7 +68,10 @@ const renderLabel = (props: any) => {
 
 export function ChartPerformers() {
   return (
-    <ChartContainer config={chartConfig} className="h-full w-full px-12 pb-8">
+    <ChartContainer
+      config={chartConfig}
+      className="h-full w-full px-12 pb-8 [&_.recharts-cartesian-axis-tick_text]:fill-foreground"
+    >
       <BarChart
         accessibilityLayer
         data={chartData}
@@ -89,11 +92,10 @@ export function ChartPerformers() {
           dataKey="name"
           type="category"
           tickLine={false}
-          tickMargin={20}
+          tickMargin={10}
           axisLine={false}
           tick={{
             fontSize: 24,
-            fill: '#fff',
           }}
         />
         <ChartTooltip
