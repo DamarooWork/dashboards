@@ -3,7 +3,7 @@ import { Cards, Dashboards } from '@/shared/components/sbor-id'
 export async function SborId() {
   return (
     <section className="flex flex-col flex-1 w-full relative">
-      <h1 className="text-4xl font-bold text-background">ПАК ДИСЗ · «Сбор ИД»</h1>
+      <h1 className="text-4xl font-bold text-background">Сбор исходных данных</h1>
       <Cards />
       <Dashboards />
     </section>
