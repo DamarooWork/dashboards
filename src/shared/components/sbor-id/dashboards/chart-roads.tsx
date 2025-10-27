@@ -133,6 +133,11 @@ export function ChartRoads() {
             order: 1,
             barPercentage: 0.5,
             categoryPercentage: 0.8,
+            borderRadius: {
+              bottomLeft: 14,
+              bottomRight: 14,
+            },
+            borderSkipped: false,
           },
           {
             label: 'Остаток до плана',
@@ -148,6 +153,7 @@ export function ChartRoads() {
             borderRadius: {
               topLeft: 14,
               topRight: 14,
+             
             },
             borderSkipped: false,
           },
