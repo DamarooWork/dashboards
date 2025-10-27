@@ -26,15 +26,12 @@ export function Dashboards({ className }: Props) {
         Switch
       </Switch>
       {chartSwitchStatus === 'roads' && (
-        <Card
-          className={'mt-6 flex-1 '}
-          title="Сбор ИД по сети"
-        >
+        <Card className={'mt-12 flex-1 '}>
           <ChartRoads />
         </Card>
       )}
       {chartSwitchStatus === 'performers' && (
-        <section className="mt-6 flex gap-4 overflow-hidden">
+        <section className="mt-12 flex flex-1 gap-12 overflow-hidden">
           <Card className="flex-1" title="Предоставление ИД по Исполнителям">
             <ChartPerformers />
           </Card>

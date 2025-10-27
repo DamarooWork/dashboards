@@ -15,11 +15,11 @@ interface ChartData {
 }
 
 const chartData: ChartData[] = [
-  { name: 'Нет', value: 12, color: '#ef4444' },
-  { name: 'Частично', value: 18, color: '#f97316' },
-  { name: 'Почти', value: 22, color: '#eab308' },
-  { name: 'Полный', value: 40, color: '#22c55e' },
-  { name: 'Передано', value: 8, color: '#3b82f6' },
+  { name: 'Нет', value: 12, color: '#2080f0' },
+  { name: 'Частично', value: 18, color: '#2080f0' },
+  { name: 'Почти', value: 22, color: '#2080f0' },
+  { name: 'Полный', value: 40, color: '#2080f0' },
+  { name: 'Передано', value: 8, color: '#2080f0' },
 ]
 
 const chartConfig = {
@@ -39,7 +39,7 @@ export function ChartStatus({ className }: Props) {
         <BarChart
           data={chartData}
           layout="horizontal"
-          margin={{ top: 20, right: 40, bottom: 40, left: 20 }}
+          margin={{ top: 0, right: 0, bottom: 30, left: 0 }}
         >
           <XAxis dataKey="name" type="category" hide />
           <YAxis type="number" hide />
@@ -64,7 +64,6 @@ export function ChartStatus({ className }: Props) {
             <LabelList
               dataKey="value"
               position="inside"
-              
               style={{
                 fontSize: '24px',
                 fontWeight: 'bold',

@@ -1,13 +1,14 @@
 'use client'
 import { Card } from '@/shared/components/card'
+import { Progress } from '@/shared/ui'
 
 export function Cards() {
   return (
-    <div className="grid grid-cols-4 gap-4 mt-4 max-h-42">
+    <div className="grid grid-cols-4 gap-12 mt-8 max-h-42">
       <Card title="Телеграмма ИД">
         <div className=" text-2xl">
           <p>
-            Отправлена: <b className="text-4xl text-foreground">12.01.2026</b>{' '}
+            Отправлена: <b className="text-3xl text-foreground">12.01.2026</b>{' '}
           </p>
           <p>
             Предоставить до:{' '}
@@ -24,9 +25,11 @@ export function Cards() {
         kpiValue={34}
         kpiChange={6}
         kpiResult="success"
+        kpiAll={68}
       >
-        <div>
-          <p className="text-muted-foreground text-2xl">68% из 62 объектов</p>
+        <div className="flex flex-1 justify-center items-center gap-2">
+          <Progress value={68} className="h-4" />
+          <span className="text-2xl">68%</span>
         </div>
       </Card>
       <Card

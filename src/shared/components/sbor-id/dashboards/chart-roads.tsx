@@ -60,6 +60,7 @@ export const options = {
         display: false,
       },
       ticks: {
+        color: 'hsl(var(--foreground))',
         font: {
           size: 16,
           weight: 'bold' as const,
@@ -72,6 +73,7 @@ export const options = {
         display: false,
       },
       ticks: {
+        color: 'hsl(var(--foreground))',
         font: {
           size: 24,
           weight: 'bold' as const,
@@ -85,6 +87,7 @@ export const options = {
         display: false,
       },
       ticks: {
+        color: 'hsl(var(--foreground))',
         font: {
           size: 24,
           weight: 'bold' as const,
@@ -123,11 +126,7 @@ export function ChartRoads() {
           {
             label: 'План',
             data: roads.map(() => faker.number.int({ min: 1, max: 30 })),
-            backgroundColor: createGradient(
-              ctx,
-              'rgb(34 197 94)',
-              'rgb(22 163 74)'
-            ),
+            backgroundColor: createGradient(ctx, '#2080f0', '#2080f0'),
             order: 1,
             barPercentage: 0.3,
             categoryPercentage: 1,
@@ -140,11 +139,7 @@ export function ChartRoads() {
           {
             label: 'Остаток до плана',
             data: roads.map(() => faker.number.int({ min: 1, max: 30 })),
-            backgroundColor: createGradient(
-              ctx,
-              'rgb(186 230 253)',
-              'rgb(125 211 252)'
-            ),
+            backgroundColor: createGradient(ctx, '#E5E7EB', '#E5E7EB'),
             order: 2,
             barPercentage: 0.3,
             categoryPercentage: 1,
@@ -175,7 +170,7 @@ export function ChartRoads() {
   }, [])
 
   return (
-    <div className="px-24 w-full h-full">
+    <div className="pl-14 w-full h-full">
       {chartData ? (
         <Chart ref={chartRef} type="bar" options={options} data={chartData} />
       ) : (

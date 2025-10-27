@@ -56,9 +56,8 @@ const renderLabel = (props: any) => {
     <text
       x={xPos}
       y={yPos}
-      fill="#666"
-      fontSize={20}
-      fontWeight="bold"
+      fill="var(--foreground)"
+      fontSize={24}
       textAnchor="start"
       dominantBaseline="middle"
     >
@@ -69,7 +68,7 @@ const renderLabel = (props: any) => {
 
 export function ChartPerformers() {
   return (
-    <ChartContainer config={chartConfig} className="h-full w-full pl-20 pb-4">
+    <ChartContainer config={chartConfig} className="h-full w-full px-12 pb-8">
       <BarChart
         accessibilityLayer
         data={chartData}
@@ -81,8 +80,8 @@ export function ChartPerformers() {
       >
         <defs>
           <linearGradient id="performerGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#10b981" stopOpacity={1} />
-            <stop offset="100%" stopColor="#3b82f6" stopOpacity={1} />
+            <stop offset="0%" stopColor="#2080f0" stopOpacity={1} />
+            <stop offset="100%" stopColor="#10b981" stopOpacity={1} />
           </linearGradient>
         </defs>
         <XAxis type="number" dataKey="total" hide />
@@ -93,8 +92,8 @@ export function ChartPerformers() {
           tickMargin={20}
           axisLine={false}
           tick={{
-            fontSize: 20,
-            fontWeight: 'bold',
+            fontSize: 24,
+            fill: 'var(--foreground)',
           }}
         />
         <ChartTooltip

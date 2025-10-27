@@ -1,3 +1,4 @@
+'use client'
 import { roads } from '@/shared/lib/data'
 import {
   Button,
@@ -10,7 +11,23 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/shared/ui'
+import { RadioButton } from './radio-button'
+const roadsFilters = [{ id: 0, name: 'Все дороги', shortName: 'Все' }].concat(
+  roads
+)
+
+const yearsFilters = [
+  { id: 1, year: 2024 },
+  { id: 2, year: 2025 },
+  { id: 3, year: 2026 },
+]
 export function FiltersContent() {
+  const onYearClick= () => {
+    console.log('onYearClick')
+  }
+  const onRoadClick= () => {
+    console.log('onRoadClick')
+  }
   return (
     <SheetContent>
       <SheetHeader>
@@ -20,44 +37,31 @@ export function FiltersContent() {
         <Label className="text-2xl">Год</Label>
         <div className="grid gap-3 ">
           <RadioGroup defaultValue={'2025'}>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="2024" id="r2" />
-              <Label  htmlFor="r2">2024</Label>
-            </div>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="2025" id="r3" />
-              <Label  htmlFor="r3">2025</Label>
-            </div>
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value="2026" id="r4" />
-              <Label  htmlFor="r4">2026</Label>
-            </div>
-          </RadioGroup>
-        </div>
-        <Label className="text-2xl">Дорога</Label>
-        <div className="grid gap-3">
-          <RadioGroup defaultValue="all">
-            <div className="flex items-center gap-3">
-              <RadioGroupItem value={'all'} id="all" />
-              <Label htmlFor="all">{'Все дороги'}</Label>
-            </div>
-            {roads.map((road) => (
-              <div className="flex items-center gap-3 " key={road.name}>
-                <RadioGroupItem value={road.name} id={road.name} />
-                <Label htmlFor={road.name}>{road.name}</Label>
-              </div>
+            {yearsFilters.map((year) => (
+              <RadioButton
+                key={year.id}
+                id={year.id.toString()}
+                label={year.year.toString()}
+                onClick={onYearClick}
+              />
             ))}
           </RadioGroup>
         </div>
+        <Label className="text-2xl">Дорога</Label>
+        <RadioGroup defaultValue="Все дороги">
+          {roadsFilters.map((road) => (
+            <RadioButton key={road.id} id={road.name} label={road.name} onClick={onRoadClick} />
+          ))}
+        </RadioGroup>
       </div>
-      <SheetFooter>
+      {/* <SheetFooter>
         <SheetClose asChild>
           <Button type="submit">Применить</Button>
         </SheetClose>
         <SheetClose asChild>
           <Button variant="outline">Закрыть</Button>
         </SheetClose>
-      </SheetFooter>
+      </SheetFooter> */}
     </SheetContent>
   )
 }

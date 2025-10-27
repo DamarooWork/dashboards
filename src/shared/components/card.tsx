@@ -7,6 +7,7 @@ interface Props {
   children?: React.ReactNode
   kpiValue?: number
   kpiChange?: number
+  kpiAll?: number
   kpiResult?: kpiResult
   dashboard?: boolean
 }
@@ -17,6 +18,7 @@ export function Card({
   kpiValue,
   kpiChange,
   kpiResult,
+  kpiAll,
   dashboard,
 }: Props) {
   return (
@@ -30,7 +32,7 @@ export function Card({
       {title && <h3 className="font-medium mb-1.5 text-3xl">{title}</h3>}
       {kpiValue && (
         <div className="flex items-end gap-2.5">
-          <b className="text-4xl font-black">{kpiValue} </b>
+          <b className="text-4xl font-bold">{kpiValue}{kpiAll ? `/${kpiAll}` : ''} </b>
         </div>
       )}
 

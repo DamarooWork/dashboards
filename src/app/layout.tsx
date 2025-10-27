@@ -18,9 +18,9 @@ export default async function RootLayout({
         <link rel="icon/jpg" href="icon.jpg" />
       </head>
       <body
-        className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto  max-h-screen h-screen relative`}
+        className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto   max-h-screen relative`}
       >
-        <main className="flex flex-1 max-h-screen p-5">{children}</main>
+        <main className="flex flex-1 max-h-screen px-20 py-20 pt-12">{children}</main>
         <Menu />
       </body>
     </html>
