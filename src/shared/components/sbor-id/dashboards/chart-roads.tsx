@@ -76,7 +76,6 @@ export const options = {
         color: 'hsl(var(--foreground))',
         font: {
           size: 24,
-          weight: 'bold' as const,
         },
       },
     },
@@ -87,10 +86,9 @@ export const options = {
         display: false,
       },
       ticks: {
-        color: 'hsl(var(--foreground))',
+        color: '#000',
         font: {
           size: 24,
-          weight: 'bold' as const,
         },
         callback: function (value: any) {
           return value + '%'
@@ -120,12 +118,19 @@ export function ChartRoads() {
       const chart = chartRef.current
       const ctx = chart.ctx
 
+      // Генерируем данные для плана
+      const planData = roads.map(() => faker.number.int({ min: 1, max: 30 }))
+
+      // Вычисляем среднее значение
+      const averagePlan =
+        planData.reduce((sum, val) => sum + val, 0) / planData.length
+
       const data = {
         labels: roads.map((road) => road.shortName),
         datasets: [
           {
             label: 'План',
-            data: roads.map(() => faker.number.int({ min: 1, max: 30 })),
+            data: planData,
             backgroundColor: createGradient(ctx, '#2080f0', '#2080f0'),
             order: 1,
             barPercentage: 0.3,
@@ -148,6 +153,22 @@ export function ChartRoads() {
               topRight: 12,
             },
             borderSkipped: false,
+          },
+          {
+            label: 'Среднее (План)',
+            type: 'line' as const,
+            data: roads.map(() => averagePlan),
+            backgroundColor: '#2080f0',
+            borderColor: '#2080f0',
+            borderWidth: 3,
+            borderDash: [10, 5],
+            tension: 0,
+            yAxisID: 'y',
+            order: 0,
+            datalabels: {
+              display: false,
+            },
+            pointRadius: 0,
           },
           {
             label: '% выполнения',

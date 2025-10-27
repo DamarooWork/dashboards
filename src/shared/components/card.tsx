@@ -24,19 +24,27 @@ export function Card({
   return (
     <div
       className={cn(
-        className,
-        'rounded-xl bg-card border border-border overflow-hidden p-3.5 shadow  min-h-42   flex flex-col',
+        'rounded-xl bg-card border border-fill overflow-hidden p-3 shadow-md min-h-36 flex flex-col shadow-foreground',
         dashboard &&
-          'active:scale-90 will-change-transform transition-all duration-200'
+          'active:scale-90 will-change-transform transition-all duration-200',
+        className
       )}
     >
-      {title && <h3 className="font-medium mb-1.5 text-3xl">{title}</h3>}
+      {title && (
+        <h3
+          className={cn(
+            'font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0',
+            !dashboard && 'border-b-2 border-fill'
+          )}
+        >
+          {title}
+        </h3>
+      )}
       {kpiValue && (
-        <div className="">
-          <b className="text-4xl font-bold">
-            {kpiValue}
-            {kpiAll ? `/${kpiAll}` : ''}{' '}
-          </b>
+        <div className="text-4xl  text-center flex-1 flex items-center justify-center">
+          <span className="mr-2">{kpiValue}</span>
+
+          <span>{kpiAll ? `из ${kpiAll}` : ''}</span>
         </div>
       )}
 

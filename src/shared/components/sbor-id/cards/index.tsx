@@ -4,49 +4,49 @@ import { Progress } from '@/shared/ui'
 
 export function Cards() {
   return (
-    <div className="grid grid-cols-4 gap-12 mt-8 max-h-42">
-      <Card title="Телеграмма ИД">
-        <div className=" text-2xl">
+    <div className="grid grid-cols-6 gap-6 shrink-0">
+      <Card className="col-span-2 min-h-36" title="Телеграмма ИД">
+        <div className="text-xl flex flex-col justify-center flex-1">
           <p>
-            Отправлена: <b className="text-3xl text-foreground">12.01.2026</b>{' '}
+            Отправлена:{' '}
+            <span className="text-2xl font-semibold ">12.01.2026</span>{' '}
           </p>
+
           <p>
             Предоставить до:{' '}
-            <b className="text-2xl text-foreground">25.01.2026</b>
+            <span className="text-2xl font-semibold italic">25.01.2026</span>
           </p>
-          <p>
-            Прошло дней: <b className="text-2xl text-foreground mr-2">14</b> До
-            дедлайна: <b className="text-2xl text-foreground">9</b>
-          </p>
+          <div className="flex justify-between gap-2">
+            <p>
+              Прошло дней: <span className="text-2xl  font-semibold ">4</span>
+            </p>
+            <p>
+              До крайнего срока: <span className="text-2xl font-semibold ">9</span>
+            </p>
+          </div>
         </div>
       </Card>
       <Card
+        className="col-span-2 min-h-36"
         title="Полный комплект"
         kpiValue={34}
-        kpiChange={6}
-        kpiResult="success"
         kpiAll={68}
       >
-        <div className="flex flex-1 justify-center items-center gap-2 bg-foreground/10 rounded-b-md p-2 mt-2 -mx-3.5 -mb-3.5 ">
+        <div className="flex flex-1 justify-center items-center gap-2 bg-foreground/5 rounded-b-md mt-2 -mx-3 -mb-3 px-3">
           <Progress value={68} className="h-4" />
-          <span className="text-2xl">68%</span>
+          <span className="text-xl font-semibold">68%</span>
         </div>
       </Card>
       <Card
+        className="col-span-1 min-h-36"
         title="Дата приближается"
         kpiValue={18}
-        kpiChange={0}
-        kpiResult="neutral"
-      >
-        <p className="text-2xl bg-foreground/10 rounded-md p-2 mt-2 w-fit">
-          29% из 62 объектов
-        </p>
-      </Card>
-      <Card title="Дата прошла" kpiValue={5} kpiChange={3} kpiResult="failure">
-        <p className="text-2xl bg-foreground/10 rounded-md p-2 mt-2 w-fit">
-          8% из 62 объектов
-        </p>
-      </Card>
+      ></Card>
+      <Card
+        className="col-span-1 min-h-36"
+        title="Дата прошла"
+        kpiValue={5}
+      ></Card>
     </div>
   )
 }

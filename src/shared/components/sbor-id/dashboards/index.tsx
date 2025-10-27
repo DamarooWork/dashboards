@@ -14,7 +14,7 @@ export function Dashboards({ className }: Props) {
   const [chartSwitchStatus, setChartSwitchStatus] =
     useState<ChartSwitchStatus>('roads')
   return (
-    <>
+    <div className="flex-1 flex flex-col overflow-hidden min-h-0">
       <Switch
         className="absolute bottom-4 left-4  shadow-lg  border-2 border-foreground  cursor-pointer"
         onCheckedChange={() =>
@@ -26,23 +26,23 @@ export function Dashboards({ className }: Props) {
         Switch
       </Switch>
       {chartSwitchStatus === 'roads' && (
-        <Card className={'mt-12 flex-1 '}>
+        <Card className={'flex-1 min-h-0'}>
           <ChartRoads />
         </Card>
       )}
       {chartSwitchStatus === 'performers' && (
-        <section className="mt-12 flex flex-1 gap-12 overflow-hidden">
-          <Card className="flex-1" title="Предоставление ИД по Исполнителям">
+        <section className="flex flex-1 gap-8 overflow-hidden min-h-0">
+          <Card
+            className="flex-1 min-h-0"
+            title="Предоставление ИД по Исполнителям"
+          >
             <ChartPerformers />
           </Card>
-          <Card
-            className={'basis-1/3 h-full w-full'}
-            title="Статусы комплектности"
-          >
+          <Card className={'basis-1/3 min-h-0'} title="Статусы комплектности">
             <ChartStatus />
           </Card>
         </section>
       )}
-    </>
+    </div>
   )
 }

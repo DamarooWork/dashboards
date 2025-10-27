@@ -93,7 +93,7 @@ export function ChartPerformers() {
           axisLine={false}
           tick={{
             fontSize: 24,
-            fill: 'var(--foreground)',
+            fill: '#fff',
           }}
         />
         <ChartTooltip
