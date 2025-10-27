@@ -15,7 +15,7 @@ export function Cards() {
             <b className="text-2xl text-foreground">25.01.2026</b>
           </p>
           <p>
-            Прошло дней: <b className="text-2xl text-foreground mr-4">14</b> До
+            Прошло дней: <b className="text-2xl text-foreground mr-2">14</b> До
             дедлайна: <b className="text-2xl text-foreground">9</b>
           </p>
         </div>
@@ -27,7 +27,7 @@ export function Cards() {
         kpiResult="success"
         kpiAll={68}
       >
-        <div className="flex flex-1 justify-center items-center gap-2">
+        <div className="flex flex-1 justify-center items-center gap-2 bg-foreground/10 rounded-b-md p-2 mt-2 -mx-3.5 -mb-3.5 ">
           <Progress value={68} className="h-4" />
           <span className="text-2xl">68%</span>
         </div>
@@ -38,10 +38,14 @@ export function Cards() {
         kpiChange={0}
         kpiResult="neutral"
       >
-        <p className="text-muted-foreground text-2xl">29% из 62 объектов</p>
+        <p className="text-2xl bg-foreground/10 rounded-md p-2 mt-2 w-fit">
+          29% из 62 объектов
+        </p>
       </Card>
       <Card title="Дата прошла" kpiValue={5} kpiChange={3} kpiResult="failure">
-        <p className="text-muted-foreground text-2xl">8% из 62 объектов</p>
+        <p className="text-2xl bg-foreground/10 rounded-md p-2 mt-2 w-fit">
+          8% из 62 объектов
+        </p>
       </Card>
     </div>
   )

@@ -39,7 +39,7 @@ export function ChartStatus({ className }: Props) {
         <BarChart
           data={chartData}
           layout="horizontal"
-          margin={{ top: 0, right: 0, bottom: 30, left: 0 }}
+          margin={{ top: 30, right: 40, bottom: 30, left: 40 }}
         >
           <XAxis dataKey="name" type="category" hide />
           <YAxis type="number" hide />
@@ -47,7 +47,7 @@ export function ChartStatus({ className }: Props) {
             cursor={false}
             content={<ChartTooltipContent hideLabel />}
           />
-          <Bar dataKey="value" radius={[14, 14, 10, 10]} barSize={30}>
+          <Bar dataKey="value" radius={[14, 14, 10, 10]} barSize={40}>
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
@@ -63,11 +63,10 @@ export function ChartStatus({ className }: Props) {
             />
             <LabelList
               dataKey="value"
-              position="inside"
+              position="top"
               style={{
                 fontSize: '24px',
-                fontWeight: 'bold',
-                fill: '#fff',
+                fill: 'hsl(var(--foreground))',
               }}
             />
           </Bar>
