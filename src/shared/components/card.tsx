@@ -27,7 +27,7 @@ export function Card({
         dashboard && 'active:scale-90 will-change-transform transition-all duration-200'
       )}
     >
-      {title && <h3 className="font-extrabold mb-1.5 text-3xl">{title}</h3>}
+      {title && <h3 className="font-medium mb-1.5 text-3xl">{title}</h3>}
       {kpiValue && (
         <div className="flex items-end gap-2.5">
           <b className="text-4xl font-black">{kpiValue} </b>

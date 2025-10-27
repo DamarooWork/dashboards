@@ -15,18 +15,19 @@ interface ChartData {
   name: string
   value: number
   total: number
+  remaining: number
   percent: number
 }
 
 const chartData: ChartData[] = [
-  { name: 'ПЧ', value: 152, total: 200, percent: 76 },
-  { name: 'РЦДМ', value: 122, total: 200, percent: 61 },
-  { name: 'ДРП', value: 116, total: 200, percent: 58 },
-  { name: 'Д', value: 110, total: 200, percent: 55 },
-  { name: 'ЭЧ', value: 98, total: 200, percent: 49 },
-  { name: 'ШЧ', value: 92, total: 200, percent: 46 },
-  { name: 'НС', value: 82, total: 200, percent: 41 },
-  { name: 'ДТВ', value: 74, total: 200, percent: 37 },
+  { name: 'ПЧ', value: 152, total: 200, remaining: 48, percent: 76 },
+  { name: 'РЦДМ', value: 122, total: 200, remaining: 78, percent: 61 },
+  { name: 'ДРП', value: 116, total: 200, remaining: 84, percent: 58 },
+  { name: 'Д', value: 110, total: 200, remaining: 90, percent: 55 },
+  { name: 'ЭЧ', value: 98, total: 200, remaining: 102, percent: 49 },
+  { name: 'ШЧ', value: 92, total: 200, remaining: 108, percent: 46 },
+  { name: 'НС', value: 82, total: 200, remaining: 118, percent: 41 },
+  { name: 'ДТВ', value: 74, total: 200, remaining: 126, percent: 37 },
 ]
 
 const chartConfig = {
@@ -37,13 +38,15 @@ const chartConfig = {
 } satisfies ChartConfig
 
 const renderLabel = (props: any) => {
-  const { x, y, width, height, value } = props
+  const { x, y, width, height, index } = props
 
-  const index = chartData.findIndex((d) => d.value === value)
-  if (index === -1) return <text />
+  if (index === undefined || index === -1) return <text />
 
   const data = chartData[index]
-  const xPos = Number(x) + Number(width) + 10
+  // Вычисляем позицию относительно общей ширины графика
+  const chartWidth = 200 // максимальное значение total
+  const barWidth = (data.total / chartWidth) * Number(width)
+  const xPos = Number(x) + barWidth + 10
   const yPos = Number(y) + Number(height) / 2
 
   return (
@@ -69,11 +72,17 @@ export function ChartPerformers() {
         data={chartData}
         layout="vertical"
         margin={{
-          left: 30,
-          right: 120,
+          left: 40,
+          right: 160,
         }}
       >
-        <XAxis type="number" dataKey="value" hide />
+        <defs>
+          <linearGradient id="performerGradient" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor="#10b981" stopOpacity={1} />
+            <stop offset="100%" stopColor="#3b82f6" stopOpacity={1} />
+          </linearGradient>
+        </defs>
+        <XAxis type="number" dataKey="total" hide />
         <YAxis
           dataKey="name"
           type="category"
@@ -91,10 +100,18 @@ export function ChartPerformers() {
         />
         <Bar
           dataKey="value"
-          fill="var(--color-value)"
-          radius={20}
-          label={renderLabel}
+          fill="url(#performerGradient)"
+          radius={[20, 0, 0, 20]}
+          barSize={30}
+          stackId="a"
+        />
+        <Bar
+          dataKey="remaining"
+          fill="#e5e7eb"
+          radius={[0, 20, 20, 0]}
           barSize={20}
+          stackId="a"
+          label={renderLabel}
         />
       </BarChart>
     </ChartContainer>

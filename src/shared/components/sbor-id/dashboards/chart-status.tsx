@@ -1,6 +1,6 @@
 'use client'
 
-import { Bar, BarChart, XAxis, YAxis, Cell } from 'recharts'
+import { Bar, BarChart, XAxis, YAxis, Cell, LabelList } from 'recharts'
 import {
   ChartConfig,
   ChartContainer,
@@ -34,62 +34,45 @@ interface Props {
 
 export function ChartStatus({ className }: Props) {
   return (
-    <section className={'h-full w-full'}>
-      <ChartContainer config={chartConfig} >
-        <BarChart data={chartData} layout="horizontal" margin={{ right: 40, top: 20 }}>
-          <XAxis
-            dataKey="name"
-            type="category"
-            tickLine={false}
-            axisLine={{
-              stroke: '#e5e7eb',
-              strokeWidth: 2,
-            }}
-            tick={{ 
-              fontSize: 20,
-              fontWeight: 'bold',
-            }}
-          />
-          <YAxis
-            type="number"
-            domain={[0, 100]}
-            tickLine={false}
-            axisLine={{
-              stroke: '#e5e7eb',
-              strokeWidth: 2,
-            }}
-            tick={{
-              fontSize: 14,
-            }}
-            ticks={[0, 25, 50, 75, 100]}
-            tickFormatter={(value) => `${value}%`}
-          />
+    <section className={'h-full w-full flex justify-center items-center'}>
+      <ChartContainer config={chartConfig} className="h-full w-full">
+        <BarChart
+          data={chartData}
+          layout="horizontal"
+          margin={{ top: 20, right: 40, bottom: 40, left: 20 }}
+        >
+          <XAxis dataKey="name" type="category" hide />
+          <YAxis type="number" hide />
           <ChartTooltip
             cursor={false}
             content={<ChartTooltipContent hideLabel />}
           />
-          <Bar dataKey="value" radius={[8, 8, 0, 0]} barSize={40}>
+          <Bar dataKey="value" radius={[8, 8, 0, 0]} barSize={50}>
             {chartData.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
+            <LabelList
+              dataKey="name"
+              position="bottom"
+              style={{
+                fontSize: '18px',
+                fontWeight: 'bold',
+                fill: 'hsl(var(--foreground))',
+              }}
+              offset={10}
+            />
+            <LabelList
+              dataKey="value"
+              position="inside"
+              style={{
+                fontSize: '24px',
+                fontWeight: 'bold',
+                fill: '#ffffff',
+              }}
+            />
           </Bar>
         </BarChart>
       </ChartContainer>
-
-      {/* Легенда с процентами */}
-      <div className="flex flex-wrap gap-6 justify-center mt-6 mr-10">
-        {chartData.map((item) => (
-          <div key={item.name} className="flex items-center gap-2">
-            <div
-              className="w-6 h-6 rounded"
-              style={{ backgroundColor: item.color }}
-            />
-            <span className="text-lg font-semibold">
-              {item.name}: {item.value}%
-            </span>
-          </div>
-        ))}
-      </div>
     </section>
   )
 }

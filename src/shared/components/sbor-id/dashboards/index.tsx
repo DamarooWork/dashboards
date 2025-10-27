@@ -28,7 +28,7 @@ export function Dashboards({ className }: Props) {
       {chartSwitchStatus === 'roads' && (
         <Card
           className={'mt-6 flex-1 '}
-          title="План vs Факт по железным дорогам России"
+          title="Сбор ИД по сети"
         >
           <ChartRoads />
         </Card>
