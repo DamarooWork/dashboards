@@ -1,4 +1,4 @@
-import { cn } from '../lib/utils'
+import { cn, getPluralForm } from '../lib/utils'
 
 type kpiResult = 'success' | 'failure' | 'neutral'
 interface Props {
@@ -24,7 +24,7 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-xl bg-card border border-fill overflow-hidden p-3 shadow-md min-h-36 flex flex-col shadow-foreground',
+        'rounded-xl bg-card border border-primary overflow-hidden px-8 py-2 shadow-md min-h-36 flex flex-col shadow-foreground',
         dashboard &&
           'active:scale-90 will-change-transform transition-all duration-200',
         className
@@ -36,10 +36,10 @@ export function Card({
         </h3>
       )}
       {kpiValue && (
-        <div className="text-4xl  text-center flex-1 flex items-center justify-center">
+        <div className="text-4xl  ">
           <span className="mr-2">{kpiValue}</span>
 
-          <span>{kpiAll ? `из ${kpiAll} объектов` : 'объектов'}</span>
+          <span>{kpiAll ? `из ${kpiAll} ${getPluralForm(kpiAll, 'объект', 'объекта', 'объектов')}` : getPluralForm(kpiValue, 'объект', 'объекта', 'объектов')}</span>
         </div>
       )}
 

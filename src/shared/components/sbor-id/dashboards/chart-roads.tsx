@@ -81,6 +81,8 @@ export const options = {
     y1: {
       type: 'linear' as const,
       position: 'right' as const,
+      min: 0,
+      max: 120,
       grid: {
         display: false,
       },
@@ -90,6 +92,7 @@ export const options = {
           size: 24,
         },
         callback: function (value: any) {
+          if (value > 100) return ''
           return value + '%'
         },
       },
@@ -190,7 +193,7 @@ export function ChartRoads() {
   }, [])
 
   return (
-    <div className="pl-14  w-full h-full">
+    <div className="pl-14 py-2  w-full h-full">
       {chartData ? (
         <Chart ref={chartRef} type="bar" options={options} data={chartData} />
       ) : (

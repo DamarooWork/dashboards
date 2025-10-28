@@ -4,7 +4,7 @@ interface Props {
 }
 export function LogoRZD({ children }: Props) {
   return (
-    <div className="flex items-center justify-center relative w-full h-40 max-h-40 -mb-6">
+    <div className="relative  h-40 -mb-12 -mx-32">
       <Image
         src={'/images/logo-rzd.png'}
         priority
@@ -12,7 +12,7 @@ export function LogoRZD({ children }: Props) {
         alt="Logo RZD"
         className=""
       />
-      <div className="flex flex-col items-center justify-center absolute top-1/2 left-1/2 -translate-x-[128px] -translate-y-[14px]">
+      <div className="flex flex-col items-center justify-center absolute top-1/2 left-1/2 -translate-x-[24vw] -translate-y-1/2">
         {children}
       </div>
     </div>

@@ -19,8 +19,8 @@ export function FilterButton({
     <Button
       className={`border-2 text-xl transition-all ${
         isActive
-          ? 'border-fill/50  bg-fill/50 text-foreground hover:bg-fill/60 shadow-md active:bg-fill/40'
-          : 'border-foreground/50  hover:bg-foreground/5 active:bg-foreground/20'
+          ? 'border-primary  bg-primary hover:bg-primary/90   active:bg-primary/80 text-background'
+          : 'border-foreground/50  hover:bg-foreground/10   active:bg-foreground/20'
       } ${className || ''}`}
       variant={isActive ? 'default' : 'outline'}
       onClick={onClick}

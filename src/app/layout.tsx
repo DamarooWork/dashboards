@@ -21,7 +21,7 @@ export default async function RootLayout({
       <body
         className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto h-screen overflow-hidden relative`}
       >
-        <main className="flex flex-col h-full px-20 py-8 pb-18 overflow-hidden">
+        <main className="flex flex-col h-full px-20 py-18  overflow-hidden">
            {children}
         </main>
         <Menu />

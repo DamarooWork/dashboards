@@ -15,11 +15,11 @@ interface ChartData {
 }
 
 const chartData: ChartData[] = [
-  { name: 'Нет', value: 12, color: '#2080f0' },
-  { name: 'Частично', value: 18, color: '#2080f0' },
-  { name: 'Почти', value: 22, color: '#2080f0' },
-  { name: 'Полный', value: 40, color: '#2080f0' },
-  { name: 'Передано', value: 8, color: '#2080f0' },
+  { name: 'Нет', value: 12, color: 'url(#barGradient)' },
+  { name: 'Частично', value: 18, color: 'url(#barGradient)' },
+  { name: 'Почти', value: 22, color: 'url(#barGradient)' },
+  { name: 'Полный', value: 40, color: 'url(#barGradient)' },
+  { name: 'Передано', value: 8, color: 'url(#barGradient)' },
 ]
 
 const chartConfig = {
@@ -39,8 +39,14 @@ export function ChartStatus({ className }: Props) {
         <BarChart
           data={chartData}
           layout="horizontal"
-          margin={{ top: 30, right: 40, bottom: 30, left: 40 }}
+          margin={{ top: 30, right: 30, bottom: 30, left: 30 }}
         >
+          <defs>
+            <linearGradient id="barGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#10b981" stopOpacity={1} />
+              <stop offset="100%" stopColor="#2080f0" stopOpacity={1} />
+            </linearGradient>
+          </defs>
           <XAxis dataKey="name" type="category" hide />
           <YAxis type="number" hide />
           <ChartTooltip
