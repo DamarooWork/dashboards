@@ -28,7 +28,7 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-xl bg-card border border-border overflow-hidden px-8 py-2 shadow-md min-h-36 flex flex-col shadow-primary',
+        'rounded-xl bg-card border border-border overflow-hidden px-8 py-2 shadow-md min-h-36 flex flex-col shadow-primary  ',
         dashboard &&
           'active:scale-95 will-change-transform transition-all duration-200',
         active && 'ring-2 ring-primary bg-primary/10',
@@ -37,28 +37,27 @@ export function Card({
       )}
     >
       {title && (
-        <h3 className={cn('font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0', small && 'text-lg')}>
+        <h3
+          className={cn(
+            'font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0',
+            small && 'text-lg'
+          )}
+        >
           {title}
         </h3>
       )}
       {kpiValue && (
-        <div className="text-4xl  ">
-          <span className="mr-2">{kpiValue}</span>
-
-          <span>
-            {kpiAll
-              ? `из ${kpiAll} ${getPluralForm(
-                  kpiAll,
-                  'объект',
-                  'объекта',
-                  'объектов'
-                )}`
-              : getPluralForm(kpiValue, 'объект', 'объекта', 'объектов')}
-          </span>
+        <div className="w-full flex-1">
+          <p className="text-5xl text-center">{kpiValue}</p>
         </div>
       )}
-
-      {children}
+      {kpiAll ? (
+        <div className="flex flex-row justify-between items-center gap-4">
+          {children} <p className='text-2xl'>из {kpiAll}</p>
+        </div>
+      ) : (
+        children
+      )}
     </div>
   )
 }

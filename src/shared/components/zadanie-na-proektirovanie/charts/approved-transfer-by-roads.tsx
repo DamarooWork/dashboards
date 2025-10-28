@@ -68,6 +68,7 @@ export const options = {
     },
     y: {
       stacked: true,
+
       grid: {
         display: false,
       },
@@ -170,27 +171,44 @@ export function ApprovedTransferByRoads() {
             stack: 'approved',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.6,
+            categoryPercentage: 0.9,
             borderRadius: {
               bottomLeft: 0,
               bottomRight: 0,
             },
             borderSkipped: false,
+            datalabels: {
+              color: '#fff',
+            },
           },
-          // Утвержденное ЗП (остаток - светло-зеленый)
+          // Утвержденное ЗП (остаток - серый)
           {
             label: 'Утверждено — остаток',
             data: approvedRemainingData,
-            backgroundColor: createGradient(ctx, '#86efac', '#86efac'),
+            backgroundColor: createGradient(ctx, '#E5E7EB', '#E5E7EB'),
             stack: 'approved',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.6,
+            categoryPercentage: 0.9,
             borderRadius: {
               topLeft: 12,
               topRight: 12,
             },
             borderSkipped: false,
+            datalabels: {
+              color: '#000',
+              display: true,
+              align: 'right' as const,
+              anchor: 'end' as const,
+              offset: 3,
+              font: {
+                size: 24,
+              },
+              formatter: (_value: any, context: any) => {
+                // Сумма Утверждено + Утверждено - остаток = План
+                return planData[context.dataIndex]
+              },
+            },
           },
           // Переданное ЗП (основная часть - темно-синий)
           {
@@ -200,27 +218,34 @@ export function ApprovedTransferByRoads() {
             stack: 'transferred',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.6,
+            categoryPercentage: 0.9,
             borderRadius: {
               bottomLeft: 0,
               bottomRight: 0,
             },
             borderSkipped: false,
+            datalabels: {
+              color: '#fff',
+            },
           },
-          // Переданное ЗП (остаток - светло-синий)
+          // Переданное ЗП (остаток - серый)
           {
             label: 'Передано — остаток',
             data: transferRemainingData,
-            backgroundColor: createGradient(ctx, '#93c5fd', '#93c5fd'),
+            backgroundColor: createGradient(ctx, '#E5E7EB', '#E5E7EB'),
             stack: 'transferred',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.6,
+            categoryPercentage: 0.9,
             borderRadius: {
               topLeft: 12,
               topRight: 12,
             },
             borderSkipped: false,
+            datalabels: {
+              color: '#000',
+              display: false,
+            },
           },
           // Среднесетевая (передано) - синяя линия
           {

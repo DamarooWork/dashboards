@@ -7,7 +7,7 @@ import { Switch } from '@/shared/ui'
 import { ChartStatus } from './chart-status'
 
 export function Charts() {
-  const [chartSwitchStatus, setChartSwitchStatus] = useState<boolean>(false)
+  const [chartSwitchStatus, setChartSwitchStatus] = useState<boolean>(true)
   return (
     <div className="flex-1 flex flex-col overflow-hidden min-h-0">
       <Switch
@@ -19,11 +19,6 @@ export function Charts() {
         Switch
       </Switch>
       {chartSwitchStatus === false && (
-        <Card className={'flex-1 min-h-0'}>
-          <ChartRoads />
-        </Card>
-      )}
-      {chartSwitchStatus === true && (
         <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
           <Card className="flex-1 min-h-0" title="Предоставление исполнителями">
             <ChartPerformers />
@@ -32,6 +27,11 @@ export function Charts() {
             <ChartStatus />
           </Card>
         </section>
+      )}
+      {chartSwitchStatus === true && (
+        <Card className={'flex-1 min-h-0'}>
+          <ChartRoads />
+        </Card>
       )}
     </div>
   )
