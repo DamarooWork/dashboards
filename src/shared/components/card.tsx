@@ -11,6 +11,7 @@ interface Props {
   kpiResult?: kpiResult
   dashboard?: boolean
   active?: boolean
+  small?: boolean
 }
 export function Card({
   className,
@@ -22,6 +23,7 @@ export function Card({
   kpiAll,
   dashboard,
   active,
+  small,
 }: Props) {
   return (
     <div
@@ -30,11 +32,12 @@ export function Card({
         dashboard &&
           'active:scale-95 will-change-transform transition-all duration-200',
         active && 'ring-2 ring-primary bg-primary/10',
+        small && 'px-4 min-h-24 shadow-none',
         className
       )}
     >
       {title && (
-        <h3 className={cn('font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0')}>
+        <h3 className={cn('font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0', small && 'text-lg')}>
           {title}
         </h3>
       )}
