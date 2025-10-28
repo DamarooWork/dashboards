@@ -1,6 +1,7 @@
 'use client'
 import { Card } from '@/shared/components'
 import {
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
@@ -17,15 +18,19 @@ import {
   LaptopMinimalCheck,
   Menu,
 } from 'lucide-react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 const dashboards = [
   {
     title: 'Дашборд 1',
     icon: <LaptopMinimalCheck className="size-20 self-center flex-1" />,
+    href: '/sbor-id',
   },
   {
     title: 'Дашборд 2',
     icon: <ChartArea className="size-20 self-center flex-1" />,
+    href: '/zadanie-na-proektirovanie',
   },
   {
     title: 'Дашборд 3',
@@ -55,6 +60,8 @@ const dashboards = [
   },
 ]
 export function DrawerContentComponent() {
+  const pathname = usePathname()
+
   return (
     <DrawerContent>
       <div className="mx-auto w-full">
@@ -64,16 +71,19 @@ export function DrawerContentComponent() {
             Выберите панель для отображения
           </DrawerDescription>
         </DrawerHeader>
-        <div className="px-4 pb-8 grid grid-cols-8 gap-4 w-full  text-center">
+        <div className=" px-4 pb-8 grid grid-cols-8 gap-4 w-full  text-center">
           {dashboards.map((dashboard) => (
-            <Card
-              dashboard
-              key={dashboard.title}
-              title={dashboard.title}
-              className="flex-1"
-            >
-              {dashboard.icon}
-            </Card>
+            <DrawerClose asChild key={dashboard.title}>
+              <Link href={dashboard.href ?? ''}>
+                <Card
+                  dashboard
+                  title={dashboard.title}
+                  active={pathname === dashboard.href}
+                >
+                  {dashboard.icon}
+                </Card>
+              </Link>
+            </DrawerClose>
           ))}
         </div>
       </div>

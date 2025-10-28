@@ -34,10 +34,10 @@ export function Cards() {
       <div className="text-2xl flex flex-col justify-center">
           <div className="flex flex-col gap-2">
             <p>
-            Приближается: <span className="text-3xl   "> 21 </span> {getPluralForm(21, 'объект', 'объекта', 'объектов')}
+            Приближается: <span className="text-3xl   ">21</span>{' '}{getPluralForm(21, 'объект', 'объекта', 'объектов')}
             </p>
             <p>
-            Истекла: <span className="text-3xl   "> 4 </span> {getPluralForm(4, 'объект', 'объекта', 'объектов')}
+            Истекла: <span className="text-3xl ">4</span>{' '}{getPluralForm(4, 'объект', 'объекта', 'объектов')}
             </p>
            
           </div>

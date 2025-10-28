@@ -193,7 +193,7 @@ export function ChartRoads() {
   }, [])
 
   return (
-    <div className="pl-14 py-2  w-full h-full">
+    <div className="w-full h-full">
       {chartData ? (
         <Chart ref={chartRef} type="bar" options={options} data={chartData} />
       ) : (

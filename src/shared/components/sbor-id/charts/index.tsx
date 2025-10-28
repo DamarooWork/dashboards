@@ -6,36 +6,26 @@ import { useState } from 'react'
 import { Switch } from '@/shared/ui'
 import { ChartStatus } from './chart-status'
 
-interface Props {
-  className?: string
-}
-type ChartSwitchStatus = 'roads' | 'performers'
-export function Dashboards({ className }: Props) {
-  const [chartSwitchStatus, setChartSwitchStatus] =
-    useState<ChartSwitchStatus>('roads')
+export function Charts() {
+  const [chartSwitchStatus, setChartSwitchStatus] = useState<boolean>(false)
   return (
     <div className="flex-1 flex flex-col overflow-hidden min-h-0">
       <Switch
-        className="absolute bottom-4 left-4  shadow-lg  border-2 border-foreground  cursor-pointer"
+        className="absolute bottom-4 left-4"
         onCheckedChange={() =>
-          setChartSwitchStatus(
-            chartSwitchStatus === 'roads' ? 'performers' : 'roads'
-          )
+          setChartSwitchStatus(chartSwitchStatus === false ? true : false)
         }
       >
         Switch
       </Switch>
-      {chartSwitchStatus === 'roads' && (
+      {chartSwitchStatus === false && (
         <Card className={'flex-1 min-h-0'}>
           <ChartRoads />
         </Card>
       )}
-      {chartSwitchStatus === 'performers' && (
+      {chartSwitchStatus === true && (
         <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
-          <Card
-            className="flex-1 min-h-0"
-            title="Предоставление исполнителями"
-          >
+          <Card className="flex-1 min-h-0" title="Предоставление исполнителями">
             <ChartPerformers />
           </Card>
           <Card className={'basis-1/3 min-h-0'} title="Статус комплектности">
