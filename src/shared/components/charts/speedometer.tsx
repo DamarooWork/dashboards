@@ -142,7 +142,7 @@ export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
           </div>
         </div>
 
-        
+       
       </div>
     </section>
   )

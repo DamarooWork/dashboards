@@ -10,7 +10,7 @@ export function Cards({ showProgressAndKpi }: CardsProps) {
   return (
     <div className="grid grid-cols-4 gap-12 shrink-0">
       <Card
-        title="Утвержденно"
+        title="Утверждено"
         kpiValue={101}
         kpiAll={showProgressAndKpi ? 150 : undefined}
       >
