@@ -1,29 +1,25 @@
-import { cn, getPluralForm } from '../lib/utils'
+import { cn } from '@/shared/lib/utils'
 
-type kpiResult = 'success' | 'failure' | 'neutral'
+
 interface Props {
   className?: string
   title?: string
   children?: React.ReactNode
   kpiValue?: number
-  kpiChange?: number
   kpiAll?: number
-  kpiResult?: kpiResult
   dashboard?: boolean
   active?: boolean
-  small?: boolean
+  size?: 'sm' | 'md' | 'lg'
 }
 export function Card({
   className,
   children,
   title,
   kpiValue,
-  kpiChange,
-  kpiResult,
   kpiAll,
   dashboard,
   active,
-  small,
+  size = 'md',
 }: Props) {
   return (
     <div
@@ -32,15 +28,18 @@ export function Card({
         dashboard &&
           'active:scale-95 will-change-transform transition-all duration-200',
         active && 'ring-2 ring-primary bg-primary/10',
-        small && 'px-4 min-h-24 shadow-none',
+        size === 'sm' && 'px-4 min-h-24 shadow-none',
+        size === 'lg' && 'h-full',
         className
       )}
     >
       {title && (
         <h3
           className={cn(
-            'font-semibold text-2xl  pb-2 -mx-3 px-3 shrink-0',
-            small && 'text-lg'
+            'font-semibold  pb-2 -mx-3 px-3 shrink-0',
+            size === 'sm' && 'text-lg',
+            size === 'md' && 'text-2xl',
+            size === 'lg' && 'text-3xl',
           )}
         >
           {title}

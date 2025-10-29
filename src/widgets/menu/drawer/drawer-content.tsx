@@ -25,20 +25,22 @@ const dashboards = [
   {
     title: 'Дашборд 1',
     icon: <LaptopMinimalCheck className="size-20 self-center flex-1" />,
-    href: '/sbor-id',
+    href: '/start-page',
   },
   {
     title: 'Дашборд 2',
     icon: <ChartArea className="size-20 self-center flex-1" />,
-    href: '/zadanie-na-proektirovanie',
+    href: '/sbor-id',
   },
   {
     title: 'Дашборд 3',
     icon: <ChartBar className="size-20 self-center flex-1" />,
+    href: '/zadanie-na-proektirovanie',
   },
   {
     title: 'Дашборд 4',
     icon: <ChartBarBig className="size-20 self-center flex-1" />,
+    href: '/construction-supervision',
   },
   {
     title: 'Дашборд 5',
