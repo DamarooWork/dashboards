@@ -1,4 +1,4 @@
 import { ZadanieNaProektirovanie } from '@/views'
-export default async function ZadanieNaProektirovaniePage() {
+export default function ZadanieNaProektirovaniePage() {
   return <ZadanieNaProektirovanie />
 }

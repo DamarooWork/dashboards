@@ -1,6 +1,5 @@
 import { cn } from '@/shared/lib/utils'
 
-
 interface Props {
   className?: string
   title?: string
@@ -24,7 +23,7 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-xl bg-card border border-border overflow-hidden px-8 py-2 shadow-md min-h-36 flex flex-col shadow-primary  ',
+        'rounded-xl bg-card border border-border overflow-hidden px-8 py-2 shadow-md min-h-30 flex flex-col shadow-primary  ',
         dashboard &&
           'active:scale-95 will-change-transform transition-all duration-200',
         active && 'ring-2 ring-primary bg-primary/10',
@@ -39,7 +38,7 @@ export function Card({
             'font-semibold  pb-2 -mx-3 px-3 shrink-0',
             size === 'sm' && 'text-lg',
             size === 'md' && 'text-2xl',
-            size === 'lg' && 'text-3xl',
+            size === 'lg' && 'text-3xl'
           )}
         >
           {title}
@@ -52,7 +51,7 @@ export function Card({
       )}
       {kpiAll ? (
         <div className="flex flex-row justify-between items-center gap-4">
-          {children} <p className='text-2xl'>из {kpiAll}</p>
+          {children} <p className="text-2xl">из {kpiAll}</p>
         </div>
       ) : (
         children

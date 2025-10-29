@@ -15,8 +15,8 @@ import {
 } from 'chart.js'
 import datalabels from 'chartjs-plugin-datalabels'
 import { Chart } from 'react-chartjs-2'
-import { useRoadsChartHook } from '@/shared/lib/hooks'
-import { roadsOptions } from '@/shared/lib/chart-options'
+import { useZamechaniyaChartHook } from '@/shared/lib/hooks'
+import { zamechaniyaOptions } from '@/shared/lib/chart-options'
 
 ChartJS.register(
   LinearScale,
@@ -31,18 +31,18 @@ ChartJS.register(
   datalabels
 )
 
-export function ChartRoads() {
-  const { chartRef, chartData } = useRoadsChartHook()
+export function ChartZamechaniya() {
+  const { chartRef, chartData } =   useZamechaniyaChartHook()
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full ">
       {chartData ? (
-        <Chart ref={chartRef} type="bar" options={roadsOptions} data={chartData} />
+        <Chart ref={chartRef} type="bar" options={zamechaniyaOptions} data={chartData} />
       ) : (
         <Chart
           ref={chartRef}
           type="bar"
-          options={roadsOptions}
+          options={zamechaniyaOptions}
           data={{
             labels: roads.map((road) => road.shortName),
             datasets: [],

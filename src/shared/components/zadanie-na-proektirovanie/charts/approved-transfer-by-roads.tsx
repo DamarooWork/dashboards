@@ -278,7 +278,7 @@ export function ApprovedTransferByRoads() {
             datalabels: {
               display: false,
             },
-            pointRadius: 0,
+            pointRadius: 4,
           },
         ],
       }

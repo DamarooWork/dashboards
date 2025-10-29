@@ -1,13 +1,19 @@
 'use client'
 import { Card } from '@/shared/components/card'
-import { useState } from 'react'
 import { Switch } from '@/shared/ui'
 import { ApprovedZP } from './approved-zp'
 import { ApprovedTransferByRoads } from './approved-transfer-by-roads'
 import { TransferZp } from './transfer-zp'
 
-export function Charts() {
-  const [chartSwitchStatus, setChartSwitchStatus] = useState<boolean>(true)
+interface ChartsProps {
+  chartSwitchStatus: boolean
+  setChartSwitchStatus: (value: boolean) => void
+}
+
+export function Charts({
+  chartSwitchStatus,
+  setChartSwitchStatus,
+}: ChartsProps) {
   return (
     <div className="flex-1 flex flex-col overflow-hidden min-h-0">
       <Switch
@@ -25,10 +31,10 @@ export function Charts() {
       )}
       {chartSwitchStatus === false && (
         <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
-          <Card className="basis-1/2 min-h-0" title="Утвержденные">
+          <Card className="basis-1/2 min-h-0" >
             <ApprovedZP />
           </Card>
-          <Card className={' basis-1/2 min-h-0'} title="Передача">
+          <Card className={' basis-1/2 min-h-0'}>
             <TransferZp />
           </Card>
         </section>
