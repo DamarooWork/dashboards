@@ -12,7 +12,7 @@ export function ZamechaniyaChartHook() {
     if (chartRef.current) {
       // Генерируем данные
       const eliminatedData = roads.map(() =>
-        faker.number.int({ min: 10, max: 100 })
+        faker.number.int({ min: 10, max: 150 })
       )
       const remainingEliminatedData = roads.map(() =>
         faker.number.int({ min: 1, max: 50 })
@@ -26,7 +26,7 @@ export function ZamechaniyaChartHook() {
             data: eliminatedData,
             backgroundColor: '#2080f0',
             order: 1,
-            barPercentage: 0.4,
+            barPercentage: 0.45,
             categoryPercentage: 1,
             borderRadius: {
               bottomLeft: 12,
@@ -45,7 +45,7 @@ export function ZamechaniyaChartHook() {
             data: remainingEliminatedData,
             backgroundColor: '#E5E7EB',
             order: 2,
-            barPercentage: 0.4,
+            barPercentage: 0.45,
             categoryPercentage: 1,
             borderRadius: {
               topLeft: 12,
