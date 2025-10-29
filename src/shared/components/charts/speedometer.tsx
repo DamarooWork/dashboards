@@ -142,11 +142,7 @@ export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
           </div>
         </div>
 
-        {/* Шкала значений */}
-        <div className="w-full max-w-70 flex justify-between text-sm text-muted-foreground mt-2">
-          <span>0</span>
-          <span>{maxValue}</span>
-        </div>
+        
       </div>
     </section>
   )
