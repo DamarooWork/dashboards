@@ -6,15 +6,20 @@ import { Card } from '@/shared/components'
 export function TransferZp() {
   return (
     <section className="flex flex-col gap-4 flex-1 h-full">
-      <Speedometer className="flex-1" value={117} maxValue={150} />
-      <Card className='h-full' size="sm">
+      <Speedometer className="basis-1/2" value={117} maxValue={150} />
+      <Card className="basis-1/2" size="sm">
         <Histogram
           initialValue={50}
           weeklyIncrements={[1, 0, 1, 2, 3, 0, 2, 0]}
           colorScheme="blue"
         />
       </Card>
-      <SmallCards title2="Дата передачи" daysToPlan={22} lastDate={38} overdue={1} />
+      <SmallCards
+        title2="Дата передачи"
+        daysToPlan={22}
+        lastDate={38}
+        overdue={1}
+      />
     </section>
   )
 }
