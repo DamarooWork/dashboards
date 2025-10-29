@@ -1,6 +1,6 @@
 'use client'
 
-import { Pie, PieChart, Cell, Label } from 'recharts'
+import { Pie, PieChart, Cell } from 'recharts'
 import {
   ChartConfig,
   ChartContainer,
@@ -29,6 +29,47 @@ const chartConfig = {
 
 interface Props {
   className?: string
+}
+
+// Функция для рендеринга и значений, и названий
+const renderCustomLabel = (props: any) => {
+  const RADIAN = Math.PI / 180
+  const { cx, cy, midAngle, innerRadius, outerRadius, name, value } = props
+
+  // Позиция значения в центре сектора
+  const radiusValue = (innerRadius + outerRadius) / 2
+  const xValue = cx + radiusValue * Math.cos(-midAngle * RADIAN)
+  const yValue = cy + radiusValue * Math.sin(-midAngle * RADIAN)
+
+  // Позиция названия снаружи
+  const radiusName = outerRadius + 30
+  const xName = cx + radiusName * Math.cos(-midAngle * RADIAN)
+  const yName = cy + radiusName * Math.sin(-midAngle * RADIAN)
+
+  return (
+    <g>
+      <text
+        x={xValue}
+        y={yValue}
+        fill="white"
+        textAnchor="middle"
+        dominantBaseline="middle"
+        className="text-2xl"
+      >
+        {value}
+      </text>
+      <text
+        x={xName}
+        y={yName}
+        fill="#000000"
+        textAnchor={xName > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+        className="font-bold text-lg"
+      >
+        {name}
+      </text>
+    </g>
+  )
 }
 
 export function Doughnut({ className }: Props) {
@@ -62,13 +103,13 @@ export function Doughnut({ className }: Props) {
             data={chartData}
             cx="50%"
             cy="50%"
-            innerRadius={60}
-            outerRadius={100}
+            innerRadius={120}
+            outerRadius={160}
             paddingAngle={0}
             dataKey="value"
-            label={({ name }) => name}
+            label={renderCustomLabel}
             labelLine={{
-              stroke: 'hsl(var(--foreground))',
+              stroke: '#000000',
               strokeWidth: 1,
             }}
           >
@@ -79,52 +120,6 @@ export function Doughnut({ className }: Props) {
                 stroke="none"
               />
             ))}
-            <Label
-              content={({ viewBox }) => {
-                if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                  return (
-                    <g>
-                      {chartData.map((entry, index) => {
-                        const RADIAN = Math.PI / 180
-                        const total = chartData.reduce(
-                          (sum, item) => sum + item.value,
-                          0
-                        )
-                        const startAngle = chartData
-                          .slice(0, index)
-                          .reduce(
-                            (sum, item) => sum + (item.value / total) * 360,
-                            0
-                          )
-                        const angle = (entry.value / total) * 360
-                        const midAngle = startAngle + angle / 2 - 90
-                        const radius = 80
-                        const x =
-                          (viewBox.cx || 0) +
-                          radius * Math.cos(midAngle * RADIAN)
-                        const y =
-                          (viewBox.cy || 0) +
-                          radius * Math.sin(midAngle * RADIAN)
-
-                        return (
-                          <text
-                            key={`value-${index}`}
-                            x={x}
-                            y={y}
-                            fill="white"
-                            textAnchor="middle"
-                            dominantBaseline="middle"
-                            className="font-bold text-xl"
-                          >
-                            {entry.value}
-                          </text>
-                        )
-                      })}
-                    </g>
-                  )
-                }
-              }}
-            />
           </Pie>
         </PieChart>
       </ChartContainer>

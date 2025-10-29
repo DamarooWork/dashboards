@@ -54,61 +54,59 @@ export function Histogram({
   const colors = gradientColors[colorScheme]
 
   return (
-    <section className={className}>
-      <ChartContainer
-        config={chartConfig}
-        className="h-32 w-full aspect-auto [&_.recharts-cartesian-axis-tick_text]:fill-foreground"
+    <ChartContainer
+      config={chartConfig}
+      className="h-full w-full aspect-auto [&_.recharts-cartesian-axis-tick_text]:fill-foreground"
+    >
+      <BarChart
+        data={chartData}
+        margin={{ left: -24, right: 0, top: 0, bottom: 0 }}
       >
-        <BarChart
-          data={chartData}
-          margin={{ left: -24, right: 0, top: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient
-              id={`gradient-${colorScheme}`}
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="1"
-            >
-              <stop offset="0%" stopColor={colors.start} stopOpacity={1} />
-              <stop offset="100%" stopColor={colors.end} stopOpacity={1} />
-            </linearGradient>
-          </defs>
-          <CartesianGrid vertical={false} />
-          <XAxis
-            dataKey="week"
-            tickMargin={4}
-            tick={{
-              fontSize: 20,
-            }}
-          />
-          <YAxis
-            tickMargin={4}
-            tick={{
-              fontSize: 24,
-            }}
-            tickCount={8}
-          />
-          <ChartTooltip
-            cursor={false}
-            content={<ChartTooltipContent hideLabel />}
-          />
-          <Bar
-            dataKey="value"
-            fill={`url(#gradient-${colorScheme})`}
-            radius={[10, 10, 6, 6]}
-            barSize={36}
+        <defs>
+          <linearGradient
+            id={`gradient-${colorScheme}`}
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="1"
           >
-            <LabelList
-              dataKey="value"
-              position="inside"
-              fill={'#ffffff'}
-              fontSize={24}
-            />
-          </Bar>
-        </BarChart>
-      </ChartContainer>
-    </section>
+            <stop offset="0%" stopColor={colors.start} stopOpacity={1} />
+            <stop offset="100%" stopColor={colors.end} stopOpacity={1} />
+          </linearGradient>
+        </defs>
+        <CartesianGrid vertical={false} />
+        <XAxis
+          dataKey="week"
+          tickMargin={4}
+          tick={{
+            fontSize: 20,
+          }}
+        />
+        <YAxis
+          tickMargin={4}
+          tick={{
+            fontSize: 24,
+          }}
+          tickCount={8}
+        />
+        <ChartTooltip
+          cursor={false}
+          content={<ChartTooltipContent hideLabel />}
+        />
+        <Bar
+          dataKey="value"
+          fill={`url(#gradient-${colorScheme})`}
+          radius={[10, 10, 6, 6]}
+          barSize={36}
+        >
+          <LabelList
+            dataKey="value"
+            position="inside"
+            fill={'#ffffff'}
+            fontSize={24}
+          />
+        </Bar>
+      </BarChart>
+    </ChartContainer>
   )
 }

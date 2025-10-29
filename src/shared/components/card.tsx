@@ -9,6 +9,14 @@ interface Props {
   dashboard?: boolean
   active?: boolean
   size?: 'sm' | 'md' | 'lg'
+  startPage?:{
+    title1: string
+    title2: string
+    value1: number
+    plan1: number
+    value2: number
+    plan2: number
+  }
 }
 export function Card({
   className,
@@ -19,6 +27,14 @@ export function Card({
   dashboard,
   active,
   size = 'md',
+  startPage = {
+    title1: '',
+    title2: '',
+    value1: 0,
+    plan1: 0,
+    value2: 0,
+    plan2: 0,
+  }
 }: Props) {
   return (
     <div
@@ -55,6 +71,19 @@ export function Card({
         </div>
       ) : (
         children
+      )}
+      {startPage.title1 && (
+        <div className="flex flex-row justify-between items-center gap-4">
+         <div>
+          <div className='flex flex-row gap-2 items-center'>
+            <p className="text-2xl">{startPage.title1}</p>
+            <p className="text-2xl">{startPage.title2}</p>
+         </div>
+         <div className='flex flex-row justify-between'>
+            <p className="text-2xl">{startPage.value1}/{startPage.plan1}</p>
+            <p className="text-2xl">{startPage.value2}/{startPage.plan2}</p>
+         </div>
+        </div>  </div>
       )}
     </div>
   )

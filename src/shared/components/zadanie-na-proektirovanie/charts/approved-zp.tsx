@@ -7,7 +7,7 @@ export function ApprovedZP() {
   return (
     <section className="flex flex-col gap-4 h-full flex-1">
       <Speedometer className="flex-1" value={101} maxValue={150} />
-      <Card size="sm">
+      <Card className='h-full' size="sm">
         <Histogram
           initialValue={50}
           weeklyIncrements={[1, 0, 1, 2, 3, 0, 2, 0]}
