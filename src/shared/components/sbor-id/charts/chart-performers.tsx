@@ -20,6 +20,7 @@ interface ChartData {
   total: number
   remaining: number
   percent: number
+  percentRemaining: number
 }
 
 const chartConfig = {
@@ -79,17 +80,21 @@ export function ChartPerformers() {
 
     // Преобразуем в массив и сортируем по проценту выполнения
     const chartDataArray: ChartData[] = Array.from(performersMap.entries())
-      .map(([name, stats]) => ({
-        name,
-        value: stats.collected,
-        total: stats.total,
-        remaining: stats.total - stats.collected,
-        percent: Math.round((stats.collected / stats.total) * 100),
-      }))
+      .map(([name, stats]) => {
+        const percent = Math.round((stats.collected / stats.total) * 100)
+        return {
+          name,
+          value: stats.collected,
+          total: stats.total,
+          remaining: stats.total - stats.collected,
+          percent,
+          percentRemaining: 100 - percent,
+        }
+      })
       .sort((a, b) => b.percent - a.percent) // Сортируем по убыванию процента
 
     return chartDataArray
-  }, [road, year, typeOfWork, v_sd_collection])
+  }, [road, year, typeOfWork])
 
   const renderLabel = (props: any) => {
     const { x, y, width, height, index } = props
@@ -98,10 +103,8 @@ export function ChartPerformers() {
       return <text />
 
     const item = chartData[index]
-    // Вычисляем позицию относительно общей ширины графика
-    const maxTotal = Math.max(...chartData.map((d) => d.total))
-    const barWidth = (item.total / maxTotal) * Number(width)
-    const xPos = Number(x) + barWidth + 10
+    // Позиция метки в конце бара (все бары одинаковой длины)
+    const xPos = Number(x) + Number(width) + 10
     const yPos = Number(y) + Number(height) / 2
 
     return (
@@ -149,7 +152,7 @@ export function ChartPerformers() {
             <stop offset="100%" stopColor="#10b981" stopOpacity={1} />
           </linearGradient>
         </defs>
-        <XAxis type="number" dataKey="total" hide />
+        <XAxis type="number" domain={[0, 100]} hide />
         <YAxis
           dataKey="name"
           type="category"
@@ -165,14 +168,14 @@ export function ChartPerformers() {
           content={<ChartTooltipContent hideLabel />}
         />
         <Bar
-          dataKey="value"
+          dataKey="percent"
           fill="url(#performerGradient)"
           radius={[20, 0, 0, 20]}
           barSize={28}
           stackId="a"
         />
         <Bar
-          dataKey="remaining"
+          dataKey="percentRemaining"
           fill="#e5e7eb"
           radius={[0, 20, 20, 0]}
           barSize={28}
