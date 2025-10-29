@@ -137,7 +137,7 @@ export function ChartPerformers() {
   return (
     <ChartContainer
       config={chartConfig}
-      className="h-full w-full px-8 pb-8 [&_.recharts-cartesian-axis-tick_text]:fill-foreground"
+      className="h-full w-full pb-8 [&_.recharts-cartesian-axis-tick_text]:fill-foreground"
     >
       <BarChart
         accessibilityLayer
