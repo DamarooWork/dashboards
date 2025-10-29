@@ -1,4 +1,4 @@
-export const zamechaniyaOptions = {
+export const ustraneniyaZamechaniyOptions = {
   responsive: true,
   maintainAspectRatio: false,
   layout: {
@@ -34,7 +34,7 @@ export const zamechaniyaOptions = {
       ticks: {
         color: 'hsl(var(--foreground))',
         font: {
-          size: 20,
+          size: 16,
         },
       },
     },
@@ -51,22 +51,6 @@ export const zamechaniyaOptions = {
         },
       },
     },
-    y1: {
-      position: 'right' as const,
-      grid: {
-        display: false,
-      },
-      min: 0,
-      max: 120,
-      ticks: {
-        color: '#000',
-        font: {
-          size: 24,
-        },
-        callback: function (value: any) {
-          return value + '%'
-        },
-      },
-    },
+   
   },
 }

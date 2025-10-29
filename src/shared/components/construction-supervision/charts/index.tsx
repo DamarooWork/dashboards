@@ -3,6 +3,7 @@ import { Card } from '@/shared/components'
 import { useState } from 'react'
 import { Switch } from '@/shared/ui'
 import { ChartZamechaniya } from './zamechaniya'
+import { ChartUstraneniyaZamechaniy } from './ustraneniya-zamechaniy'
 
 export function Charts() {
   const [chartSwitchStatus, setChartSwitchStatus] = useState<boolean>(true)
@@ -24,7 +25,9 @@ export function Charts() {
         </section>
       )}
       {chartSwitchStatus === false && (
-        <Card className={'flex-1 min-h-0'}></Card>
+        <Card className={'flex-1 min-h-0'}>
+          <ChartUstraneniyaZamechaniy />
+        </Card>
       )}
     </div>
   )

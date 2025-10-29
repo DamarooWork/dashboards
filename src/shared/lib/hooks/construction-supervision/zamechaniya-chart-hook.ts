@@ -18,6 +18,17 @@ export function ZamechaniyaChartHook() {
         faker.number.int({ min: 1, max: 50 })
       )
 
+      // Вычисляем среднее значение устраненных
+      const averageEliminated =
+        eliminatedData.reduce((sum, val) => sum + val, 0) /
+        eliminatedData.length
+
+      // Вычисляем процент устраненных от общего количества
+      const percentageEliminated = eliminatedData.map((eliminated, index) => {
+        const total = eliminated + remainingEliminatedData[index]
+        return total > 0 ? (eliminated / total) * 100 : 0
+      })
+
       const data = {
         labels: roads.map((road) => road.shortName),
         datasets: [
@@ -67,6 +78,34 @@ export function ZamechaniyaChartHook() {
                   eliminatedValue + remainingEliminatedData[context.dataIndex]
                 )
               },
+            },
+          },
+          {
+            label: 'Среднее устранено',
+            type: 'line' as const,
+            data: roads.map(() => averageEliminated),
+            borderColor: '#2080f0',
+            backgroundColor: '#2080f0',
+            borderDash: [10, 5],
+            tension: 0,
+            order: 0,
+            yAxisID: 'y',
+            datalabels: {
+              display: false,
+            },
+            pointRadius: 0,
+          },
+          {
+            label: 'Процент устранения',
+            type: 'line' as const,
+            data: percentageEliminated,
+            backgroundColor: 'oklch(0.769 0.188 70.08)',
+            borderColor: 'oklch(0.769 0.188 70.08)',
+            tension: 0.5,
+            order: 0,
+            yAxisID: 'y1',
+            datalabels: {
+              display: false,
             },
           },
         ],
