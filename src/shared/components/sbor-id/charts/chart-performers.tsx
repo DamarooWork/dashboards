@@ -14,6 +14,9 @@ import { useFiltersStore } from '@/shared/store'
 
 export const description = 'Предоставление ИД по Исполнителям'
 
+// Обязательные исполнители, которые должны всегда отображаться
+const REQUIRED_PERFORMERS = ['ПЧ', 'РЦДМ', 'ЭЧ', 'Д', 'ДРП', 'ШЧ', 'НС', 'ДТВ']
+
 interface ChartData {
   name: string
   value: number
@@ -60,12 +63,18 @@ export function ChartPerformers() {
       )
     }
 
-    // Группируем данные по исполнителям (workgroup_name)
+    // Инициализируем Map с обязательными исполнителями
     const performersMap = new Map<
       string,
       { collected: number; total: number }
     >()
 
+    // Добавляем обязательных исполнителей с начальными значениями 0/0
+    REQUIRED_PERFORMERS.forEach((performer) => {
+      performersMap.set(performer, { collected: 0, total: 0 })
+    })
+
+    // Группируем данные по исполнителям (workgroup_name)
     filteredData.forEach((item) => {
       const performer = item.workgroup_name
       if (!performersMap.has(performer)) {
@@ -78,10 +87,14 @@ export function ChartPerformers() {
       }
     })
 
-    // Преобразуем в массив и сортируем по проценту выполнения
-    const chartDataArray: ChartData[] = Array.from(performersMap.entries())
-      .map(([name, stats]) => {
-        const percent = Math.round((stats.collected / stats.total) * 100)
+    // Преобразуем в массив
+    const chartDataArray: ChartData[] = Array.from(performersMap.entries()).map(
+      ([name, stats]) => {
+        // Обработка случая 0/0
+        const percent =
+          stats.total === 0
+            ? 0
+            : Math.round((stats.collected / stats.total) * 100)
         return {
           name,
           value: stats.collected,
@@ -90,8 +103,8 @@ export function ChartPerformers() {
           percent,
           percentRemaining: 100 - percent,
         }
-      })
-      .sort((a, b) => b.percent - a.percent) // Сортируем по убыванию процента
+      }
+    )
 
     return chartDataArray
   }, [road, year, typeOfWork])
@@ -118,17 +131,6 @@ export function ChartPerformers() {
       >
         {item.value}/{item.total} · {item.percent}%
       </text>
-    )
-  }
-
-  // Проверка на пустые данные
-  if (chartData.length === 0) {
-    return (
-      <div className="h-full w-full flex items-center justify-center">
-        <p className="text-4xl text-muted-foreground">
-          Совпадений по фильтрам нет
-        </p>
-      </div>
     )
   }
 
