@@ -79,25 +79,25 @@ export const options = {
         },
       },
     },
-    y1: {
-      type: 'linear' as const,
-      position: 'right' as const,
-      min: 0,
-      max: 120,
-      grid: {
-        display: false,
-      },
-      ticks: {
-        color: '#000',
-        font: {
-          size: 24,
-        },
-        callback: function (value: any) {
-          if (value > 100) return ''
-          return value + '%'
-        },
-      },
-    },
+    // y1: {
+    //   type: 'linear' as const,
+    //   position: 'right' as const,
+    //   min: 0,
+    //   max: 120,
+    //   grid: {
+    //     display: false,
+    //   },
+    //   ticks: {
+    //     color: '#000',
+    //     font: {
+    //       size: 24,
+    //     },
+    //     callback: function (value: any) {
+    //       if (value > 100) return ''
+    //       return value + '%'
+    //     },
+    //   },
+    // },
   },
 }
 
@@ -127,8 +127,8 @@ export function ApprovedTransferByRoads() {
       // Генерируем данные для утвержденных ЗП (основная часть)
       const approvedMainData = planData.map((plan) =>
         faker.number.int({
-          min: Math.floor(plan * 0.2),
-          max: Math.floor(plan * 0.5),
+          min: Math.floor(plan * 0.5),
+          max: Math.floor(plan * 0.8),
         })
       )
       // Генерируем остаток до плана для утвержденных
@@ -139,8 +139,8 @@ export function ApprovedTransferByRoads() {
       // Генерируем данные для переданных ЗП (основная часть)
       const transferMainData = planData.map((plan) =>
         faker.number.int({
-          min: Math.floor(plan * 0.5),
-          max: Math.floor(plan * 0.8),
+          min: Math.floor(plan * 0.2),
+          max: Math.floor(plan * 0.5),
         })
       )
       // Генерируем остаток до плана для переданных
@@ -191,8 +191,8 @@ export function ApprovedTransferByRoads() {
             barPercentage: 1,
             categoryPercentage: 0.9,
             borderRadius: {
-              topLeft: 12,
-              topRight: 12,
+              topLeft: 0,
+              topRight: 0,
             },
             borderSkipped: false,
             datalabels: {
@@ -200,12 +200,11 @@ export function ApprovedTransferByRoads() {
               display: true,
               align: 'right' as const,
               anchor: 'end' as const,
-              offset: 3,
+              offset: 4,
               font: {
                 size: 24,
               },
               formatter: (_value: any, context: any) => {
-                // Сумма Утверждено + Утверждено - остаток = План
                 return planData[context.dataIndex]
               },
             },
@@ -238,8 +237,8 @@ export function ApprovedTransferByRoads() {
             barPercentage: 1,
             categoryPercentage: 0.9,
             borderRadius: {
-              topLeft: 12,
-              topRight: 12,
+              topLeft: 0,
+              topRight: 0,
             },
             borderSkipped: false,
             datalabels: {
@@ -265,21 +264,21 @@ export function ApprovedTransferByRoads() {
             pointRadius: 0,
           },
           // % передачи - оранжевая линия
-          {
-            label: '% передачи',
-            type: 'line' as const,
-            data: transferPercent,
-            backgroundColor: 'oklch(0.769 0.188 70.08)',
-            borderColor: 'oklch(0.769 0.188 70.08)',
-            borderWidth: 3,
-            tension: 0.4,
-            yAxisID: 'y1',
-            order: 0,
-            datalabels: {
-              display: false,
-            },
-            pointRadius: 4,
-          },
+          // {
+          //   label: '% передачи',
+          //   type: 'line' as const,
+          //   data: transferPercent,
+          //   backgroundColor: 'oklch(0.769 0.188 70.08)',
+          //   borderColor: 'oklch(0.769 0.188 70.08)',
+          //   borderWidth: 3,
+          //   tension: 0.4,
+          //   yAxisID: 'y1',
+          //   order: 0,
+          //   datalabels: {
+          //     display: false,
+          //   },
+          //   pointRadius: 4,
+          // },
         ],
       }
 

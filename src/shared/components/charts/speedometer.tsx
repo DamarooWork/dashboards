@@ -29,8 +29,7 @@ export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
       // Создаем градиент для заполненной части
       const gradient = ctx.createLinearGradient(0, 0, 0, 300)
       gradient.addColorStop(0, '#10b981') // зеленый
-      gradient.addColorStop(0.5, '#3b82f6') // синий
-      gradient.addColorStop(1, '#8b5cf6') // фиолетовый
+      gradient.addColorStop(0.5, '#2080f0') // синий
 
       const filledValue = percentage.toFixed(0)
       const remainingValue = (100 - Number(filledValue)).toFixed(0)

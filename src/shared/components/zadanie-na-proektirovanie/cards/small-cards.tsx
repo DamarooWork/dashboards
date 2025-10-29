@@ -12,7 +12,7 @@ export  function  SmallCards({ daysToPlan = 0, lastDate = 0, overdue = 0, title2
   return (
     <div className="grid grid-cols-2 gap-4">
         <Card title="Дней до плановой даты" size="sm">
-          <p className="text-4xl">{daysToPlan} д.</p>
+          <p className="text-5xl text-center h-full flex items-center justify-center">{daysToPlan}</p>
         </Card>
         <Card title={title2} size="sm">
         <div className="text-2xl flex flex-col justify-center">

@@ -3,12 +3,12 @@
 import { roads } from '@/shared/lib/data'
 import { faker } from '@faker-js/faker'
 import { useRef, useEffect, useState } from 'react'
+import { data } from '@/shared/lib/data/sbor-id/v_portfolio_last_telegram'
 
-
-export function RoadsChartHook( ) {
+export function RoadsChartHook() {
   const chartRef = useRef<any>(null)
   const [chartData, setChartData] = useState<any>(null)
-
+  const { v_portfolio_last_telegram } = data
   useEffect(() => {
     if (chartRef.current) {
       // Генерируем данные для плана
@@ -86,19 +86,19 @@ export function RoadsChartHook( ) {
             },
             pointRadius: 0,
           },
-          {
-            label: '% выполнения',
-            type: 'line' as const,
-            data: roads.map(() => faker.number.int({ min: 1, max: 100 })),
-            backgroundColor: 'oklch(0.769 0.188 70.08)',
-            borderColor: 'oklch(0.769 0.188 70.08)',
-            tension: 0.5,
-            yAxisID: 'y1',
-            order: 0,
-            datalabels: {
-              display: false,
-            },
-          },
+          // {
+          //   label: '% выполнения',
+          //   type: 'line' as const,
+          //   data: roads.map(() => faker.number.int({ min: 1, max: 100 })),
+          //   backgroundColor: 'oklch(0.769 0.188 70.08)',
+          //   borderColor: 'oklch(0.769 0.188 70.08)',
+          //   tension: 0.5,
+          //   yAxisID: 'y1',
+          //   order: 0,
+          //   datalabels: {
+          //     display: false,
+          //   },
+          // },
         ],
       }
 

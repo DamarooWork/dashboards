@@ -11,7 +11,6 @@ export function ApprovedZP() {
         <Histogram
           initialValue={50}
           weeklyIncrements={[1, 0, 1, 2, 3, 0, 2, 0]}
-          colorScheme="green"
         />
       </Card>
       <SmallCards

@@ -40,11 +40,11 @@ export function Card({
   return (
     <div
       className={cn(
-        'rounded-xl bg-card border border-border overflow-hidden px-8 py-2 shadow-md min-h-30 flex flex-col shadow-primary  ',
+        'rounded-xl bg-card border border-border overflow-hidden px-8 py-2 shadow-md min-h-30 flex flex-col shadow-foreground  ',
         dashboard &&
           'active:scale-95 will-change-transform transition-all duration-200',
         active && 'ring-2 ring-primary bg-primary/10',
-        size === 'sm' && 'px-4 min-h-24 shadow-none',
+        size === 'sm' && 'px-6 min-h-24 shadow-none',
         size === 'lg' && 'h-full',
         className
       )}

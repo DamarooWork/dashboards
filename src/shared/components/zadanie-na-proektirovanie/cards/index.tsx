@@ -11,14 +11,14 @@ export function Cards({ showProgressAndKpi }: CardsProps) {
     <div className="grid grid-cols-4 gap-12 shrink-0">
       <Card
         title="Утверждено"
-        kpiValue={101}
+        kpiValue={121}
         kpiAll={showProgressAndKpi ? 150 : undefined}
       >
         {showProgressAndKpi && (
           <div className="flex  flex-1 justify-center items-center gap-2 bg-foreground/5 rounded-b-md   px-3 w-2/3 rounded-lg">
-            <Progress value={Math.round((101 / 150) * 100)} className="h-4 " />
+            <Progress value={Math.round((121 / 150) * 100)} className="h-4 " />
             <span className="text-xl font-semibold">
-              {Math.round((101 / 150) * 100)}%
+              {Math.round((121 / 150) * 100)}%
             </span>
           </div>
         )}

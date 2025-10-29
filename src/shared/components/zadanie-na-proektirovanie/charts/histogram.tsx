@@ -53,6 +53,37 @@ export function Histogram({
 
   const colors = gradientColors[colorScheme]
 
+  // Кастомная функция для рендера бара с бордером на последнем элементе
+  const renderCustomBar = (props: any) => {
+    const { x, y, width, height, index } = props
+    const isLast = index === chartData.length - 1
+    const radius = 10
+    const bottomRadius = 6
+
+    return (
+      <g>
+        <path
+          d={`
+            M${x},${y + radius}
+            Q${x},${y} ${x + radius},${y}
+            L${x + width - radius},${y}
+            Q${x + width},${y} ${x + width},${y + radius}
+            L${x + width},${y + height - bottomRadius}
+            Q${x + width},${y + height} ${x + width - bottomRadius},${
+            y + height
+          }
+            L${x + bottomRadius},${y + height}
+            Q${x},${y + height} ${x},${y + height - bottomRadius}
+            Z
+          `}
+          fill={`url(#gradient-${colorScheme})`}
+          stroke={isLast ? '#10b981' : 'none'}
+          strokeWidth={isLast ? 4 : 0}
+        />
+      </g>
+    )
+  }
+
   return (
     <ChartContainer
       config={chartConfig}
@@ -98,6 +129,7 @@ export function Histogram({
           fill={`url(#gradient-${colorScheme})`}
           radius={[10, 10, 6, 6]}
           barSize={36}
+          shape={renderCustomBar}
         >
           <LabelList
             dataKey="value"
