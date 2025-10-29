@@ -132,17 +132,15 @@ export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
           {/* Центральное значение */}
           <div className="absolute inset-0 flex items-end justify-center ">
             <div className="text-center">
-              <div className="text-4xl  text-foreground">
+              <div className="text-6xl  text-foreground">
                 {Math.round(percentage)}%
               </div>
-              <div className="text-xl text-foreground/80 mt-1">
+              <div className="text-5xl text-foreground/80 mt-1">
                 {value} из {maxValue}
               </div>
             </div>
           </div>
         </div>
-
-       
       </div>
     </section>
   )
