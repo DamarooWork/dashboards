@@ -64,7 +64,7 @@ const renderCustomLabel = (props: any) => {
         fill="#000000"
         textAnchor={xName > cx ? 'start' : 'end'}
         dominantBaseline="central"
-        className="font-bold text-lg"
+        className="text-xl"
       >
         {name}
       </text>
@@ -103,8 +103,8 @@ export function Doughnut({ className }: Props) {
             data={chartData}
             cx="50%"
             cy="50%"
-            innerRadius={120}
-            outerRadius={160}
+            innerRadius={70}
+            outerRadius={110}
             paddingAngle={0}
             dataKey="value"
             label={renderCustomLabel}

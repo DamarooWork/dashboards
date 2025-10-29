@@ -10,12 +10,16 @@ export function Cards({ className }: Props) {
       <Card title="Объекты ремонта" size="lg">
         <Doughnut className="h-full w-full mb-16" />
       </Card>
-      <Card className='flex flex-col justify-around' title="Выполнение объемов CMP" size="lg">
+      <Card
+        className="flex flex-col justify-between"
+        title="Выполнение объемов CMP"
+        size="lg"
+      >
         <Card
           title="Разворот работ"
           size="sm"
           startPage={{
-            title1: 'Разворот работ',
+            title1: 'Объекты',
             title2: 'Километры',
             value1: 8,
             plan1: 78,
@@ -24,10 +28,10 @@ export function Cards({ className }: Props) {
           }}
         />
         <Card
-          title="Разворот работ"
+          title="Выполнение работ"
           size="sm"
           startPage={{
-            title1: 'Разворот работ',
+            title1: 'Объекты',
             title2: 'Километры',
             value1: 8,
             plan1: 78,
@@ -36,10 +40,10 @@ export function Cards({ className }: Props) {
           }}
         />
         <Card
-          title="Разворот работ"
+          title="ПУ-48"
           size="sm"
           startPage={{
-            title1: 'Разворот работ',
+            title1: 'Объекты',
             title2: 'Километры',
             value1: 8,
             plan1: 78,
@@ -48,10 +52,10 @@ export function Cards({ className }: Props) {
           }}
         />
         <Card
-          title="Разворот работ"
+          title="ФСУ-5П"
           size="sm"
           startPage={{
-            title1: 'Разворот работ',
+            title1: 'Объекты',
             title2: 'Километры',
             value1: 8,
             plan1: 78,
@@ -60,7 +64,56 @@ export function Cards({ className }: Props) {
           }}
         />
       </Card>
-      <Card title="Финансовое освоение" size="lg"></Card>
+      <Card
+        className="flex flex-col justify-between"
+        title="Финансовое освоение"
+        size="lg"
+      >
+        <Card
+          title="Общее освоение"
+          size="sm"
+          startPage={{
+            title1: 'Млн. руб.',
+            title2: 'Отклонение',
+            value1: 1630,
+            plan1: 2190,
+            value2: -1280,
+          }}
+        />
+        <Card
+          title="Хоз. способ"
+          size="sm"
+          startPage={{
+            title1: 'Млн. руб.',
+            title2: 'Отклонение',
+            value1: 1630,
+            plan1: 2190,
+            value2: -1280,
+          }}
+        />
+        <Card
+          title="Сторонний подряд"
+          size="sm"
+          startPage={{
+            title1: 'Млн. руб.',
+            title2: 'Отклонение',
+            value1: 1630,
+            plan1: 2190,
+            value2: -1280,
+          }}
+        />
+        <Card
+          title="ПИР"
+          size="sm"
+          startPage={{
+            title1: 'Млн. руб.',
+            title2: 'Отклонение',
+            value1: 1630,
+            plan1: 2190,
+            value2: -1280,
+          }}
+        />
+      </Card>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { cn } from '@/shared/lib/utils'
+import { Progress } from '@/shared/ui'
 
 interface Props {
   className?: string
@@ -9,13 +10,13 @@ interface Props {
   dashboard?: boolean
   active?: boolean
   size?: 'sm' | 'md' | 'lg'
-  startPage?:{
+  startPage?: {
     title1: string
     title2: string
     value1: number
     plan1: number
     value2: number
-    plan2: number
+    plan2?: number
   }
 }
 export function Card({
@@ -34,7 +35,7 @@ export function Card({
     plan1: 0,
     value2: 0,
     plan2: 0,
-  }
+  },
 }: Props) {
   return (
     <div
@@ -73,17 +74,31 @@ export function Card({
         children
       )}
       {startPage.title1 && (
-        <div className="flex flex-row justify-between items-center gap-4">
-         <div>
-          <div className='flex flex-row gap-2 items-center'>
-            <p className="text-2xl">{startPage.title1}</p>
-            <p className="text-2xl">{startPage.title2}</p>
-         </div>
-         <div className='flex flex-row justify-between'>
-            <p className="text-2xl">{startPage.value1}/{startPage.plan1}</p>
-            <p className="text-2xl">{startPage.value2}/{startPage.plan2}</p>
-         </div>
-        </div>  </div>
+        <div className="flex flex-row justify-between gap-4 bg-foreground/5 rounded-b-md -mx-4 px-4 -mb-2 py-2">
+          <div className="flex flex-row gap-4 flex-1">
+            <div className="flex flex-col items-center  ">
+              <p className="text-2xl">{startPage.title1}</p>
+              <p className="text-2xl">
+                {startPage.value1}/{startPage.plan1}
+              </p>
+            </div>
+            <div className="flex flex-col items-center">
+              <p className="text-2xl line-clamp-1">{startPage.title2}</p>
+              <p className="text-2xl line-clamp-1">
+                {startPage.value2} {startPage.plan2 && ` / ${startPage.plan2}`}
+              </p>
+            </div>
+          </div>
+          <div className="flex flex-row gap-2 items-center basis-[40%] w-full self-end  -mb-1">
+            <Progress
+              value={Math.round((startPage.value1 / startPage.plan1) * 100)}
+              className="h-4"
+            />
+            <span className="text-2xl ">
+              {Math.round((startPage.value1 / startPage.plan1) * 100)}%
+            </span>
+          </div>
+        </div>
       )}
     </div>
   )
