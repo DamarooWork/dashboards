@@ -7,7 +7,7 @@ export function TransferZp() {
   return (
     <section className="flex flex-col gap-4 flex-1 h-full">
       <Speedometer className="flex-1" value={117} maxValue={150} />
-      <Card size="sm">
+      <Card className='h-full' size="sm">
         <Histogram
           initialValue={50}
           weeklyIncrements={[1, 0, 1, 2, 3, 0, 2, 0]}

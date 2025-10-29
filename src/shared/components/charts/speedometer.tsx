@@ -96,7 +96,7 @@ export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
     <section className={className}>
       <div className="w-full h-full flex flex-col items-center justify-center relative">
         {/* Контейнер для графика */}
-        <div className="w-full h-34 relative">
+        <div className="w-full h-full relative">
           {chartData ? (
             <Doughnut ref={chartRef} options={options} data={chartData} />
           ) : (

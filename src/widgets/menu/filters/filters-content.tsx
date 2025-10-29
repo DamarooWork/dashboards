@@ -95,7 +95,7 @@ export function FiltersContent() {
           </div>
         </div>
 
-        {pathname === '/sbor-id' && (
+        {(pathname === '/sbor-id' || pathname === '/start-page') && (
           <>
             <Label className="text-2xl">Вид работ</Label>
             <div className="grid gap-3 ">
