@@ -1,5 +1,6 @@
 'use client'
 
+import { useMemo } from 'react'
 import { Bar, BarChart, XAxis, YAxis } from 'recharts'
 
 import {
@@ -8,6 +9,8 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from '@/shared/ui'
+import { data } from '@/shared/lib/data/sbor-id/v_sd_collection'
+import { useFiltersStore } from '@/shared/store'
 
 export const description = 'Предоставление ИД по Исполнителям'
 
@@ -19,20 +22,9 @@ interface ChartData {
   percent: number
 }
 
-const chartData: ChartData[] = [
-  { name: 'ПЧ', value: 152, total: 200, remaining: 48, percent: 76 },
-  { name: 'РЦДМ', value: 122, total: 200, remaining: 78, percent: 61 },
-  { name: 'ДРП', value: 116, total: 200, remaining: 84, percent: 58 },
-  { name: 'Д', value: 110, total: 200, remaining: 90, percent: 55 },
-  { name: 'ЭЧ', value: 98, total: 200, remaining: 102, percent: 49 },
-  { name: 'ШЧ', value: 92, total: 200, remaining: 108, percent: 46 },
-  { name: 'НС', value: 82, total: 200, remaining: 118, percent: 41 },
-  { name: 'ДТВ', value: 74, total: 200, remaining: 126, percent: 37 },
-]
-
 const chartConfig = {
   value: {
-    label: 'Значение',
+    label: 'Собрано',
     color: 'var(--chart-2)',
   },
   remaining: {
@@ -40,33 +32,103 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const renderLabel = (props: any) => {
-  const { x, y, width, height, index } = props
-
-  if (index === undefined || index === -1) return <text />
-
-  const data = chartData[index]
-  // Вычисляем позицию относительно общей ширины графика
-  const chartWidth = 200 // максимальное значение total
-  const barWidth = (data.total / chartWidth) * Number(width)
-  const xPos = Number(x) + barWidth + 10
-  const yPos = Number(y) + Number(height) / 2
-
-  return (
-    <text
-      x={xPos}
-      y={yPos}
-      fill="var(--foreground)"
-      fontSize={24}
-      textAnchor="start"
-      dominantBaseline="middle"
-    >
-      {data.value}/{data.total} · {data.percent}%
-    </text>
-  )
-}
-
 export function ChartPerformers() {
+  const { v_sd_collection } = data
+  const { road, year, typeOfWork } = useFiltersStore()
+
+  const chartData: ChartData[] = useMemo(() => {
+    // Фильтруем данные по выбранным фильтрам
+    let filteredData = v_sd_collection
+
+    // Фильтр по году
+    if (year) {
+      filteredData = filteredData.filter(
+        (item) => item.year.toString() === year
+      )
+    }
+
+    // Фильтр по дороге
+    if (road && road !== 'Все дороги') {
+      filteredData = filteredData.filter((item) => item.railway_name === road)
+    }
+
+    // Фильтр по типу работы
+    if (typeOfWork && typeOfWork !== 'Все') {
+      filteredData = filteredData.filter(
+        (item) => item.repairtype_name === typeOfWork
+      )
+    }
+
+    // Группируем данные по исполнителям (workgroup_name)
+    const performersMap = new Map<
+      string,
+      { collected: number; total: number }
+    >()
+
+    filteredData.forEach((item) => {
+      const performer = item.workgroup_name
+      if (!performersMap.has(performer)) {
+        performersMap.set(performer, { collected: 0, total: 0 })
+      }
+      const stats = performersMap.get(performer)!
+      stats.total++
+      if (item.is_collected === 1) {
+        stats.collected++
+      }
+    })
+
+    // Преобразуем в массив и сортируем по проценту выполнения
+    const chartDataArray: ChartData[] = Array.from(performersMap.entries())
+      .map(([name, stats]) => ({
+        name,
+        value: stats.collected,
+        total: stats.total,
+        remaining: stats.total - stats.collected,
+        percent: Math.round((stats.collected / stats.total) * 100),
+      }))
+      .sort((a, b) => b.percent - a.percent) // Сортируем по убыванию процента
+
+    return chartDataArray
+  }, [road, year, typeOfWork, v_sd_collection])
+
+  const renderLabel = (props: any) => {
+    const { x, y, width, height, index } = props
+
+    if (index === undefined || index === -1 || !chartData[index])
+      return <text />
+
+    const item = chartData[index]
+    // Вычисляем позицию относительно общей ширины графика
+    const maxTotal = Math.max(...chartData.map((d) => d.total))
+    const barWidth = (item.total / maxTotal) * Number(width)
+    const xPos = Number(x) + barWidth + 10
+    const yPos = Number(y) + Number(height) / 2
+
+    return (
+      <text
+        x={xPos}
+        y={yPos}
+        fill="var(--foreground)"
+        fontSize={24}
+        textAnchor="start"
+        dominantBaseline="middle"
+      >
+        {item.value}/{item.total} · {item.percent}%
+      </text>
+    )
+  }
+
+  // Проверка на пустые данные
+  if (chartData.length === 0) {
+    return (
+      <div className="h-full w-full flex items-center justify-center">
+        <p className="text-4xl text-muted-foreground">
+          Совпадений по фильтрам нет
+        </p>
+      </div>
+    )
+  }
+
   return (
     <ChartContainer
       config={chartConfig}

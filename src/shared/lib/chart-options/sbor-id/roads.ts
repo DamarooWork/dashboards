@@ -1,6 +1,11 @@
 export const roadsOptions = {
   responsive: true,
   maintainAspectRatio: false,
+  layout: {
+    padding: {
+      top: 40,
+    },
+  },
   plugins: {
     title: {
       display: false,
