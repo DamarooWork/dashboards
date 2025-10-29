@@ -31,10 +31,10 @@ export function Charts({
       )}
       {chartSwitchStatus === false && (
         <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
-          <Card className="basis-1/2 min-h-0" >
+          <Card className="basis-1/2  pt-8">
             <ApprovedZP />
           </Card>
-          <Card className={' basis-1/2 min-h-0'}>
+          <Card className={' basis-1/2  pt-8'}>
             <TransferZp />
           </Card>
         </section>
