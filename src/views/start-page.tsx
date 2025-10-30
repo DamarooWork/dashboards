@@ -5,7 +5,7 @@ export function   StartPage(){
 
   return (
     <section className="flex flex-col gap-12 flex-1 h-full">
-      <Header title="Стартовая страница" />
+      <Header title="Стартовый экран" />
       <Cards />
     </section>
   )

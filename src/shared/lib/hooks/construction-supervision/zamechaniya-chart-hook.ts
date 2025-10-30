@@ -95,19 +95,19 @@ export function ZamechaniyaChartHook() {
             },
             pointRadius: 0,
           },
-          // {
-          //   label: 'Процент устранения',
-          //   type: 'line' as const,
-          //   data: percentageEliminated,
-          //   backgroundColor: 'oklch(0.769 0.188 70.08)',
-          //   borderColor: 'oklch(0.769 0.188 70.08)',
-          //   tension: 0.5,
-          //   order: 0,
-          //   yAxisID: 'y1',
-          //   datalabels: {
-          //     display: false,
-          //   },
-          // },
+          {
+            label: 'Процент устранения',
+            type: 'line' as const,
+            data: percentageEliminated,
+            backgroundColor: 'oklch(0.769 0.188 70.08)',
+            borderColor: 'oklch(0.769 0.188 70.08)',
+            tension: 0.5,
+            order: 0,
+            yAxisID: 'y1',
+            datalabels: {
+              display: false,
+            },
+          },
         ],
       }
 

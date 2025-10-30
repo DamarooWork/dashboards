@@ -50,24 +50,24 @@ export const roadsOptions = {
         },
       },
     },
-    // y1: {
-    //   type: 'linear' as const,
-    //   position: 'right' as const,
-    //   min: 0,
-    //   max: 120,
-    //   grid: {
-    //     display: false,
-    //   },
-    //   ticks: {
-    //     color: '#000',
-    //     font: {
-    //       size: 24,
-    //     },
-    //     callback: function (value: any) {
-    //       if (value > 100) return ''
-    //       return value + '%'
-    //     },
-    //   },
-    // },
+    y1: {
+      type: 'linear' as const,
+      position: 'right' as const,
+      min: 0,
+      max: 120,
+      grid: {
+        display: false,
+      },
+      ticks: {
+        color: '#000',
+        font: {
+          size: 24,
+        },
+        callback: function (value: any) {
+          if (value > 100) return ''
+          return value + '%'
+        },
+      },
+    },
   },
 }

@@ -86,19 +86,19 @@ export function RoadsChartHook() {
             },
             pointRadius: 0,
           },
-          // {
-          //   label: '% выполнения',
-          //   type: 'line' as const,
-          //   data: roads.map(() => faker.number.int({ min: 1, max: 100 })),
-          //   backgroundColor: 'oklch(0.769 0.188 70.08)',
-          //   borderColor: 'oklch(0.769 0.188 70.08)',
-          //   tension: 0.5,
-          //   yAxisID: 'y1',
-          //   order: 0,
-          //   datalabels: {
-          //     display: false,
-          //   },
-          // },
+          {
+            label: '% выполнения',
+            type: 'line' as const,
+            data: roads.map(() => faker.number.int({ min: 1, max: 100 })),
+            backgroundColor: 'oklch(0.769 0.188 70.08)',
+            borderColor: 'oklch(0.769 0.188 70.08)',
+            tension: 0.5,
+            yAxisID: 'y1',
+            order: 0,
+            datalabels: {
+              display: false,
+            },
+          },
         ],
       }
 

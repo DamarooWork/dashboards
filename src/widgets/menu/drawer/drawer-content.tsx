@@ -23,22 +23,22 @@ import { usePathname } from 'next/navigation'
 
 const dashboards = [
   {
-    title: 'Дашборд 1',
+    title: 'Стартовый экран',
     icon: <LaptopMinimalCheck className="size-20 self-center flex-1" />,
     href: '/start-page',
   },
   {
-    title: 'Дашборд 2',
+    title: 'Сбор ИД',
     icon: <ChartArea className="size-20 self-center flex-1" />,
     href: '/sbor-id',
   },
   {
-    title: 'Дашборд 3',
+    title: 'Сбор ЗП',
     icon: <ChartBar className="size-20 self-center flex-1" />,
     href: '/zadanie-na-proektirovanie',
   },
   {
-    title: 'Дашборд 4',
+    title: 'Строительный контроль',
     icon: <ChartBarBig className="size-20 self-center flex-1" />,
     href: '/construction-supervision',
   },
@@ -73,14 +73,15 @@ export function DrawerContentComponent() {
             Выберите панель для отображения
           </DrawerDescription>
         </DrawerHeader>
-        <div className=" px-4 pb-8 grid grid-cols-8 gap-4 w-full  text-center">
+        <div className=" px-4 pb-8 grid grid-cols-8 gap-4 w-full text-center items-stretch">
           {dashboards.map((dashboard) => (
             <DrawerClose asChild key={dashboard.title}>
-              <Link href={dashboard.href ?? ''}>
+              <Link href={dashboard.href ?? ''} className="h-full">
                 <Card
                   dashboard
                   title={dashboard.title}
                   active={pathname === dashboard.href}
+                  className="h-full"
                 >
                   {dashboard.icon}
                 </Card>
