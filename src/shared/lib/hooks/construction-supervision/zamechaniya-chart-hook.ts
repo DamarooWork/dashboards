@@ -25,8 +25,10 @@ export function ZamechaniyaChartHook() {
 
       // Вычисляем процент устраненных от общего количества
       const percentageEliminated = eliminatedData.map((eliminated, index) => {
-        const total = eliminated + remainingEliminatedData[index]
-        return total > 0 ? (eliminated / total) * 100 : 0
+        const remainder = remainingEliminatedData[index]
+        const totalPlan = eliminated + remainder // Общий план (всего замечаний)
+        // % устранения = (устранено / общий_план) * 100
+        return totalPlan > 0 ? Math.round((eliminated / totalPlan) * 100) : 0
       })
 
       const data = {

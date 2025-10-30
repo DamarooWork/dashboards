@@ -153,11 +153,16 @@ export function ApprovedTransferByRoads() {
         transferMainData.reduce((sum, val) => sum + val, 0) /
         transferMainData.length
 
-      // Вычисляем процент передачи от плана (верхнего края)
+      // Вычисляем процент передачи относительно утвержденного
       const transferPercent = roads.map((_, idx) => {
-        const plan = planData[idx]
-        const transfer = transferMainData[idx]
-        return plan > 0 ? Math.min(100, Math.round((transfer / plan) * 100)) : 0
+        const approved = approvedMainData[idx]
+        const approvedRemainder = approvedRemainingData[idx]
+        const totalApproved = approved + approvedRemainder // Общее утверждено
+        const transferred = transferMainData[idx]
+        // % передачи = (передано / общее_утверждено) * 100
+        return totalApproved > 0
+          ? Math.round((transferred / totalApproved) * 100)
+          : 0
       })
 
       const data = {

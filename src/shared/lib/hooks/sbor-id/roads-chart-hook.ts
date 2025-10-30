@@ -89,7 +89,14 @@ export function RoadsChartHook() {
           {
             label: '% выполнения',
             type: 'line' as const,
-            data: roads.map(() => faker.number.int({ min: 1, max: 100 })),
+            data: planData.map((completed, index) => {
+              const remainder = remainderData[index]
+              const totalPlan = completed + remainder // Общий план
+              // % выполнения = (выполнено / общий_план) * 100
+              return totalPlan > 0
+                ? Math.round((completed / totalPlan) * 100)
+                : 0
+            }),
             backgroundColor: 'oklch(0.769 0.188 70.08)',
             borderColor: 'oklch(0.769 0.188 70.08)',
             tension: 0.5,
