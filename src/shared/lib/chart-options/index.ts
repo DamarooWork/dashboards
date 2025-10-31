@@ -4,3 +4,4 @@ export { ustraneniyaZamechaniyOptions } from './construction-supervision/ustrane
 export { approvedTransferByRoadsOptions } from './zadanie-na-proektirovanie/approved-transfer-by-roads'
 export { approvedTransferByRoadsOptions as dashboard7ApprovedTransferByRoadsOptions } from './dashboard-7/approved-transfer-by-roads'
 export { roadsOptions as dashboard6RoadsOptions } from './dashboard-6/roads'
+export { roadsOptions as dogovorPirRoadsOptions } from './dogovor-pir/roads'

@@ -43,9 +43,9 @@ const dashboards = [
     href: '/construction-supervision',
   },
   {
-    title: 'Дашборд 5',
+    title: 'Проверка Смет ПИР',
     icon: <ChartBarDecreasing className="size-16 self-center flex-1" />,
-    href: '/dashboard-5',
+    href: '/proverka-smet-pir',
   },
   {
     title: 'Дашборд 6',

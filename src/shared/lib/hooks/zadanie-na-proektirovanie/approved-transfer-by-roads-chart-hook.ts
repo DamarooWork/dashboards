@@ -4,16 +4,7 @@ import { roads } from '@/shared/lib/data'
 import { faker } from '@faker-js/faker'
 import { useRef, useEffect, useState } from 'react'
 
-const createGradient = (
-  ctx: CanvasRenderingContext2D,
-  color1: string,
-  color2: string
-) => {
-  const gradient = ctx.createLinearGradient(0, 0, 0, 400)
-  gradient.addColorStop(0, color1)
-  gradient.addColorStop(1, color2)
-  return gradient
-}
+
 
 export function ApprovedTransferByRoadsChartHook() {
   const chartRef = useRef<any>(null)
@@ -75,7 +66,7 @@ export function ApprovedTransferByRoadsChartHook() {
           {
             label: 'Утверждено ЗП',
             data: approvedMainData,
-            backgroundColor: createGradient(ctx, '#10b981', '#10b981'),
+            backgroundColor: '#10b981',
             stack: 'approved',
             order: 1,
             barPercentage: 1,
@@ -93,7 +84,7 @@ export function ApprovedTransferByRoadsChartHook() {
           {
             label: 'Утверждено — остаток',
             data: approvedRemainingData,
-            backgroundColor: createGradient(ctx, '#E5E7EB', '#E5E7EB'),
+            backgroundColor: '#E5E7EB',
             stack: 'approved',
             order: 1,
             barPercentage: 1,
@@ -121,7 +112,7 @@ export function ApprovedTransferByRoadsChartHook() {
           {
             label: 'Передано ЗП',
             data: transferMainData,
-            backgroundColor: createGradient(ctx, '#2563eb', '#2563eb'),
+            backgroundColor: '#2563eb',
             stack: 'transferred',
             order: 1,
             barPercentage: 1,
@@ -139,7 +130,7 @@ export function ApprovedTransferByRoadsChartHook() {
           {
             label: 'Передано — остаток',
             data: transferRemainingData,
-            backgroundColor: createGradient(ctx, '#E5E7EB', '#E5E7EB'),
+            backgroundColor: '#E5E7EB',
             stack: 'transferred',
             order: 1,
             barPercentage: 1,

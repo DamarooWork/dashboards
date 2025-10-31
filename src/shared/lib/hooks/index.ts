@@ -4,3 +4,4 @@ export { UstraneniyaZamechaniyChartHook as useUstraneniyaZamechaniyChartHook } f
 export { ApprovedTransferByRoadsChartHook as useApprovedTransferByRoadsChartHook } from './zadanie-na-proektirovanie/approved-transfer-by-roads-chart-hook'
 export { ApprovedTransferByRoadsChartHook as useDashboard7ApprovedTransferByRoadsChartHook } from './dashboard-7/approved-transfer-by-roads-chart-hook'
 export { RoadsChartHook as useDashboard6RoadsChartHook } from './dashboard-6/roads-chart-hook'
+export { RoadsChartHook as useDogovorPirRoadsChartHook } from './dogovor-pir/roads-chart-hook'
