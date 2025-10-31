@@ -24,7 +24,7 @@ export default async function RootLayout({
         <main className="flex flex-col h-full px-20 py-18  overflow-hidden">
            {children}
         </main>
-        <Menu />
+        
       </body>
     </html>
   )

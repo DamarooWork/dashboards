@@ -3,7 +3,7 @@ import { Drawer } from './drawer'
 
 export function Menu() {
   return (
-    <aside className={'fixed bottom-4 right-2 flex flex-col gap-2'}>
+    <aside className={'flex flex-row gap-4 items-center'}>
       <Filters />
       <Drawer />
     </aside>

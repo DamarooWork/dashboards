@@ -109,6 +109,7 @@ export function ZamechaniyaChartHook() {
             datalabels: {
               display: false,
             },
+            
           },
         ],
       }
