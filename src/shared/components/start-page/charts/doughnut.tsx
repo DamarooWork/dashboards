@@ -6,6 +6,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
+  ChartLegend,
 } from '@/shared/ui'
 
 interface ChartData {
@@ -15,15 +16,31 @@ interface ChartData {
 }
 
 const chartData: ChartData[] = [
-  { name: 'Выполнено', value: 45, fill: '#10b981' },
-  { name: 'В процессе', value: 30, fill: '#2080f0' },
-  { name: 'Ожидает', value: 15, fill: '#f59e0b' },
-  { name: 'Отменено', value: 10, fill: '#ef4444' },
+  { name: 'КРН', value: 45, fill: '#3b82f6' },
+  { name: 'КРС', value: 30, fill: '#a855f7' },
+  { name: 'РС', value: 15, fill: '#f97316' },
+  { name: 'РП', value: 10, fill: '#84cc16' },
 ]
 
 const chartConfig = {
   value: {
     label: 'Количество',
+  },
+  КРН: {
+    label: 'КРН',
+    color: '#3b82f6', // Цвет из первого градиента
+  },
+  КРС: {
+    label: 'КРС',
+    color: '#a855f7', // Цвет из второго градиента
+  },
+  РС: {
+    label: 'РС',
+    color: '#f97316', // Цвет из третьего градиента
+  },
+  РП: {
+    label: 'РП',
+    color: '#84cc16', // Цвет из четвертого градиента
   },
 } satisfies ChartConfig
 
@@ -31,44 +48,57 @@ interface Props {
   className?: string
 }
 
-// Функция для рендеринга и значений, и названий
+// Функция для рендеринга только значений
 const renderCustomLabel = (props: any) => {
   const RADIAN = Math.PI / 180
-  const { cx, cy, midAngle, innerRadius, outerRadius, name, value } = props
+  const { cx, cy, midAngle, innerRadius, outerRadius, value } = props
 
   // Позиция значения в центре сектора
   const radiusValue = (innerRadius + outerRadius) / 2
   const xValue = cx + radiusValue * Math.cos(-midAngle * RADIAN)
   const yValue = cy + radiusValue * Math.sin(-midAngle * RADIAN)
 
-  // Позиция названия снаружи
-  const radiusName = outerRadius + 30
-  const xName = cx + radiusName * Math.cos(-midAngle * RADIAN)
-  const yName = cy + radiusName * Math.sin(-midAngle * RADIAN)
+  return (
+    <text
+      x={xValue}
+      y={yValue}
+      fill="white"
+      textAnchor="middle"
+      dominantBaseline="middle"
+      className="text-4xl translate-y-1"
+    >
+      {value}
+    </text>
+  )
+}
+
+// Кастомная легенда с цветами, соответствующими градиентам
+const renderCustomLegend = () => {
+  const legendItems = [
+    { name: 'КРН', color: '#3b82f6' },
+    { name: 'КРС', color: '#a855f7' },
+    { name: 'РС', color: '#f97316' },
+    { name: 'РП', color: '#84cc16' },
+  ]
 
   return (
-    <g>
-      <text
-        x={xValue}
-        y={yValue}
-        fill="white"
-        textAnchor="middle"
-        dominantBaseline="middle"
-        className="text-2xl"
-      >
-        {value}
-      </text>
-      <text
-        x={xName}
-        y={yName}
-        fill="#000000"
-        textAnchor={xName > cx ? 'start' : 'end'}
-        dominantBaseline="central"
-        className="text-xl"
-      >
-        {name}
-      </text>
-    </g>
+    <div className="flex items-center justify-center gap-6 pt-6">
+      {legendItems.map((item) => {
+        const config = chartConfig[item.name as keyof typeof chartConfig]
+        return (
+          <div
+            key={item.name}
+            className="flex justify-center items-center gap-2 text-4xl"
+          >
+            <div
+              className="size-6 shrink-0 rounded-full mt-1"
+              style={{ backgroundColor: item.color }}
+            />
+            <span>{config?.label || item.name}</span>
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
@@ -99,19 +129,18 @@ export function Doughnut({ className }: Props) {
             cursor={false}
             content={<ChartTooltipContent hideLabel />}
           />
+          <ChartLegend content={renderCustomLegend} />
           <Pie
             data={chartData}
             cx="50%"
             cy="50%"
-            innerRadius={70}
-            outerRadius={110}
+            innerRadius="50%"
+            outerRadius="80%"
             paddingAngle={0}
             dataKey="value"
             label={renderCustomLabel}
-            labelLine={{
-              stroke: '#000000',
-              strokeWidth: 1,
-            }}
+            labelLine={false}
+            nameKey="name"
           >
             {chartData.map((entry, index) => (
               <Cell

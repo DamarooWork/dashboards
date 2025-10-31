@@ -4,7 +4,7 @@ import { Header } from '@/widgets'
 export function   StartPage(){
 
   return (
-    <section className="flex flex-col gap-12 flex-1 h-full">
+    <section className="flex flex-col gap-12 flex-1 overflow-hidden h-full">
       <Header title="Стартовый экран" />
       <Cards />
     </section>

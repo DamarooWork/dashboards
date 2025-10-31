@@ -24,40 +24,40 @@ import { usePathname } from 'next/navigation'
 const dashboards = [
   {
     title: 'Стартовый экран',
-    icon: <LaptopMinimalCheck className="size-20 self-center flex-1" />,
+    icon: <LaptopMinimalCheck className="size-16 self-center flex-1" />,
     href: '/start-page',
   },
   {
     title: 'Сбор ИД',
-    icon: <ChartArea className="size-20 self-center flex-1" />,
+    icon: <ChartArea className="size-16 self-center flex-1" />,
     href: '/sbor-id',
   },
   {
     title: 'Сбор ЗП',
-    icon: <ChartBar className="size-20 self-center flex-1" />,
+    icon: <ChartBar className="size-16 self-center flex-1" />,
     href: '/zadanie-na-proektirovanie',
   },
   {
     title: 'Строительный контроль',
-    icon: <ChartBarBig className="size-20 self-center flex-1" />,
+    icon: <ChartBarBig className="size-16 self-center flex-1" />,
     href: '/construction-supervision',
   },
   {
     title: 'Дашборд 5',
-    icon: <ChartBarDecreasing className="size-20 self-center flex-1" />,
+    icon: <ChartBarDecreasing className="size-16 self-center flex-1" />,
   },
   {
     title: 'Дашборд 6',
-    icon: <ChartColumn className="size-20 self-center flex-1" />,
+    icon: <ChartColumn className="size-16 self-center flex-1" />,
   },
   {
     title: 'Дашборд 7',
-    icon: <ChartLine className="size-20 self-center flex-1" />,
+    icon: <ChartLine className="size-16 self-center flex-1" />,
   },
   {
     title: 'Дашборд 8',
     icon: (
-      <ChartNoAxesColumnDecreasing className="size-20 self-center flex-1" />
+      <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
     ),
   },
 ]
@@ -68,7 +68,7 @@ export function DrawerContentComponent() {
     <DrawerContent>
       <div className="mx-auto w-full">
         <DrawerHeader>
-          <DrawerTitle className="text-4xl font-bold -mt-4">Панели</DrawerTitle>
+          <DrawerTitle className="text-4xl -mt-8">Панели</DrawerTitle>
           <DrawerDescription className="text-3xl">
             Выберите панель для отображения
           </DrawerDescription>

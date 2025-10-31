@@ -10,10 +10,14 @@ interface FiltersStore {
 
 const currentYear = new Date().getFullYear().toString()
 
-export const useFiltersStore = create<FiltersStore>((set) => ({
+export const initialFiltersState = {
   year: currentYear,
   road: 'Все дороги',
   typeOfWork: 'Все',
+}
+
+export const useFiltersStore = create<FiltersStore>((set) => ({
+  ...initialFiltersState,
   applyFilters: (year, road, typeOfWork) => set({ year, road, typeOfWork }),
   resetFilters: () =>
     set({
