@@ -45,14 +45,17 @@ const dashboards = [
   {
     title: 'Дашборд 5',
     icon: <ChartBarDecreasing className="size-16 self-center flex-1" />,
+    href: '/dashboard-5',
   },
   {
     title: 'Дашборд 6',
     icon: <ChartColumn className="size-16 self-center flex-1" />,
+    href: '/dashboard-6',
   },
   {
     title: 'Дашборд 7',
     icon: <ChartLine className="size-16 self-center flex-1" />,
+    href: '/dashboard-7',
   },
   {
     title: 'Договор ПИР',
