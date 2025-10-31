@@ -55,10 +55,11 @@ const dashboards = [
     icon: <ChartLine className="size-16 self-center flex-1" />,
   },
   {
-    title: 'Дашборд 8',
+    title: 'Договор ПИР',
     icon: (
       <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
     ),
+    href: '/dogovor-pir',
   },
 ]
 export function DrawerContentComponent() {

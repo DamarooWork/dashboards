@@ -6,7 +6,7 @@ import { useChartSwitchStore } from '@/shared/store'
 import { usePathname } from 'next/navigation'
 
 // Список страниц, где Switch не должен отображаться
-const PAGES_WITHOUT_SWITCH = ['/start-page']
+const PAGES_WITHOUT_SWITCH = ['/start-page', '/dogovor-pir']
 
 export function Menu() {
   const { chartSwitchStatus, toggleSwitch } = useChartSwitchStore()
