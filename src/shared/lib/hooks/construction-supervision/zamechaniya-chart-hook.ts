@@ -19,17 +19,17 @@ export function ZamechaniyaChartHook() {
       )
 
       // Вычисляем среднее значение устраненных
-      const averageEliminated =
-        eliminatedData.reduce((sum, val) => sum + val, 0) /
-        eliminatedData.length
+      // const averageEliminated =
+      //   eliminatedData.reduce((sum, val) => sum + val, 0) /
+      //   eliminatedData.length
 
       // Вычисляем процент устраненных от общего количества
-      const percentageEliminated = eliminatedData.map((eliminated, index) => {
-        const remainder = remainingEliminatedData[index]
-        const totalPlan = eliminated + remainder // Общий план (всего замечаний)
-        // % устранения = (устранено / общий_план) * 100
-        return totalPlan > 0 ? Math.round((eliminated / totalPlan) * 100) : 0
-      })
+      // const percentageEliminated = eliminatedData.map((eliminated, index) => {
+      //   const remainder = remainingEliminatedData[index]
+      //   const totalPlan = eliminated + remainder // Общий план (всего замечаний)
+      //   // % устранения = (устранено / общий_план) * 100
+      //   return totalPlan > 0 ? Math.round((eliminated / totalPlan) * 100) : 0
+      // })
 
       const data = {
         labels: roads.map((road) => road.shortName),
@@ -82,35 +82,35 @@ export function ZamechaniyaChartHook() {
               },
             },
           },
-          {
-            label: 'Среднее устранено',
-            type: 'line' as const,
-            data: roads.map(() => averageEliminated),
-            borderColor: '#2080f0',
-            backgroundColor: '#2080f0',
-            borderDash: [10, 5],
-            tension: 0,
-            order: 0,
-            yAxisID: 'y',
-            datalabels: {
-              display: false,
-            },
-            pointRadius: 0,
-          },
-          {
-            label: 'Процент устранения',
-            type: 'line' as const,
-            data: percentageEliminated,
-            backgroundColor: 'oklch(0.769 0.188 70.08)',
-            borderColor: 'oklch(0.769 0.188 70.08)',
-            tension: 0.5,
-            order: 0,
-            yAxisID: 'y1',
-            datalabels: {
-              display: false,
-            },
-            
-          },
+          // {
+          //   label: 'Среднее устранено',
+          //   type: 'line' as const,
+          //   data: roads.map(() => averageEliminated),
+          //   borderColor: '#2080f0',
+          //   backgroundColor: '#2080f0',
+          //   borderDash: [10, 5],
+          //   tension: 0,
+          //   order: 0,
+          //   yAxisID: 'y',
+          //   datalabels: {
+          //     display: false,
+          //   },
+          //   pointRadius: 0,
+          // },
+          // {
+          //   label: 'Процент устранения',
+          //   type: 'line' as const,
+          //   data: percentageEliminated,
+          //   backgroundColor: 'oklch(0.769 0.188 70.08)',
+          //   borderColor: 'oklch(0.769 0.188 70.08)',
+          //   tension: 0.5,
+          //   order: 0,
+          //   yAxisID: 'y1',
+          //   datalabels: {
+          //     display: false,
+          //   },
+          //
+          // },
         ],
       }
 

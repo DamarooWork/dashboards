@@ -1,11 +1,6 @@
-export const roadsOptions = {
+export const approvedTransferByRoadsOptions = {
   responsive: true,
   maintainAspectRatio: false,
-  layout: {
-    padding: {
-      top: 40,
-    },
-  },
   plugins: {
     title: {
       display: false,
@@ -27,7 +22,7 @@ export const roadsOptions = {
   },
   scales: {
     x: {
-      stacked: true,
+      stacked: false,
       grid: {
         display: false,
       },
@@ -40,6 +35,7 @@ export const roadsOptions = {
     },
     y: {
       stacked: true,
+
       grid: {
         display: false,
       },
@@ -71,3 +67,4 @@ export const roadsOptions = {
     // },
   },
 }
+

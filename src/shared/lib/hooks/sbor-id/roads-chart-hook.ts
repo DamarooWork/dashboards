@@ -86,29 +86,29 @@ export function RoadsChartHook() {
           //   },
           //   pointRadius: 0,
           // },
-          {
-            label: '% выполнения',
-            type: 'line' as const,
-            data: planData.map((completed, index) => {
-              const remainder = remainderData[index]
-              const totalPlan = completed + remainder // Общий план
-              // % выполнения = (выполнено / общий_план) * 100
-              return totalPlan > 0
-                ? Math.round((completed / totalPlan) * 100)
-                : 0
-            }),
-            backgroundColor: 'oklch(0.769 0.188 70.08)',
-            borderColor: 'oklch(0.769 0.188 70.08)',
-            showLine: false,
-            tension: 0.5,
-            yAxisID: 'y1',
-            order: 0,
+          // {
+          //   label: '% выполнения',
+          //   type: 'line' as const,
+          //   data: planData.map((completed, index) => {
+          //     const remainder = remainderData[index]
+          //     const totalPlan = completed + remainder // Общий план
+          //     // % выполнения = (выполнено / общий_план) * 100
+          //     return totalPlan > 0
+          //       ? Math.round((completed / totalPlan) * 100)
+          //       : 0
+          //   }),
+          //   backgroundColor: 'oklch(0.769 0.188 70.08)',
+          //   borderColor: 'oklch(0.769 0.188 70.08)',
+          //   showLine: false,
+          //   tension: 0.5,
+          //   yAxisID: 'y1',
+          //   order: 0,
 
-            datalabels: {
-              display: false,
-            },
-            pointRadius: 8,
-          },
+          //   datalabels: {
+          //     display: false,
+          //   },
+          //   pointRadius: 8,
+          // },
         ],
       }
 

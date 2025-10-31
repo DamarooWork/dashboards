@@ -1,9 +1,29 @@
+'use client'
 import { Filters } from './filters'
 import { Drawer } from './drawer'
+import { Switch } from '@/shared/ui'
+import { useChartSwitchStore } from '@/shared/store'
+import { usePathname } from 'next/navigation'
+
+// Список страниц, где Switch не должен отображаться
+const PAGES_WITHOUT_SWITCH = ['/start-page']
 
 export function Menu() {
+  const { chartSwitchStatus, toggleSwitch } = useChartSwitchStore()
+  const pathname = usePathname()
+  const shouldShowSwitch = !PAGES_WITHOUT_SWITCH.includes(pathname)
+
   return (
     <aside className={'flex flex-row gap-4 items-center'}>
+      {shouldShowSwitch && (
+        <Switch
+          checked={chartSwitchStatus}
+          onCheckedChange={toggleSwitch}
+          className="relative"
+        >
+          Switch
+        </Switch>
+      )}
       <Filters />
       <Drawer />
     </aside>

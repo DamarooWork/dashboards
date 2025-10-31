@@ -51,22 +51,22 @@ export const zamechaniyaOptions = {
         },
       },
     },
-    y1: {
-      position: 'right' as const,
-      grid: {
-        display: false,
-      },
-      min: 0,
-      max: 120,
-      ticks: {
-        color: '#000',
-        font: {
-          size: 24,
-        },
-        callback: function (value: any) {
-          return value + '%'
-        },
-      },
-    },
+    // y1: {
+    //   position: 'right' as const,
+    //   grid: {
+    //     display: false,
+    //   },
+    //   min: 0,
+    //   max: 120,
+    //   ticks: {
+    //     color: '#000',
+    //     font: {
+    //       size: 24,
+    //     },
+    //     callback: function (value: any) {
+    //       return value + '%'
+    //     },
+    //   },
+    // },
   },
 }

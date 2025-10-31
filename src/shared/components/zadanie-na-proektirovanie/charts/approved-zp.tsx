@@ -6,7 +6,7 @@ import { Card } from '@/shared/components'
 export function ApprovedZP() {
   return (
     <section className="flex flex-col gap-4 h-full flex-1">
-      <Speedometer className="basis-1/2" value={101} maxValue={150} />
+      <Speedometer className="basis-1/2" value={121} maxValue={150} />
       <Card className="basis-1/2" size="sm">
         <Histogram
           initialValue={50}

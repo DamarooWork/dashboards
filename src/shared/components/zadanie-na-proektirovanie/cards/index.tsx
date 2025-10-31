@@ -1,12 +1,11 @@
 'use client'
 import { Card } from '@/shared/components/card'
 import { Progress } from '@/shared/ui'
+import { useChartSwitchStore } from '@/shared/store'
 
-interface CardsProps {
-  showProgressAndKpi: boolean
-}
-
-export function Cards({ showProgressAndKpi }: CardsProps) {
+export function Cards() {
+  const { chartSwitchStatus } = useChartSwitchStore()
+  const showProgressAndKpi = !chartSwitchStatus
   return (
     <div className="grid grid-cols-4 gap-12 shrink-0">
       <Card
