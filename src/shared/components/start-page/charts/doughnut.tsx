@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import { Pie, PieChart, Cell } from 'recharts'
 import {
   ChartContainer,
@@ -8,6 +9,7 @@ import {
   ChartLegend,
 } from '@/shared/ui'
 import { useDoughnutChart } from '@/shared/lib/hooks/start-page/doughnut-chart-hook'
+import { useAnimatedTextContent } from '@/shared/lib/hooks'
 import {
   doughnutChartData,
   doughnutChartConfig,
@@ -23,6 +25,12 @@ interface Props {
 export function Doughnut({ className }: Props) {
   const { selectedType, centerData, handleTypeSelect, handleChartClick } =
     useDoughnutChart()
+
+  const objectsRef = useRef<HTMLDivElement>(null)
+  const kilometersRef = useRef<HTMLDivElement>(null)
+
+  useAnimatedTextContent(objectsRef, centerData.objects)
+  useAnimatedTextContent(kilometersRef, centerData.kilometers.toFixed(1))
 
   return (
     <section className={className}>
@@ -70,7 +78,7 @@ export function Doughnut({ className }: Props) {
               innerRadius="60%"
               outerRadius="90%"
               paddingAngle={0}
-              dataKey="value"
+              dataKey="objects"
               label={renderPieLabel}
               labelLine={false}
               nameKey="name"
@@ -78,11 +86,16 @@ export function Doughnut({ className }: Props) {
             >
               {doughnutChartData.map((entry, index) => {
                 const gradientIndex = index + 1
+                const isSelected = selectedType === entry.name
+                const hasSelection = selectedType !== null
+
                 return (
                   <Cell
                     key={`cell-${entry.name}`}
                     fill={`url(#gradient${gradientIndex})`}
-                    stroke="none"
+                    stroke="#ffffff"
+                    strokeWidth={hasSelection && !isSelected ? 10 : 0}
+                    opacity={hasSelection && !isSelected ? 0.3 : 1}
                   />
                 )
               })}
@@ -105,9 +118,13 @@ export function Doughnut({ className }: Props) {
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
           <div className="text-center -translate-y-1/3">
             <div className="text-3xl mb-1">Объекты</div>
-            <div className="text-5xl mb-3">{centerData.objects}</div>
+            <div ref={objectsRef} className="text-5xl mb-3">
+              {centerData.objects}
+            </div>
             <div className="text-3xl mb-1">Километры</div>
-            <div className="text-5xl">{centerData.kilometers.toFixed(1)}</div>
+            <div ref={kilometersRef} className="text-5xl">
+              {centerData.kilometers.toFixed(1)}
+            </div>
           </div>
         </div>
       </div>
