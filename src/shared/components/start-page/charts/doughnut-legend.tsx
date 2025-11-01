@@ -52,11 +52,11 @@ export function DoughnutLegend({
               </span>
             </div>
             <span className="text-2xl whitespace-nowrap">
-              {item.objects}об
+              {item.objects} шт.
             </span>
             <span className="text-2xl whitespace-nowrap">
-              {item.kilometers}км
-            </span> 
+              {item.kilometers} км
+            </span>
           </Button>
         )
       })}
