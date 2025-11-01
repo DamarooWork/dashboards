@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
-import { Menu } from '@/widgets'
-import { LogoRZD } from '@/shared/components'
+
+
 
 export const metadata: Metadata = {
   title: 'Dashboards',
