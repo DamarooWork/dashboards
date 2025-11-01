@@ -45,7 +45,7 @@ interface FunnelProps {
  * <Funnel
  *   items={[
  *     { label: 'Лимит после', value: 100, formatValue: (v) => `${v} млн` },
- *     { label: 'Лимит УЗ', value: 80 },
+ *     { label: 'Лимит ЦЗ', value: 80 },
  *     { label: 'Стоимость', value: 60 }
  *   ]}
  * />

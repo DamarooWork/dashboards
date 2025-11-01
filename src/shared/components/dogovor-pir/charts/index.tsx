@@ -37,7 +37,7 @@ export function Charts() {
                   formatValue: (value, percent) => `${percent} млн`,
                 },
                 {
-                  label: 'Лимит УЗ',
+                  label: 'Лимит ЦЗ',
                   value: 60,
                   formatValue: (value, percent) => `${percent} млн`,
                 },

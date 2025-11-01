@@ -13,7 +13,7 @@ export function RoadsChartHook() {
       const chart = chartRef.current
       const ctx = chart.ctx
 
-      // Генерируем лимит УЗ для каждой дороги (максимум для синего стека)
+      // Генерируем лимит ЦЗ для каждой дороги (максимум для синего стека)
       const limitData = roads.map(() => faker.number.int({ min: 30, max: 50 }))
 
       // Генерируем основную часть стоимости (синий бар)
@@ -24,7 +24,7 @@ export function RoadsChartHook() {
         })
       )
 
-      // Генерируем остаток до лимита УЗ (серый над синим)
+      // Генерируем остаток до лимита ЦЗ (серый над синим)
       const limitRemainingData = limitData.map(
         (limit, idx) => limit - costMainData[idx]
       )
