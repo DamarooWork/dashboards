@@ -10,7 +10,7 @@ import {
 } from '@/shared/ui'
 import { data } from '@/shared/lib/data/sbor-id/v_project_sd_collection_status'
 import { useFiltersStore } from '@/shared/store'
-import { ALL_ROADS } from '@/shared/lib/const'
+import { ALL_ROADS, ALL_TYPES_OF_WORK } from '@/shared/lib/const'
 
 interface ChartData {
   name: string
