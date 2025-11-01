@@ -1,10 +1,10 @@
 'use client'
-import { Card } from '@/shared/components/card'
+import { Card, SmallCards } from '@/shared/components'
 import { useChartSwitchStore } from '@/shared/store'
 import { ByRoadsChart } from './by-roads'
-import { Speedometer } from '@/shared/components/charts'
-import { SmallCards } from '../cards/small-cards'
-import { Funnel } from './funnel'
+import { Speedometer, Funnel } from '@/shared/components/charts'
+import { Histogram } from '@/shared/components/charts'
+import { getPluralForm } from '@/shared/lib/utils'
 
 export function Charts() {
   const { chartSwitchStatus } = useChartSwitchStore()
@@ -20,18 +20,52 @@ export function Charts() {
         <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
           <Card className={'basis-1/2 flex flex-col min-h-0'}>
             <Speedometer className="flex-1 min-h-0" value={30} maxValue={50} />
+            <Card className="basis-1/2" size="sm">
+              <Histogram
+                initialValue={30}
+                weeklyIncrements={[1, 0, 1, 2, 3, 0, 2, 0]}
+              />
+            </Card>
           </Card>
           <Card className={'basis-1/2 flex flex-col min-h-0'}>
             <Funnel
               className="flex-1 min-h-0"
-              limitPosl={100}
-              limitUz={60}
-              cost={35}
+              items={[
+                {
+                  label: 'Лимит после',
+                  value: 100,
+                  formatValue: (value, percent) => `${percent} млн`,
+                },
+                {
+                  label: 'Лимит УЗ',
+                  value: 60,
+                  formatValue: (value, percent) => `${percent} млн`,
+                },
+                {
+                  label: 'Стоимость',
+                  value: 35,
+                  formatValue: (value, percent) => `${percent} млн`,
+                },
+              ]}
             />
             <SmallCards
-              title2="?????????"
-              title1="Дней до завершения"
-              daysToPlan={12}
+              title1="Дней до заключения"
+              value1="12"
+              title2="Крайний срок"
+              value2={
+                <div className="text-2xl flex flex-col justify-center">
+                  <div className="flex flex-col">
+                    <p>Приближается: <span className="text-4xl">{12}</span>{' '}
+                      {getPluralForm(12, 'объект', 'объекта', 'объектов')}
+                    </p>
+                  </div>
+                  <div className="flex flex-col">
+                    <p>Истекла: <span className="text-4xl">{12}</span>{' '}
+                      {getPluralForm(12, 'объект', 'объекта', 'объектов')}
+                    </p>
+                  </div>
+                </div>
+              }
             />
           </Card>
         </section>

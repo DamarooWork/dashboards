@@ -5,7 +5,7 @@ interface Props {
   className?: string
   title?: string
   children?: React.ReactNode
-  kpiValue?: number
+  kpiValue?: number | string
   kpiAll?: number
   dashboard?: boolean
   active?: boolean

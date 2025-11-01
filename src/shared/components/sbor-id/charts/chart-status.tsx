@@ -10,6 +10,7 @@ import {
 } from '@/shared/ui'
 import { data } from '@/shared/lib/data/sbor-id/v_project_sd_collection_status'
 import { useFiltersStore } from '@/shared/store'
+import { ALL_ROADS } from '@/shared/lib/const'
 
 interface ChartData {
   name: string
@@ -47,12 +48,12 @@ export function ChartStatus() {
     }
 
     // Фильтр по дороге
-    if (road && road !== 'Все дороги') {
+    if (road && road !== ALL_ROADS) {
       filteredData = filteredData.filter((item) => item.railway_name === road)
     }
 
     // Фильтр по типу работы
-    if (typeOfWork && typeOfWork !== 'Все') {
+    if (typeOfWork && typeOfWork !== ALL_TYPES_OF_WORK) {
       filteredData = filteredData.filter(
         (item) => item.repairtype_name === typeOfWork
       )

@@ -64,6 +64,36 @@ const dashboards = [
     ),
     href: '/dogovor-pir',
   },
+  {
+    title: 'Дашборд 9',
+    icon: (
+      <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
+    ),
+  },
+  {
+    title: 'Дашборд 10',
+    icon: (
+      <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
+    ),
+  },
+  {
+    title: 'Дашборд 11',
+    icon: (
+      <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
+    ),
+  },
+  {
+    title: 'Дашборд 12',
+    icon: (
+      <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
+    ),
+  },
+  {
+    title: 'Дашборд 13',
+    icon: (
+      <ChartNoAxesColumnDecreasing className="size-16 self-center flex-1" />
+    ),
+  },
 ]
 export function DrawerContentComponent() {
   const pathname = usePathname()

@@ -13,7 +13,8 @@ import { FilterButton } from './filter-button'
 import { usePathname } from 'next/navigation'
 import { useFiltersStore } from '@/shared/store'
 import { useState, useEffect } from 'react'
-const roadsFilters = [{ id: 0, name: 'Все дороги', shortName: 'Все' }].concat(
+import { ALL_ROADS, ALL_TYPES_OF_WORK } from '@/shared/lib/const'
+const roadsFilters = [{ id: 0, name: ALL_ROADS, shortName: ALL_ROADS }].concat(
   roads
 )
 
@@ -23,7 +24,7 @@ const yearsFilters = [
   { id: 4, value: (new Date().getFullYear() + 1).toString() },
 ]
 const typesOfWorkFilters = [
-  { id: 1, name: 'Все' },
+  { id: 1, name: ALL_TYPES_OF_WORK },
   { id: 2, name: 'КРН' },
   { id: 3, name: 'КРС' },
   { id: 4, name: 'РС' },

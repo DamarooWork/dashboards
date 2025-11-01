@@ -1,5 +1,5 @@
 'use client'
-import { Card } from '@/shared/components/card'
+import { Card } from '@/shared/components/cards/card'
 import { useChartSwitchStore } from '@/shared/store'
 import { ApprovedTransferByRoads } from './approved-transfer-by-roads'
 

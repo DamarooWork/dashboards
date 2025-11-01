@@ -1,5 +1,5 @@
 'use client'
-import { Card } from '@/shared/components/card'
+import { Card } from '@/shared/components/cards/card'
 import { getPluralForm } from '@/shared/lib/utils'
 import { Progress } from '@/shared/ui'
 
@@ -14,7 +14,7 @@ export function Cards() {
           </p>
         </div>
       </Card>
-      <Card title="Полный комплект" kpiValue={34} kpiAll={68} >
+      <Card title="Полный комплект" kpiValue={34} kpiAll={68}>
         <div className="flex  flex-1 justify-center items-center gap-2 bg-foreground/5 rounded-b-md   px-3 w-2/3 rounded-lg">
           <Progress value={68} className="h-4 " />
           <span className="text-xl font-semibold">68%</span>

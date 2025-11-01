@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { ALL_ROADS, ALL_TYPES_OF_WORK } from '../lib/const'
 
 interface FiltersStore {
   year: string
@@ -12,8 +13,8 @@ const currentYear = new Date().getFullYear().toString()
 
 export const initialFiltersState = {
   year: currentYear,
-  road: 'Все дороги',
-  typeOfWork: 'Все',
+  road: ALL_ROADS,
+  typeOfWork: ALL_TYPES_OF_WORK,
 }
 
 export const useFiltersStore = create<FiltersStore>((set) => ({
@@ -22,7 +23,7 @@ export const useFiltersStore = create<FiltersStore>((set) => ({
   resetFilters: () =>
     set({
       year: currentYear,
-      road: 'Все дороги',
-      typeOfWork: 'Все',
+      road: ALL_ROADS,
+      typeOfWork: ALL_TYPES_OF_WORK,
     }),
 }))

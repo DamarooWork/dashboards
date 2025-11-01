@@ -1,2 +1,2 @@
-export { Card } from './card'
-export { LogoRZD } from './logo-rzd' 
+export { Card, SmallCards } from './cards'
+export { Speedometer, Funnel } from './charts'

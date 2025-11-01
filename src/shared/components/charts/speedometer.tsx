@@ -8,9 +8,8 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 interface SpeedometerProps {
   className?: string
-  value: number // величина утвержденных ЗП
-
-  maxValue: number // величина ЗП по плану
+  value: number 
+  maxValue: number 
 }
 
 export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
@@ -93,7 +92,7 @@ export function Speedometer({ className, value, maxValue }: SpeedometerProps) {
 
   return (
     <section className={className}>
-      <div className="w-full h-full flex flex-col items-center justify-center relative">
+      <div className="w-full h-full flex flex-col items-center justify-center relative py-8">
         {/* Контейнер для графика */}
         <div className="w-full h-full relative">
           {chartData ? (

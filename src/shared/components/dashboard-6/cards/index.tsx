@@ -1,4 +1,4 @@
-import { Card } from '@/shared/components/card'
+import { Card } from '@/shared/components/cards/card'
 
 export function Cards() {
   return (
@@ -10,4 +10,3 @@ export function Cards() {
     </div>
   )
 }
-

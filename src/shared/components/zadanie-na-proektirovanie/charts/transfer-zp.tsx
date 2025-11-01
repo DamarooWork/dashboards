@@ -1,9 +1,11 @@
-import { Speedometer } from '@/shared/components/charts'
-import { SmallCards } from '../cards/small-cards'
-import { Histogram } from './histogram'
-import { Card } from '@/shared/components'
+import { Speedometer, Histogram } from '@/shared/components/charts'
+import { Card, SmallCards } from '@/shared/components'
+import { getPluralForm } from '@/shared/lib/utils'
 
 export function TransferZp() {
+  const lastDate = 38
+  const overdue = 1
+
   return (
     <section className="flex flex-col gap-4 flex-1 h-full">
       <Speedometer className="basis-1/2" value={117} maxValue={150} />
@@ -15,10 +17,23 @@ export function TransferZp() {
         />
       </Card>
       <SmallCards
+        title1="Дней до плановой даты"
         title2="Дата передачи"
-        daysToPlan={22}
-        lastDate={38}
-        overdue={1}
+        value1={22}
+        value2={
+          <div className="text-2xl flex flex-col justify-center">
+            <div className="flex flex-col">
+              <p>
+                Приближается: <span className="text-4xl">{lastDate}</span>{' '}
+                {getPluralForm(lastDate, 'объект', 'объекта', 'объектов')}
+              </p>
+              <p>
+                Истекла: <span className="text-4xl">{overdue}</span>{' '}
+                {getPluralForm(overdue, 'объект', 'объекта', 'объектов')}
+              </p>
+            </div>
+          </div>
+        }
       />
     </section>
   )
