@@ -8,7 +8,7 @@ export function Cards({ className }: Props) {
   return (
     <div className="grid grid-cols-3 gap-12 shrink-0 flex-1 h-full">
       <Card  title="Объекты ремонта" size="lg">
-        <Doughnut className="h-full w-full mb-16" />
+        <Doughnut className="h-full w-full" />
       </Card>
       <Card
         className="flex flex-col justify-between"

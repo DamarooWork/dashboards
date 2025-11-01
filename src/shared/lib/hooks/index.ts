@@ -5,3 +5,4 @@ export { ApprovedTransferByRoadsChartHook as useApprovedTransferByRoadsChartHook
 export { ApprovedTransferByRoadsChartHook as useDashboard7ApprovedTransferByRoadsChartHook } from './dashboard-7/approved-transfer-by-roads-chart-hook'
 export { RoadsChartHook as useDashboard6RoadsChartHook } from './dashboard-6/roads-chart-hook'
 export { RoadsChartHook as useDogovorPirRoadsChartHook } from './dogovor-pir/roads-chart-hook'
+export { useDoughnutChart } from './start-page/doughnut-chart-hook'

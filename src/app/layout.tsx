@@ -1,8 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 
-
-
 export const metadata: Metadata = {
   title: 'Dashboards',
   description: 'Demo dashboards',
@@ -22,9 +20,8 @@ export default async function RootLayout({
         className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto h-screen overflow-hidden relative`}
       >
         <main className="flex flex-col h-full px-20 pb-20 pt-8 overflow-hidden">
-           {children}
+          {children}
         </main>
-        
       </body>
     </html>
   )
