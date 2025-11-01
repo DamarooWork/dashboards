@@ -19,8 +19,8 @@ export function Charts() {
       {chartSwitchStatus === true && (
         <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
           <Card className={'basis-1/2 flex flex-col min-h-0'}>
-            <Speedometer className="flex-1 min-h-0" value={30} maxValue={50} />
-            <Card className="basis-1/2" size="sm">
+            <Speedometer className="h-1/2" value={30} maxValue={50} />
+            <Card className="h-1/2" size="sm">
               <Histogram
                 initialValue={30}
                 weeklyIncrements={[1, 0, 1, 2, 3, 0, 2, 0]}
@@ -29,7 +29,7 @@ export function Charts() {
           </Card>
           <Card className={'basis-1/2 flex flex-col min-h-0'}>
             <Funnel
-              className="flex-1 min-h-0"
+              className="h-2/3"
               items={[
                 {
                   label: 'Лимит после',
@@ -55,12 +55,14 @@ export function Charts() {
               value2={
                 <div className="text-2xl flex flex-col justify-center">
                   <div className="flex flex-col">
-                    <p>Приближается: <span className="text-4xl">{12}</span>{' '}
+                    <p>
+                      Приближается: <span className="text-4xl">{12}</span>{' '}
                       {getPluralForm(12, 'объект', 'объекта', 'объектов')}
                     </p>
                   </div>
                   <div className="flex flex-col">
-                    <p>Истекла: <span className="text-4xl">{12}</span>{' '}
+                    <p>
+                      Истекла: <span className="text-4xl">{12}</span>{' '}
                       {getPluralForm(12, 'объект', 'объекта', 'объектов')}
                     </p>
                   </div>

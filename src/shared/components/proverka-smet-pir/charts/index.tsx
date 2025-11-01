@@ -10,7 +10,7 @@ export function Charts() {
       <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
         <Card className="basis-1/2">
           <Speedometer
-            className="flex-1 min-h-0"
+            className="h-2/3"
             value={19}
             maxValue={34}
           />
@@ -35,7 +35,7 @@ export function Charts() {
         </Card>
         <Card className="basis-1/2">
           <Funnel
-            className="flex-1 min-h-0"
+            className="h-2/3"
             items={[
               { label: 'Предварительная', value: 100, formatValue: (value, percent) => `${percent} млн` },
               { label: 'Согласованная', value: 60, formatValue: (value, percent) => `${percent} млн` },

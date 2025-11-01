@@ -103,11 +103,11 @@ export function Doughnut({ className }: Props) {
         />
         {/* Центральный текст с информацией */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="text-center -translate-y-10">
-            <div className="text-2xl mb-1">Объекты</div>
-            <div className="text-4xl mb-3">{centerData.objects}</div>
-            <div className="text-xl mb-1">Километры</div>
-            <div className="text-4xl">{centerData.kilometers.toFixed(1)}</div>
+          <div className="text-center -translate-y-1/3">
+            <div className="text-3xl mb-1">Объекты</div>
+            <div className="text-5xl mb-3">{centerData.objects}</div>
+            <div className="text-3xl mb-1">Километры</div>
+            <div className="text-5xl">{centerData.kilometers.toFixed(1)}</div>
           </div>
         </div>
       </div>

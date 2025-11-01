@@ -77,7 +77,7 @@ export function Histogram({
             Z
           `}
           fill={`url(#gradient-${colorScheme})`}
-          stroke={isLast ? '#10b981' : 'none'}
+          stroke={isLast ? colorScheme === 'green' ? '#10b981' : '#2563eb' : 'none'}
           strokeWidth={isLast ? 4 : 0}
         />
       </g>

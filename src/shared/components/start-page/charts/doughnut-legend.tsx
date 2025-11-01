@@ -33,10 +33,10 @@ export function DoughnutLegend({
             }}
             variant="outline"
             className={cn(
-              'flex flex-col justify-center items-center gap-.5 text-xl h-auto px-2 py-1.5 relative z-10 shrink-0 transition-all active:scale-90 will-change-transform',
+              'flex flex-col justify-center border-2 items-center gap-.5 text-xl h-auto px-2 py-1.5 relative z-10 shrink-0 transition-all active:scale-90 will-change-transform',
               isSelected || isAllSelected
                 ? 'opacity-100'
-                : 'opacity-40 hover:opacity-90'
+                : 'opacity-40 hover:opacity-80'
             )}
             style={{
               borderColor: item.fill,
