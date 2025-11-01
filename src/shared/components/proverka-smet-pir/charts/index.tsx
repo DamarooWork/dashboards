@@ -1,6 +1,7 @@
+'use client'
 import { Card, SmallCards } from '@/shared/components'
-import { Speedometer } from '@/shared/components/charts'
-import { Funnel } from '../../charts/funnel'
+import { Speedometer, Funnel } from '@/shared/components/charts'
+
 import { getPluralForm } from '@/shared/lib/utils'
 
 export function Charts() {
@@ -36,9 +37,9 @@ export function Charts() {
           <Funnel
             className="flex-1 min-h-0"
             items={[
-              { label: 'Предварительная', value: 100 },
-              { label: 'Согласованная', value: 60 },
-              { label: 'Лимит', value: 35 },
+              { label: 'Предварительная', value: 100, formatValue: (value, percent) => `${percent} млн` },
+              { label: 'Согласованная', value: 60, formatValue: (value, percent) => `${percent} млн` },
+              { label: 'Лимит', value: 35, formatValue: (value, percent) => `${percent} млн` },
             ]}
           />
           <SmallCards
