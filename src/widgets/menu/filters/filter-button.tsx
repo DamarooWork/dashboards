@@ -1,5 +1,5 @@
-import { useRef } from 'react'
-import { Button, Label, RadioGroupItem } from '@/shared/ui'
+
+import { Button } from '@/shared/ui'
 
 interface Props {
   className?: string
