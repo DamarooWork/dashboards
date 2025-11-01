@@ -8,7 +8,7 @@ export function Cards() {
         title="Согласовано"
         kpiValue={46 + ' ' + getPluralForm(46, 'объект', 'объекта', 'объектов')}
       />
-      <Card title="Стоимость предварительная" kpiValue="46 млн" />
+      <Card title="Стоимость сметная" kpiValue="46 млн" />
       <Card title="Стоимость согласованная" kpiValue="39 млн" />
       <Card title="Лимит ЦЗ" kpiValue="25 млн" />
     </div>
