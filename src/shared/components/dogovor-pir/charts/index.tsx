@@ -32,7 +32,7 @@ export function Charts() {
               className="h-2/3"
               items={[
                 {
-                  label: 'Лимит после',
+                  label: 'Лимит по смете',
                   value: 100,
                   formatValue: (value, percent) => `${percent} млн`,
                 },
