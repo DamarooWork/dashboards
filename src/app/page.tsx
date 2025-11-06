@@ -1,4 +1,4 @@
-import { redirect } from 'next/navigation'
-export default async function Home() {
-  redirect('/sbor-id')
+import { StartScreen } from '@/views'
+export default async function StartScreenPage() {
+  return <StartScreen />
 }

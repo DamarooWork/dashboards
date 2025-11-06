@@ -1,1 +1,0 @@
-export { Doughnut } from './doughnut'

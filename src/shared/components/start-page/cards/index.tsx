@@ -1,5 +1,5 @@
 import { Card } from '@/shared/components'
-import { Doughnut } from '@/shared/components/start-page'
+import { Doughnut } from '@/views/start-screen/components/charts'
 
 interface Props {
   className?: string

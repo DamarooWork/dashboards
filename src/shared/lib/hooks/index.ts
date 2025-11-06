@@ -1,9 +1,2 @@
-export { RoadsChartHook as useRoadsChartHook } from './sbor-id/roads-chart-hook'
-export { ZamechaniyaChartHook as useZamechaniyaChartHook } from './construction-supervision/zamechaniya-chart-hook'
-export { UstraneniyaZamechaniyChartHook as useUstraneniyaZamechaniyChartHook } from './construction-supervision/ustraneniya-zamechaniy-chart-hook'
-export { ApprovedTransferByRoadsChartHook as useApprovedTransferByRoadsChartHook } from './zadanie-na-proektirovanie/approved-transfer-by-roads-chart-hook'
-export { ApprovedTransferByRoadsChartHook as useDashboard7ApprovedTransferByRoadsChartHook } from './dashboard-7/approved-transfer-by-roads-chart-hook'
-export { RoadsChartHook as useDashboard6RoadsChartHook } from './dashboard-6/roads-chart-hook'
-export { RoadsChartHook as useDogovorPirRoadsChartHook } from './dogovor-pir/roads-chart-hook'
-export { useDoughnutChart } from './start-page/doughnut-chart-hook'
+// Все hooks для конкретных страниц были перемещены в соответствующие views
 export { useAnimatedTextContent } from './use-animated-text-content'
