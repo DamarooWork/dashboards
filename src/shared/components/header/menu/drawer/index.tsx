@@ -10,6 +10,7 @@ export function Drawer() {
         <Button
           className="rounded-xl size-18 shadow-lg border-foreground border-2 active:scale-90 will-change-transform transition-all duration-200"
           variant="outline"
+          title="Меню"
         >
           <Menu className="size-10" />
         </Button>

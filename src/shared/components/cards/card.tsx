@@ -62,7 +62,7 @@ export function Card({
           {title}
         </h3>
       )}
-      {kpiValue && (
+      {kpiValue !== undefined && kpiValue !== null && (
         <div className="w-full flex-1">
           <p className="text-5xl text-center">{kpiValue}</p>
         </div>

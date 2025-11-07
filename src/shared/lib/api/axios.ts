@@ -1,28 +1,38 @@
 import axios from 'axios'
-
-import { login } from './auth'
-import { getApiToken } from './token'
+import { getAuthValue } from './auth-value'
 
 // Создаем экземпляр axios с базовой конфигурацией
+// В режиме разработки используем прокси через Next.js API route для работы с cookies
+// В production используем прямой URL к API
+const getBaseURL = () => {
+  if (process.env.NODE_ENV === 'development') {
+    // Используем прокси для разработки (аналог proxy в Vite)
+    return '/api/proxy'
+  }
+  return process.env.NEXT_PUBLIC_API_URL
+}
+
 export const apiClient = axios.create({
-  baseURL: process.env.API_URL,
+  baseURL: getBaseURL(),
   headers: {
     'Content-Type': 'application/json',
-    Connection: 'keep-alive',
-    'User-Agent': 'dashboards-app/1.0',
-    Accept: '*/*',
-    'Accept-Encoding': 'gzip, deflate, br',
-    'x-auth': process.env.API_TOKEN,
   },
 })
 
-// Interceptor для добавления пустого тела запроса по умолчанию
-apiClient.interceptors.request.use((config) => {
+// Interceptor для добавления пустого тела запроса по умолчанию и заголовка x-auth
+apiClient.interceptors.request.use(async (config) => {
   const method = (config.method || '').toLowerCase()
   const methodSupportsBody = ['post', 'put', 'patch', 'delete'].includes(method)
   if (methodSupportsBody && typeof config.data === 'undefined') {
     config.data = {}
   }
+
+  // Добавляем заголовок x-auth из значения, полученного через login
+  const authValue = getAuthValue()
+  if (authValue) {
+    config.headers['x-auth'] = authValue
+  }
+
   return config
 })
 
@@ -33,11 +43,24 @@ apiClient.interceptors.response.use(
     const status = error.response?.status
     const code = error.code
     const rawUrl = error.config?.url as string | undefined
-    const fullUrl = rawUrl?.startsWith('http')
-      ? rawUrl
-      : error.config?.baseURL && rawUrl != null
-      ? new URL(rawUrl, error.config.baseURL).toString()
-      : rawUrl
+    const baseURL = error.config?.baseURL
+
+    // Формируем полный URL для логирования
+    let fullUrl: string | undefined = rawUrl
+    if (rawUrl) {
+      if (rawUrl.startsWith('http')) {
+        fullUrl = rawUrl
+      } else if (baseURL) {
+        if (baseURL.startsWith('http')) {
+          // Абсолютный базовый URL
+          fullUrl = new URL(rawUrl, baseURL).toString()
+        } else {
+          // Относительный базовый URL (например, /api/proxy)
+          fullUrl = `${baseURL}${rawUrl.startsWith('/') ? '' : '/'}${rawUrl}`
+        }
+      }
+    }
+
     console.error('API Error:', {
       message: error.message,
       code,

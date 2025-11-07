@@ -1,5 +1,5 @@
-import { apiClient } from './axios'
-import { setApiToken } from './token'
+import axios from 'axios'
+import { setAuthValue } from './auth-value'
 
 export type LoginRequest = {
   user: string
@@ -7,18 +7,31 @@ export type LoginRequest = {
 }
 
 export type LoginResponse = {
-  token: string
+  token: {
+    value: string
+  }
+
   // могут быть дополнительные поля в ответе сервера
   [key: string]: unknown
 }
 
+/**
+ * Функция login выполняется на сервере (в API route),
+ * поэтому использует прямой URL к API, минуя прокси
+ */
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
-  const { data } = await apiClient.post<LoginResponse>(
-    '/json/login',
-    credentials
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://82.202.128.65:8080'
+  const { data } = await axios.post<LoginResponse>(
+    `${apiUrl}/json/login`,
+    credentials,
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
   )
-  if (data?.token) {
-    setApiToken(data.token)
+  if (data?.token?.value) {
+    setAuthValue(data.token.value)
   }
   return data
 }

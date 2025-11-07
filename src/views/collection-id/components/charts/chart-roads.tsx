@@ -15,8 +15,9 @@ import {
 } from 'chart.js'
 import datalabels from 'chartjs-plugin-datalabels'
 import { Chart } from 'react-chartjs-2'
-import { useRoadsChartHook } from '../../hooks'
-import { roadsOptions } from '../../chart-options'
+import { useRoadsChartHook } from '@/views/collection-id/hooks'
+import { roadsOptions } from '@/views/collection-id/chart-options'
+import { Loading, Error } from '@/shared/components'
 
 ChartJS.register(
   LinearScale,
@@ -32,12 +33,25 @@ ChartJS.register(
 )
 
 export function ChartRoads() {
-  const { chartRef, chartData } = useRoadsChartHook()
+  const { chartRef, chartData, isLoading, error, refetch } = useRoadsChartHook()
+
+  if (isLoading) {
+    return <Loading className="w-1/4 h-1/4" />
+  }
+
+  if (error) {
+    return <Error onRetry={() => refetch()} />
+  }
 
   return (
     <div className="w-full h-full">
       {chartData ? (
-        <Chart ref={chartRef} type="bar" options={roadsOptions} data={chartData} />
+        <Chart
+          ref={chartRef}
+          type="bar"
+          options={roadsOptions}
+          data={chartData}
+        />
       ) : (
         <Chart
           ref={chartRef}
@@ -52,4 +66,3 @@ export function ChartRoads() {
     </div>
   )
 }
-

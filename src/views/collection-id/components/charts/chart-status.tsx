@@ -1,108 +1,27 @@
 'use client'
 
-import { useMemo } from 'react'
 import { Bar, BarChart, XAxis, YAxis, Cell, LabelList } from 'recharts'
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/shared/ui'
+import { useChartStatusData } from '@/views/collection-id/hooks'
+import { Loading, Error } from '@/shared/components'
 import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/shared/ui'
-import { data } from '../../lib/data/v_project_sd_collection_status'
-import { useFiltersStore } from '@/shared/store'
-import { ALL_ROADS, ALL_TYPES_OF_WORK } from '@/shared/lib/const'
-
-interface ChartData {
-  name: string
-  value: number
-  color: string
-}
-
-const chartConfig = {
-  value: {
-    label: 'Статус',
-  },
-} satisfies ChartConfig
-
-const statusMapping: Record<string, string> = {
-  none: 'Нет',
-  partial: 'Частично',
-  near_completion: 'Почти',
-  complete: 'Полный',
-  provided: 'Передано',
-}
+  chartStatusConfig,
+  ChartStatusData,
+} from '@/views/collection-id/lib/types'
 
 export function ChartStatus() {
-  const { v_project_sd_collection_status } = data
-  const { road, year, typeOfWork } = useFiltersStore()
+  const { chartData, isLoading, error, refetch } = useChartStatusData()
 
-  const chartData: ChartData[] = useMemo(() => {
-    // Фильтруем данные по выбранным фильтрам
-    let filteredData = v_project_sd_collection_status
+  if (isLoading) {
+    return <Loading className="w-1/4 h-1/4" />
+  }
 
-    // Фильтр по году
-    if (year) {
-      filteredData = filteredData.filter(
-        (item) => item.year.toString() === year
-      )
-    }
-
-    // Фильтр по дороге
-    if (road && road !== ALL_ROADS) {
-      filteredData = filteredData.filter((item) => item.railway_name === road)
-    }
-
-    // Фильтр по типу работы
-    if (typeOfWork && typeOfWork !== ALL_TYPES_OF_WORK) {
-      filteredData = filteredData.filter(
-        (item) => item.repairtype_name === typeOfWork
-      )
-    }
-
-    // Подсчитываем количество для каждого статуса
-    const statusCounts = {
-      none: 0,
-      partial: 0,
-      near_completion: 0,
-      complete: 0,
-      provided: 0,
-    }
-
-    filteredData.forEach((item) => {
-      const status = item.status as keyof typeof statusCounts
-      if (status && statusCounts.hasOwnProperty(status)) {
-        statusCounts[status]++
-      }
-    })
-
-    // Формируем данные для графика
-    return [
-      { name: 'Нет', value: statusCounts.none, color: 'url(#barGradient)' },
-      {
-        name: 'Частично',
-        value: statusCounts.partial,
-        color: 'url(#barGradient)',
-      },
-      {
-        name: 'Почти',
-        value: statusCounts.near_completion,
-        color: 'url(#barGradient)',
-      },
-      {
-        name: 'Полный',
-        value: statusCounts.complete,
-        color: 'url(#barGradient)',
-      },
-      {
-        name: 'Передано',
-        value: statusCounts.provided,
-        color: 'url(#barGradient)',
-      },
-    ]
-  }, [road, year, typeOfWork])
+  if (error) {
+    return <Error onRetry={() => refetch()} />
+  }
 
   // Проверка на пустые данные
-  const hasData = chartData.some((item) => item.value > 0)
+  const hasData = chartData.some((item: ChartStatusData) => item.value > 0)
 
   if (!hasData) {
     return (
@@ -116,7 +35,7 @@ export function ChartStatus() {
 
   return (
     <section className={'h-full w-full flex justify-center items-center'}>
-      <ChartContainer config={chartConfig} className="h-full w-full">
+      <ChartContainer config={chartStatusConfig} className="h-full w-full">
         <BarChart
           data={chartData}
           layout="horizontal"
@@ -135,7 +54,7 @@ export function ChartStatus() {
             content={<ChartTooltipContent hideLabel />}
           />
           <Bar dataKey="value" radius={[14, 14, 10, 10]} barSize={40}>
-            {chartData.map((entry, index) => (
+            {chartData.map((entry: ChartStatusData, index: number) => (
               <Cell key={`cell-${index}`} fill={entry.color} />
             ))}
             <LabelList
@@ -161,4 +80,3 @@ export function ChartStatus() {
     </section>
   )
 }
-

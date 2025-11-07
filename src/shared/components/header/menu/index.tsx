@@ -2,6 +2,7 @@
 import { useEffect } from 'react'
 import { Filters } from './filters'
 import { Drawer } from './drawer'
+import { PrintButton } from './print'
 import { Switch } from '@/shared/ui'
 import { useChartSwitchStore } from '@/shared/store'
 import { usePathname } from 'next/navigation'
@@ -12,6 +13,7 @@ export function Menu() {
     useChartSwitchStore()
   const pathname = usePathname()
   const showSwitch = PAGES.find((page) => page.link === pathname)?.showSwitch
+
   useEffect(() => {
     setSwitchStatus(false)
   }, [pathname])
@@ -27,6 +29,7 @@ export function Menu() {
           Switch
         </Switch>
       )}
+      <PrintButton />
       <Filters />
       <Drawer />
     </aside>

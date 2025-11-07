@@ -11,7 +11,7 @@ import {
 } from '@/shared/ui'
 import { FilterButton } from './filter-button'
 import { usePathname } from 'next/navigation'
-import { useFiltersStore } from '@/shared/store'
+import { useFiltersStore, initialFiltersState } from '@/shared/store'
 import { useState, useEffect, useMemo } from 'react'
 import { ALL_ROADS, ALL_TYPES_OF_WORK, PAGES } from '@/shared/lib/const'
 const roadsFilters = [{ id: 0, name: ALL_ROADS, shortName: ALL_ROADS }].concat(
@@ -37,6 +37,7 @@ export function FiltersContent() {
     road: storeRoad,
     typeOfWork: storeTypeOfWork,
     applyFilters,
+    resetFilters,
   } = useFiltersStore()
 
   // Находим текущую страницу по pathname
@@ -82,11 +83,29 @@ export function FiltersContent() {
     setLocalRoad(storeRoad)
     setLocalTypeOfWork(storeTypeOfWork)
   }
+
+  // Проверка, являются ли фильтры стандартными
+  const areFiltersDefault = useMemo(() => {
+    return (
+      storeYear === initialFiltersState.year &&
+      storeRoad === initialFiltersState.road &&
+      storeTypeOfWork === initialFiltersState.typeOfWork
+    )
+  }, [storeYear, storeRoad, storeTypeOfWork])
+
+  const handleReset = () => {
+    resetFilters()
+    // Обновляем локальное состояние к стандартным значениям
+    setLocalYear(initialFiltersState.year)
+    setLocalRoad(initialFiltersState.road)
+    setLocalTypeOfWork(initialFiltersState.typeOfWork)
+  }
   return (
     <SheetContent
       className="flex flex-col"
       onInteractOutside={handleCancel}
       onEscapeKeyDown={handleCancel}
+      aria-describedby={'Фильтры'}
     >
       <SheetHeader>
         <SheetTitle className="text-4xl">Фильтры</SheetTitle>
@@ -153,8 +172,12 @@ export function FiltersContent() {
             Применить
           </Button>
         </SheetClose>
+        {!areFiltersDefault && (
+          <Button type="button" variant="destructive" onClick={handleReset}>
+            Сбросить фильтры
+          </Button>
+        )}
       </SheetFooter>
     </SheetContent>
   )
 }
-

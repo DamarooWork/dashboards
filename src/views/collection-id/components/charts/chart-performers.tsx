@@ -3,62 +3,52 @@
 import { useMemo } from 'react'
 import { Bar, BarChart, XAxis, YAxis } from 'recharts'
 
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/shared/ui'
-import { data } from '../../lib/data/v_sd_collection'
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/shared/ui'
 import { useFiltersStore } from '@/shared/store'
-import { ALL_ROADS, ALL_TYPES_OF_WORK, REQUIRED_PERFORMERS } from '@/shared/lib/const'
-
-
-
-
-interface ChartData {
-  name: string
-  value: number
-  total: number
-  remaining: number
-  percent: number
-  percentRemaining: number
-}
-
-const chartConfig = {
-  value: {
-    label: 'Собрано',
-    color: 'var(--chart-2)',
-  },
-  remaining: {
-    label: 'Осталось',
-  },
-} satisfies ChartConfig
+import {
+  ALL_ROADS,
+  ALL_TYPES_OF_WORK,
+  REQUIRED_PERFORMERS,
+} from '@/shared/lib/const'
+import { useSdCollection } from '@/views/collection-id/hooks'
+import { Loading, Error } from '@/shared/components'
+import {
+  SdCollectionItem,
+  ChartPerformersData,
+  chartPerformersConfig,
+} from '@/views/collection-id/lib/types'
 
 export function ChartPerformers() {
-  const { v_sd_collection } = data
+  const { data, isLoading, error, refetch } = useSdCollection()
   const { road, year, typeOfWork } = useFiltersStore()
 
-  const chartData: ChartData[] = useMemo(() => {
+  const chartData: ChartPerformersData[] = useMemo(() => {
+    // Если данные еще загружаются или произошла ошибка, возвращаем пустой массив
+    if (isLoading || error || !data?.contents) {
+      return []
+    }
+
     // Фильтруем данные по выбранным фильтрам
-    let filteredData = v_sd_collection
+    let filteredData: SdCollectionItem[] = data.contents
 
     // Фильтр по году
     if (year) {
       filteredData = filteredData.filter(
-        (item) => item.year.toString() === year
+        (item: SdCollectionItem) => item.year.toString() === year
       )
     }
 
     // Фильтр по дороге
     if (road && road !== ALL_ROADS) {
-      filteredData = filteredData.filter((item) => item.railway_name === road)
+      filteredData = filteredData.filter(
+        (item: SdCollectionItem) => item.railway_name === road
+      )
     }
 
     // Фильтр по типу работы
     if (typeOfWork && typeOfWork !== ALL_TYPES_OF_WORK) {
       filteredData = filteredData.filter(
-        (item) => item.repairtype_name === typeOfWork
+        (item: SdCollectionItem) => item.repairtype_name === typeOfWork
       )
     }
 
@@ -74,7 +64,7 @@ export function ChartPerformers() {
     })
 
     // Группируем данные по исполнителям (workgroup_name)
-    filteredData.forEach((item) => {
+    filteredData.forEach((item: SdCollectionItem) => {
       const performer = item.workgroup_name
       if (!performersMap.has(performer)) {
         performersMap.set(performer, { collected: 0, total: 0 })
@@ -87,26 +77,26 @@ export function ChartPerformers() {
     })
 
     // Преобразуем в массив
-    const chartDataArray: ChartData[] = Array.from(performersMap.entries()).map(
-      ([name, stats]) => {
-        // Обработка случая 0/0
-        const percent =
-          stats.total === 0
-            ? 0
-            : Math.round((stats.collected / stats.total) * 100)
-        return {
-          name,
-          value: stats.collected,
-          total: stats.total,
-          remaining: stats.total - stats.collected,
-          percent,
-          percentRemaining: 100 - percent,
-        }
+    const chartDataArray: ChartPerformersData[] = Array.from(
+      performersMap.entries()
+    ).map(([name, stats]) => {
+      // Обработка случая 0/0
+      const percent =
+        stats.total === 0
+          ? 0
+          : Math.round((stats.collected / stats.total) * 100)
+      return {
+        name,
+        value: stats.collected,
+        total: stats.total,
+        remaining: stats.total - stats.collected,
+        percent,
+        percentRemaining: 100 - percent,
       }
-    )
+    })
 
     return chartDataArray
-  }, [road, year, typeOfWork])
+  }, [road, year, typeOfWork, data, isLoading, error])
 
   const renderLabel = (props: any) => {
     const { x, y, width, height, index } = props
@@ -133,9 +123,17 @@ export function ChartPerformers() {
     )
   }
 
+  if (isLoading) {
+    return <Loading className="w-1/4 h-1/4"/>
+  }
+
+  if (error) {
+    return <Error onRetry={() => refetch()} />
+  }
+
   return (
     <ChartContainer
-      config={chartConfig}
+      config={chartPerformersConfig}
       className="h-full w-full pb-8 [&_.recharts-cartesian-axis-tick_text]:fill-foreground"
     >
       <BarChart
@@ -187,4 +185,3 @@ export function ChartPerformers() {
     </ChartContainer>
   )
 }
-

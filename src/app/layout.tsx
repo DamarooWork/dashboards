@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { Providers } from '@/shared/components/providers'
 
 export const metadata: Metadata = {
   title: 'Dashboards',
@@ -16,13 +17,15 @@ export default async function RootLayout({
       <head>
         <link rel="icon/jpg" href="icon.jpg" />
       </head>
-      <body
-        className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto h-screen overflow-hidden relative`}
-      >
-        <main className="flex flex-col gap-12 h-full px-20 pb-20 pt-8 overflow-hidden">
-          {children}
-        </main>
-      </body>
+      <Providers>
+        <body
+          className={`flex flex-col antialiased bg-background text-foreground max-w-[3840px] mx-auto h-screen overflow-hidden relative`}
+        >
+          <main className="flex flex-col gap-12 h-full px-20 pb-20 pt-8 overflow-hidden">
+            {children}
+          </main>
+        </body>
+      </Providers>
     </html>
   )
 }
