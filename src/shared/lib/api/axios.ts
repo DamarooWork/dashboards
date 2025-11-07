@@ -1,15 +1,14 @@
 import axios from 'axios'
 import { getAuthValue } from './auth-value'
 
+
 // Создаем экземпляр axios с базовой конфигурацией
-// В режиме разработки используем прокси через Next.js API route для работы с cookies
-// В production используем прямой URL к API
+// Всегда используем прокси через Next.js API route для избежания Mixed Content ошибок
+// Прокси работает на сервере Next.js и может безопасно обращаться к HTTP API
 const getBaseURL = () => {
-  if (process.env.NODE_ENV === 'development') {
-    // Используем прокси для разработки (аналог proxy в Vite)
-    return '/api/proxy'
-  }
-  return process.env.NEXT_PUBLIC_API_URL
+ // Всегда используем прокси для клиентских запросов
+  // Это решает проблему Mixed Content при загрузке страницы по HTTPS
+  return '/api/proxy'
 }
 
 export const apiClient = axios.create({
