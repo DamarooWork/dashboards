@@ -1,4 +1,11 @@
-import { CollectionId} from '@/views'
+import { Suspense } from 'react'
+import { CollectionId } from '@/views'
+import { Loading } from '@/shared/components'
+
 export default async function CollectionIdPage() {
-  return <CollectionId />
+  return (
+    <Suspense fallback={<Loading />}>
+      <CollectionId />
+    </Suspense>
+  )
 }

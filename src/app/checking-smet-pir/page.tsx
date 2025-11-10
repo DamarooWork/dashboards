@@ -1,5 +1,11 @@
+import { Suspense } from 'react'
 import { CheckingSmetPir } from '@/views'
-export default function CheckingSmetPirPage() {
-  return <CheckingSmetPir />
-}
+import { Loading } from '@/shared/components'
 
+export default function CheckingSmetPirPage() {
+  return (
+    <Suspense fallback={<Loading />}>
+      <CheckingSmetPir />
+    </Suspense>
+  )
+}
