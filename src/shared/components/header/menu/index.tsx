@@ -9,8 +9,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { PAGES } from '@/shared/lib/const'
 
 export function Menu() {
-  const { chartSwitchStatus, toggleSwitch, setSwitchStatus } =
-    useChartSwitchStore()
+  const { chartSwitchStatus, setSwitchStatus } = useChartSwitchStore()
   const pathname = usePathname()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -25,15 +24,7 @@ export function Menu() {
       isUpdatingUrlRef.current = false
       return
     }
-
-    const switchParam = searchParams.get('switch')
-    if (switchParam !== null) {
-      const switchValue = switchParam === 'true'
-      if (switchValue !== chartSwitchStatus) {
-        setSwitchStatus(switchValue)
-      }
-    }
-  }, [searchParams, chartSwitchStatus, setSwitchStatus])
+  }, [])
 
   // Сброс switch при изменении pathname
   useEffect(() => {
@@ -51,18 +42,6 @@ export function Menu() {
   // Обработчик изменения switch
   const handleSwitchChange = (checked: boolean) => {
     setSwitchStatus(checked)
-    // Обновляем searchParams
-    isUpdatingUrlRef.current = true
-    const params = new URLSearchParams(searchParams.toString())
-    if (checked) {
-      params.set('switch', 'true')
-    } else {
-      params.delete('switch')
-    }
-    const paramsString = params.toString()
-    router.replace(paramsString ? `${pathname}?${paramsString}` : pathname, {
-      scroll: false,
-    })
   }
 
   return (

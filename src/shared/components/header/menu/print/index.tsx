@@ -29,12 +29,35 @@ export function PrintButton() {
         h1El.style.color = '#000000'
       })
 
+      // Временно убираем тени у Card элементов для скриншота
+      const cardElements = mainElement.querySelectorAll('[class*="shadow"]')
+      const originalBoxShadows: string[] = []
+
+      cardElements.forEach((card) => {
+        const cardEl = card as HTMLElement
+        const computedStyle = getComputedStyle(cardEl)
+        originalBoxShadows.push(
+          cardEl.style.boxShadow || computedStyle.boxShadow
+        )
+        cardEl.style.boxShadow = 'none'
+      })
+
       // Создаем скриншот элемента main
       const dataUrl = await toPng(mainElement, {
         backgroundColor: '#ffffff',
         quality: 1.0,
         pixelRatio: 2, // Увеличиваем качество
         cacheBust: true,
+      })
+
+      // Восстанавливаем оригинальные тени
+      cardElements.forEach((card, index) => {
+        const cardEl = card as HTMLElement
+        if (originalBoxShadows[index]) {
+          cardEl.style.boxShadow = originalBoxShadows[index]
+        } else {
+          cardEl.style.boxShadow = ''
+        }
       })
 
       // Восстанавливаем оригинальные цвета

@@ -2,5 +2,6 @@ export { ApprovedTransferByRoadsChartHook as useApprovedTransferByRoadsChartHook
 export { useCardsData } from './use-cards-data'
 export { useApprovedZpData } from './use-approved-zp-data'
 export { useTransferZpData } from './use-transfer-zp-data'
+export { useFilteredDesignSpecStatus } from './use-filtered-design-spec-status'
 export * from './api'
 

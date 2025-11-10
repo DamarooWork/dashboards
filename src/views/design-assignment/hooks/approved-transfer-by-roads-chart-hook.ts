@@ -2,21 +2,21 @@
 
 import { roads } from '@/shared/lib/data'
 import { useRef, useEffect, useState, useMemo } from 'react'
-import { useDesignSpecStatus } from './api'
+import { useFilteredDesignSpecStatus } from './use-filtered-design-spec-status'
 import { DesignSpecStatusItem } from '../lib/types'
 
 export function ApprovedTransferByRoadsChartHook() {
   const chartRef = useRef<any>(null)
   const [chartData, setChartData] = useState<any>(null)
-  const { data: apiData, isLoading, isFetching } = useDesignSpecStatus()
+  const { data: apiData, isLoading, isFetching } = useFilteredDesignSpecStatus()
 
   // Обрабатываем данные из API
   const processedData = useMemo(() => {
-    if (isLoading || !apiData?.contents || !Array.isArray(apiData.contents)) {
+    if (isLoading || !apiData || !Array.isArray(apiData)) {
       return null
     }
 
-    const items: DesignSpecStatusItem[] = apiData.contents
+    const items: DesignSpecStatusItem[] = apiData
 
     // Создаем Map для группировки данных по дорогам
     const roadStats = new Map<

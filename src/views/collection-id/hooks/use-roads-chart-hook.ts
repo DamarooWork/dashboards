@@ -12,12 +12,12 @@ export function useRoadsChartHook() {
   const { road, year, typeOfWork } = useFiltersStore()
 
   const chartData = useMemo(() => {
-    if (isLoading || error || !data?.contents) {
+    if (isLoading || error || !data) {
       return null
     }
 
     // Фильтруем данные по выбранным фильтрам
-    let filteredData: SdCollectionStatusItem[] = data.contents
+    let filteredData: SdCollectionStatusItem[] = Array.isArray(data) ? data : []
 
     // Фильтр по году
     if (year) {

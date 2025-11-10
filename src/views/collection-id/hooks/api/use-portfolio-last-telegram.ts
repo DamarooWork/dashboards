@@ -5,7 +5,7 @@ import { useAuthReady } from '@/shared/components/providers/auth-provider'
 
 // Функция для выполнения запроса
 async function fetchPortfolioLastTelegram() {
-  const { data } = await apiClient.post('/json/v2/view/portfolio_last_telegram')
+  const { data } = await apiClient.post('/json/v2/xapi/entity/portfolio_last_telegram')
   return data
 }
 

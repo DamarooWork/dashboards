@@ -24,12 +24,12 @@ export function ChartPerformers() {
 
   const chartData: ChartPerformersData[] = useMemo(() => {
     // Если данные еще загружаются или произошла ошибка, возвращаем пустой массив
-    if (isLoading || error || !data?.contents) {
+    if (isLoading || error || !data) {
       return []
     }
 
     // Фильтруем данные по выбранным фильтрам
-    let filteredData: SdCollectionItem[] = data.contents
+    let filteredData: SdCollectionItem[] = Array.isArray(data) ? data : []
 
     // Фильтр по году
     if (year) {

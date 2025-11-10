@@ -18,7 +18,7 @@ export function useCardsData() {
 
   // Обработка данных portfolio_last_telegram
   const portfolioCardData = useMemo(() => {
-    if (!portfolioData?.contents) {
+    if (!portfolioData) {
       return {
         latestTelegramDate: null,
         daysSinceStart: null,
@@ -28,7 +28,7 @@ export function useCardsData() {
     }
 
     // Фильтруем данные
-    let filteredData: PortfolioLastTelegramItem[] = portfolioData.contents
+    let filteredData: PortfolioLastTelegramItem[] = Array.isArray(portfolioData) ? portfolioData : []
 
     if (year) {
       filteredData = filteredData.filter(
@@ -72,7 +72,7 @@ export function useCardsData() {
 
   // Обработка данных sd_collection_status
   const statusCardData = useMemo(() => {
-    if (!statusData?.contents) {
+    if (!statusData) {
       return {
         completedCount: 0,
         totalCount: 0,
@@ -82,7 +82,7 @@ export function useCardsData() {
     }
 
     // Фильтруем данные
-    let filteredData: SdCollectionStatusItem[] = statusData.contents
+    let filteredData: SdCollectionStatusItem[] = Array.isArray(statusData) ? statusData : []
 
     if (year) {
       filteredData = filteredData.filter(

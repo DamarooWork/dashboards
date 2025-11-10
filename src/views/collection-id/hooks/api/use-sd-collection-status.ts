@@ -5,7 +5,7 @@ import { useAuthReady } from '@/shared/components/providers/auth-provider'
 
 // Функция для выполнения запроса
 async function fetchSdCollectionStatus() {
-  const { data } = await apiClient.post('/json/v2/view/sd_collection_status')
+  const { data } = await apiClient.post('/json/v2/xapi/entity/sd_collection_status')
   return data
 }
 

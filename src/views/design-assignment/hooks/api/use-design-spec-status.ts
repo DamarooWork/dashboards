@@ -6,7 +6,7 @@ import { useAuthReady } from '@/shared/components/providers/auth-provider'
 // Функция для выполнения запроса
 // Если значения параметров null, API возвращает агрегированные данные по всем значениям
 async function fetchDesignSpecStatus() {
-  const { data } = await apiClient.post('/json/v2/view/design_spec_status')
+  const { data } = await apiClient.post('/json/v2/xapi/entity/design_spec_status')
   return data
 }
 
