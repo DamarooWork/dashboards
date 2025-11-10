@@ -31,6 +31,7 @@ export async function login(credentials: LoginRequest): Promise<LoginResponse> {
     }
   )
   if (data?.token?.value) {
+
     setAuthValue(data.token.value)
   }
   return data

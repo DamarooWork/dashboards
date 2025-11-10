@@ -5,6 +5,7 @@ import {
   Label,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
@@ -105,10 +106,12 @@ export function FiltersContent() {
       className="flex flex-col"
       onInteractOutside={handleCancel}
       onEscapeKeyDown={handleCancel}
-      aria-describedby={'Фильтры'}
     >
       <SheetHeader>
         <SheetTitle className="text-4xl">Фильтры</SheetTitle>
+        <SheetDescription className="sr-only">
+          Выберите параметры фильтрации для отображения данных
+        </SheetDescription>
       </SheetHeader>
       <div className="flex flex-col flex-1 gap-2 px-4 overflow-hidden">
         {showYearsFilter && (

@@ -11,7 +11,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (loginAttempted.current || getAuthValue()) {
         return
       }
-
       loginAttempted.current = true
       try {
         // Вызываем API route, который использует переменные окружения на сервере

@@ -14,7 +14,6 @@ export async function POST(request: NextRequest) {
     }
 
     const response = await login({ user, password })
-
     // Возвращаем только токен, чтобы клиент мог его сохранить
     return NextResponse.json({ token: response.token.value })
   } catch (error) {
