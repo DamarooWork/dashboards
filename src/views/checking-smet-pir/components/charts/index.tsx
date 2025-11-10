@@ -9,11 +9,7 @@ export function Charts() {
     <div className="flex-1 flex flex-col overflow-hidden min-h-0">
       <section className="flex flex-1 gap-12 overflow-hidden min-h-0">
         <Card className="basis-1/2">
-          <Speedometer
-            className="h-2/3"
-            value={19}
-            maxValue={34}
-          />
+          <Speedometer className="h-2/3" value={19} maxValue={34} />
           <SmallCards
             title1="Дата получения"
             value1="15.11.2025"
@@ -22,10 +18,11 @@ export function Charts() {
               <div className="text-2xl flex flex-col">
                 <div className="flex flex-col">
                   <p>
-                  Приближается: <span className="text-4xl">{12}</span>{' '}
+                    Приближается: <span className="text-4xl">{12}</span>{' '}
                     {getPluralForm(12, 'объект', 'объекта', 'объектов')}
                   </p>
-                  <p>Истекла: <span className="text-4xl">{12}</span>{' '}
+                  <p>
+                    Истекла: <span className="text-4xl">{12}</span>{' '}
                     {getPluralForm(12, 'объект', 'объекта', 'объектов')}
                   </p>
                 </div>
@@ -37,9 +34,21 @@ export function Charts() {
           <Funnel
             className="h-2/3"
             items={[
-              { label: 'Предварительная', value: 100, formatValue: (value, percent) => `${percent} млн` },
-              { label: 'Согласованная', value: 60, formatValue: (value, percent) => `${percent} млн` },
-              { label: 'Лимит', value: 35, formatValue: (value, percent) => `${percent} млн` },
+              {
+                label: 'Предварительная',
+                value: 100,
+                formatValue: (value, percent) => `${percent} млн`,
+              },
+              {
+                label: 'Согласованная',
+                value: 60,
+                formatValue: (value, percent) => `${percent} млн`,
+              },
+              {
+                label: 'Лимит',
+                value: 35,
+                formatValue: (value, percent) => `${percent} млн`,
+              },
             ]}
           />
           <SmallCards
@@ -66,4 +75,3 @@ export function Charts() {
     </div>
   )
 }
-

@@ -1,46 +1,94 @@
 'use client'
 
 import { roads } from '@/shared/lib/data'
-import { faker } from '@faker-js/faker'
-import { useRef, useEffect, useState } from 'react'
-
-
+import { useRef, useEffect, useState, useMemo } from 'react'
+import { useDesignSpecStatus } from './api'
+import { DesignSpecStatusItem } from '../lib/types'
 
 export function ApprovedTransferByRoadsChartHook() {
   const chartRef = useRef<any>(null)
   const [chartData, setChartData] = useState<any>(null)
+  const { data: apiData, isLoading, isFetching } = useDesignSpecStatus()
+
+  // Обрабатываем данные из API
+  const processedData = useMemo(() => {
+    if (isLoading || !apiData?.contents || !Array.isArray(apiData.contents)) {
+      return null
+    }
+
+    const items: DesignSpecStatusItem[] = apiData.contents
+
+    // Создаем Map для группировки данных по дорогам
+    const roadStats = new Map<
+      number,
+      {
+        total: number
+        approved: number
+        transferred: number
+      }
+    >()
+
+    // Инициализируем все дороги с нулевыми значениями
+    roads.forEach((road) => {
+      roadStats.set(road.id, { total: 0, approved: 0, transferred: 0 })
+    })
+
+    // Подсчитываем статистику по дорогам
+    items.forEach((item) => {
+      const railwayId = item.railway_id
+      if (railwayId && roadStats.has(railwayId)) {
+        const stats = roadStats.get(railwayId)!
+        stats.total++
+
+        if (item.dsp_task_workflowstepname === 'completed') {
+          stats.approved++
+        }
+
+        if (item.cl_task_workflowstepname === 'completed') {
+          stats.transferred++
+        }
+      }
+    })
+
+    // Формируем массивы данных в порядке roads
+    const planData: number[] = []
+    const approvedMainData: number[] = []
+    const approvedRemainingData: number[] = []
+    const transferMainData: number[] = []
+    const transferRemainingData: number[] = []
+
+    roads.forEach((road) => {
+      const stats = roadStats.get(road.id) || {
+        total: 0,
+        approved: 0,
+        transferred: 0,
+      }
+
+      planData.push(stats.total)
+      approvedMainData.push(stats.approved)
+      approvedRemainingData.push(stats.total - stats.approved)
+      transferMainData.push(stats.transferred)
+      transferRemainingData.push(stats.total - stats.transferred)
+    })
+
+    return {
+      planData,
+      approvedMainData,
+      approvedRemainingData,
+      transferMainData,
+      transferRemainingData,
+    }
+  }, [apiData, isLoading])
 
   useEffect(() => {
-    if (chartRef.current) {
-      const chart = chartRef.current
-      const ctx = chart.ctx
-
-      // Генерируем план для каждой дороги (одинаковый максимум для обоих баров)
-      const planData = roads.map(() => faker.number.int({ min: 10, max: 13 }))
-
-      // Генерируем данные для утвержденных ЗП (основная часть)
-      const approvedMainData = planData.map((plan) =>
-        faker.number.int({
-          min: Math.floor(plan * 0.5),
-          max: Math.floor(plan * 0.8),
-        })
-      )
-      // Генерируем остаток до плана для утвержденных
-      const approvedRemainingData = planData.map(
-        (plan, idx) => plan - approvedMainData[idx]
-      )
-
-      // Генерируем данные для переданных ЗП (основная часть)
-      const transferMainData = planData.map((plan) =>
-        faker.number.int({
-          min: Math.floor(plan * 0.2),
-          max: Math.floor(plan * 0.5),
-        })
-      )
-      // Генерируем остаток до плана для переданных
-      const transferRemainingData = planData.map(
-        (plan, idx) => plan - transferMainData[idx]
-      )
+    if (chartRef.current && processedData) {
+      const {
+        planData,
+        approvedMainData,
+        approvedRemainingData,
+        transferMainData,
+        transferRemainingData,
+      } = processedData
 
       // Вычисляем среднее значение переданных
       // const averageTransfer =
@@ -183,11 +231,11 @@ export function ApprovedTransferByRoadsChartHook() {
 
       setChartData(data)
     }
-  }, [])
+  }, [processedData])
 
   return {
     chartRef,
     chartData,
+    isFetching,
   }
 }
-

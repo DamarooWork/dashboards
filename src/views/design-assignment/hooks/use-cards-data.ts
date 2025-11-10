@@ -1,11 +1,11 @@
 'use client'
 
 import { useMemo } from 'react'
-import { useDesignSpecApprReport } from './api'
+import { useDesignSpecStatus } from './api'
 import { useFiltersStore } from '@/shared/store'
 import { ALL_ROADS } from '@/shared/lib/const'
 import { roads } from '@/shared/lib/data'
-import { DesignSpecApprReportItem } from '../lib/types'
+import { DesignSpecStatusItem } from '../lib/types'
 
 export function useCardsData() {
   const { road, year } = useFiltersStore()
@@ -26,12 +26,9 @@ export function useCardsData() {
     return year ? parseInt(year, 10) : null
   }, [year])
 
-  const { data: reportData, isLoading } = useDesignSpecApprReport(
-    yearNumber,
-    railwayId
-  )
+  const { data: reportData, isLoading } = useDesignSpecStatus()
 
-  // Обработка данных design_spec_appr_report
+  // Обработка данных design_spec_status
   const cardsData = useMemo(() => {
     if (
       !reportData?.contents ||
@@ -47,15 +44,44 @@ export function useCardsData() {
       }
     }
 
-    // API возвращает один объект с агрегированными данными
-    const data: DesignSpecApprReportItem = reportData.contents[0]
+    // API возвращает массив записей
+    const items: DesignSpecStatusItem[] = reportData.contents
+
+    // Подсчитываем утвержденные (dsp_task_workflowstepname === 'completed')
+    const approvedCount = items.filter(
+      (item) => item.dsp_task_workflowstepname === 'completed'
+    ).length
+
+    // Подсчитываем переданные (cl_task_workflowstepname === 'completed')
+    const transferredCount = items.filter(
+      (item) => item.cl_task_workflowstepname === 'completed'
+    ).length
+
+    // Общее количество записей
+    const totalCount = items.length
+
+    // Находим последнюю дату завершения утверждения среди completed
+    const approvalDates = items
+      .filter((item) => item.dsp_task_workflowstepname === 'completed')
+      .map((item) => item.dsp_task_completion_date)
+      .filter((date): date is string => date !== null && date !== undefined)
+      .sort()
+      .reverse()
+
+    // Находим последнюю дату завершения передачи среди completed
+    const transferDates = items
+      .filter((item) => item.cl_task_workflowstepname === 'completed')
+      .map((item) => item.cl_task_completion_date)
+      .filter((date): date is string => date !== null && date !== undefined)
+      .sort()
+      .reverse()
 
     return {
-      approvedCount: data.approved_quantity || 0,
-      totalCount: data.total_quantity || 0,
-      transferredCount: 0, // Это поле больше не используется в новой структуре
-      approvalDate: data.appr_planned_date,
-      transferDate: null, // Это поле больше не используется в новой структуре
+      approvedCount,
+      totalCount,
+      transferredCount,
+      approvalDate: approvalDates.length > 0 ? approvalDates[0] : null,
+      transferDate: transferDates.length > 0 ? transferDates[0] : null,
     }
   }, [reportData])
 

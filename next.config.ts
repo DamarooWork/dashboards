@@ -1,6 +1,6 @@
 import type { NextConfig } from 'next'
 
-const targetIP = process.env.NEXT_PUBLIC_API_URL || 'http://82.202.128.65:8080'
+const targetIP = process.env.NEXT_PUBLIC_API_URL
 
 const nextConfig: NextConfig = {
   // Проксирование запросов для разработки

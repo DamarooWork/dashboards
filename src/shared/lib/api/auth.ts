@@ -20,7 +20,7 @@ export type LoginResponse = {
  * поэтому использует прямой URL к API, минуя прокси
  */
 export async function login(credentials: LoginRequest): Promise<LoginResponse> {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://82.202.128.65:8080'
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
   const { data } = await axios.post<LoginResponse>(
     `${apiUrl}/json/login`,
     credentials,

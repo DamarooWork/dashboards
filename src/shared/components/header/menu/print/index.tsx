@@ -101,16 +101,88 @@ export function PrintButton() {
               scaledHeight
             )
 
+            // Определяем, является ли браузер Safari
+            const isSafari =
+              /^((?!chrome|android).)*safari/i.test(navigator.userAgent) ||
+              /iPad|iPhone|iPod/.test(navigator.userAgent)
+
             // Открываем PDF для печати
             pdf.autoPrint()
             const pdfBlob = pdf.output('blob')
             const pdfUrl = URL.createObjectURL(pdfBlob)
 
-            // Открываем PDF в новом окне
-            const printWindow = window.open(pdfUrl, '_blank')
-            if (printWindow) {
-              printWindow.onload = () => {
-                printWindow.print()
+            if (isSafari) {
+              // Для Safari используем iframe
+              const iframe = document.createElement('iframe')
+              iframe.style.position = 'fixed'
+              iframe.style.right = '0'
+              iframe.style.bottom = '0'
+              iframe.style.width = '0'
+              iframe.style.height = '0'
+              iframe.style.border = '0'
+              iframe.src = pdfUrl
+              document.body.appendChild(iframe)
+
+              // Ждем загрузки iframe и вызываем печать
+              iframe.onload = () => {
+                setTimeout(() => {
+                  try {
+                    iframe.contentWindow?.print()
+                    // Удаляем iframe после печати
+                    setTimeout(() => {
+                      document.body.removeChild(iframe)
+                      URL.revokeObjectURL(pdfUrl)
+                    }, 1000)
+                  } catch (error) {
+                    console.error('Ошибка при печати в Safari:', error)
+                    // Если не удалось напечатать, открываем в новом окне
+                    window.open(pdfUrl, '_blank')
+                    document.body.removeChild(iframe)
+                  }
+                }, 250)
+              }
+
+              iframe.onerror = () => {
+                document.body.removeChild(iframe)
+                URL.revokeObjectURL(pdfUrl)
+                reject(new Error('Ошибка загрузки PDF в iframe'))
+              }
+            } else {
+              // Для других браузеров используем window.open
+              const printWindow = window.open(pdfUrl, '_blank')
+              if (printWindow) {
+                // Используем несколько способов для надежности
+                const tryPrint = () => {
+                  try {
+                    printWindow.print()
+                    setTimeout(() => {
+                      URL.revokeObjectURL(pdfUrl)
+                    }, 1000)
+                  } catch (error) {
+                    console.error('Ошибка при печати:', error)
+                    URL.revokeObjectURL(pdfUrl)
+                  }
+                }
+
+                // Пробуем сразу, если окно уже загружено
+                if (printWindow.document.readyState === 'complete') {
+                  setTimeout(tryPrint, 100)
+                } else {
+                  printWindow.onload = () => {
+                    setTimeout(tryPrint, 100)
+                  }
+                }
+
+                // Fallback на случай, если onload не сработает
+                setTimeout(tryPrint, 500)
+              } else {
+                // Если popup заблокирован, скачиваем файл
+                const link = document.createElement('a')
+                link.href = pdfUrl
+                link.download = 'print.pdf'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
                 setTimeout(() => {
                   URL.revokeObjectURL(pdfUrl)
                 }, 1000)

@@ -10,7 +10,7 @@ interface FetchParams {
 
 // Функция для выполнения запроса
 // Если значения параметров null, API возвращает агрегированные данные по всем значениям
-async function fetchDesignSpecApprReport(params: FetchParams) {
+async function fetchDesignSpecProvReport(params: FetchParams) {
   const body = {
     searchFields: {
       p_year: params.p_year,
@@ -18,26 +18,24 @@ async function fetchDesignSpecApprReport(params: FetchParams) {
     },
   }
 
-  const { data } = await apiClient.post(
-    '/json/v2/view/design_spec_appr_report',
-    body
-  )
+  const { data } = await apiClient.post('/json/v2/view/design_spec_prov_report', body)
   return data
 }
 
 // Хук для использования в компонентах
-export function useDesignSpecApprReport(
+export function useDesignSpecProvReport(
   p_year: number | null,
   p_railway: number | null
 ) {
   const isAuthReady = useAuthReady()
 
   return useQuery({
-    queryKey: ['design_spec_appr_report', p_year, p_railway],
-    queryFn: () => fetchDesignSpecApprReport({ p_year, p_railway }),
+    queryKey: ['design_spec_prov_report', p_year, p_railway],
+    queryFn: () => fetchDesignSpecProvReport({ p_year, p_railway }),
     enabled: isAuthReady, // Запрос выполняется только после готовности авторизации
     staleTime: 5 * 60 * 1000, // 5 минут
     retry: 1,
     placeholderData: keepPreviousData,
   })
 }
+

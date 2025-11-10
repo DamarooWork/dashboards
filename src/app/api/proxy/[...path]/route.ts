@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const targetIP = process.env.NEXT_PUBLIC_API_URL || 'http://82.202.128.65:8080'
+const targetIP = process.env.NEXT_PUBLIC_API_URL
 
 /**
  * Универсальный прокси-route для проксирования API запросов
  * Аналог proxy конфигурации из Vite
- * Использование: /api/proxy/your-endpoint -> http://82.202.128.65:8080/your-endpoint
+ * Использование: /api/proxy/your-endpoint
  */
 export async function GET(
   request: NextRequest,

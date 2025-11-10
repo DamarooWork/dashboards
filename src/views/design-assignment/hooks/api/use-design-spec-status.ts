@@ -3,38 +3,20 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { apiClient } from '@/shared/lib/api/axios'
 import { useAuthReady } from '@/shared/components/providers/auth-provider'
 
-interface FetchParams {
-  p_year: number | null
-  p_railway: number | null
-}
-
 // Функция для выполнения запроса
 // Если значения параметров null, API возвращает агрегированные данные по всем значениям
-async function fetchDesignSpecApprReport(params: FetchParams) {
-  const body = {
-    searchFields: {
-      p_year: params.p_year,
-      p_railway: params.p_railway,
-    },
-  }
-
-  const { data } = await apiClient.post(
-    '/json/v2/view/design_spec_appr_report',
-    body
-  )
+async function fetchDesignSpecStatus() {
+  const { data } = await apiClient.post('/json/v2/view/design_spec_status')
   return data
 }
 
 // Хук для использования в компонентах
-export function useDesignSpecApprReport(
-  p_year: number | null,
-  p_railway: number | null
-) {
+export function useDesignSpecStatus() {
   const isAuthReady = useAuthReady()
 
   return useQuery({
-    queryKey: ['design_spec_appr_report', p_year, p_railway],
-    queryFn: () => fetchDesignSpecApprReport({ p_year, p_railway }),
+    queryKey: ['design_spec_status'],
+    queryFn: () => fetchDesignSpecStatus(),
     enabled: isAuthReady, // Запрос выполняется только после готовности авторизации
     staleTime: 5 * 60 * 1000, // 5 минут
     retry: 1,

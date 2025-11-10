@@ -17,6 +17,7 @@ import { Chart } from 'react-chartjs-2'
 import { roads } from '@/shared/lib/data'
 import { approvedTransferByRoadsOptions } from '../../chart-options'
 import { useApprovedTransferByRoadsChartHook } from '../../hooks'
+import { LoadingOverlay } from '@/shared/components'
 
 ChartJS.register(
   LinearScale,
@@ -32,10 +33,12 @@ ChartJS.register(
 )
 
 export function ApprovedTransferByRoads() {
-  const { chartRef, chartData } = useApprovedTransferByRoadsChartHook()
+  const { chartRef, chartData, isFetching } =
+    useApprovedTransferByRoadsChartHook()
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full relative">
+      <LoadingOverlay isLoading={isFetching} />
       {chartData ? (
         <Chart
           ref={chartRef}
@@ -57,4 +60,3 @@ export function ApprovedTransferByRoads() {
     </div>
   )
 }
-

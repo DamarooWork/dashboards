@@ -18,7 +18,7 @@ import {
   LaptopMinimalCheck,
 } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { PAGES, PageConfig } from '@/shared/lib/const/pages'
 
 // Класс для всех иконок в drawer
@@ -38,6 +38,14 @@ const pageIcons: Record<string, React.ReactNode> = {
 
 export function DrawerContentComponent() {
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  // Функция для формирования href с сохранением searchParams
+  const getHrefWithParams = (link: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+    const paramsString = params.toString()
+    return paramsString ? `${link}?${paramsString}` : link
+  }
 
   return (
     <DrawerContent>
@@ -51,7 +59,7 @@ export function DrawerContentComponent() {
         <div className=" px-4 pb-8 grid grid-cols-8 gap-4 w-full text-center items-stretch">
           {PAGES.map((page: PageConfig) => (
             <DrawerClose asChild key={page.id}>
-              <Link href={page.link} className="h-full">
+              <Link href={getHrefWithParams(page.link)} className="h-full">
                 <Card
                   dashboard
                   title={page.title}
@@ -70,4 +78,3 @@ export function DrawerContentComponent() {
     </DrawerContent>
   )
 }
-

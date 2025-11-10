@@ -11,9 +11,9 @@ import {
   SheetTitle,
 } from '@/shared/ui'
 import { FilterButton } from './filter-button'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useFiltersStore, initialFiltersState } from '@/shared/store'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { ALL_ROADS, ALL_TYPES_OF_WORK, PAGES } from '@/shared/lib/const'
 const roadsFilters = [{ id: 0, name: ALL_ROADS, shortName: ALL_ROADS }].concat(
   roads
@@ -33,6 +33,8 @@ const typesOfWorkFilters = [
 ]
 export function FiltersContent() {
   const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
   const {
     year: storeYear,
     road: storeRoad,
@@ -51,6 +53,34 @@ export function FiltersContent() {
   const showYearsFilter = currentPage?.filters.years ?? false
   const showTypesOfWorkFilter = currentPage?.filters.typesOfWork ?? false
   const showRoadsFilter = currentPage?.filters.roads ?? false
+
+  // Флаг для отслеживания, что мы сами обновляем URL (чтобы избежать циклов)
+  const isUpdatingUrlRef = useRef(false)
+
+  // Синхронизация store с searchParams при изменении URL
+  useEffect(() => {
+    if (isUpdatingUrlRef.current) {
+      isUpdatingUrlRef.current = false
+      return
+    }
+
+    const yearParam = searchParams.get('year')
+    const roadParam = searchParams.get('road')
+    const typeOfWorkParam = searchParams.get('typeOfWork')
+
+    // Если есть параметры в URL и они отличаются от store, обновляем store
+    if (
+      (yearParam && yearParam !== storeYear) ||
+      (roadParam && roadParam !== storeRoad) ||
+      (typeOfWorkParam && typeOfWorkParam !== storeTypeOfWork)
+    ) {
+      applyFilters(
+        yearParam || storeYear,
+        roadParam || storeRoad,
+        typeOfWorkParam || storeTypeOfWork
+      )
+    }
+  }, [searchParams, storeYear, storeRoad, storeTypeOfWork, applyFilters])
 
   // Локальное состояние для временных изменений
   const [localYear, setLocalYear] = useState(storeYear)
@@ -76,6 +106,14 @@ export function FiltersContent() {
 
   const handleApply = () => {
     applyFilters(localYear, localRoad, localTypeOfWork)
+
+    // Обновляем searchParams
+    isUpdatingUrlRef.current = true
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('year', localYear)
+    params.set('road', localRoad)
+    params.set('typeOfWork', localTypeOfWork)
+    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
   const handleCancel = () => {
@@ -100,6 +138,10 @@ export function FiltersContent() {
     setLocalYear(initialFiltersState.year)
     setLocalRoad(initialFiltersState.road)
     setLocalTypeOfWork(initialFiltersState.typeOfWork)
+
+    // Очищаем searchParams
+    isUpdatingUrlRef.current = true
+    router.replace(pathname, { scroll: false })
   }
   return (
     <SheetContent
@@ -176,9 +218,11 @@ export function FiltersContent() {
           </Button>
         </SheetClose>
         {!areFiltersDefault && (
-          <Button type="button" variant="destructive" onClick={handleReset}>
-            Сбросить фильтры
-          </Button>
+          <SheetClose asChild>
+            <Button type="button" variant="destructive" onClick={handleReset}>
+              Сбросить фильтры
+            </Button>
+          </SheetClose>
         )}
       </SheetFooter>
     </SheetContent>

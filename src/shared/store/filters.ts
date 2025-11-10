@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 import { ALL_ROADS, ALL_TYPES_OF_WORK } from '../lib/const'
 
 interface FiltersStore {
@@ -17,13 +18,25 @@ export const initialFiltersState = {
   typeOfWork: ALL_TYPES_OF_WORK,
 }
 
-export const useFiltersStore = create<FiltersStore>((set) => ({
-  ...initialFiltersState,
-  applyFilters: (year, road, typeOfWork) => set({ year, road, typeOfWork }),
-  resetFilters: () =>
-    set({
-      year: currentYear,
-      road: ALL_ROADS,
-      typeOfWork: ALL_TYPES_OF_WORK,
+export const useFiltersStore = create<FiltersStore>()(
+  persist(
+    (set) => ({
+      ...initialFiltersState,
+      applyFilters: (year, road, typeOfWork) => set({ year, road, typeOfWork }),
+      resetFilters: () =>
+        set({
+          year: currentYear,
+          road: ALL_ROADS,
+          typeOfWork: ALL_TYPES_OF_WORK,
+        }),
     }),
-}))
+    {
+      name: 'filters-storage',
+      partialize: (state) => ({
+        year: state.year,
+        road: state.road,
+        typeOfWork: state.typeOfWork,
+      }),
+    }
+  )
+)
