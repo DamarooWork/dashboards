@@ -18,9 +18,9 @@ export function Cards({ className }: Props) {
         <Card
           title="Разворот работ"
           size="sm"
-          startPage={{
-            title1: 'Объекты',
-            title2: 'Километры',
+          footerMetrics={{
+            label1: 'Объекты',
+            label2: 'Километры',
             value1: 8,
             plan1: 78,
             value2: 31,
@@ -30,9 +30,9 @@ export function Cards({ className }: Props) {
         <Card
           title="Выполнение работ"
           size="sm"
-          startPage={{
-            title1: 'Объекты',
-            title2: 'Километры',
+          footerMetrics={{
+            label1: 'Объекты',
+            label2: 'Километры',
             value1: 8,
             plan1: 78,
             value2: 31,
@@ -42,9 +42,9 @@ export function Cards({ className }: Props) {
         <Card
           title="ПУ-48"
           size="sm"
-          startPage={{
-            title1: 'Объекты',
-            title2: 'Километры',
+          footerMetrics={{
+            label1: 'Объекты',
+            label2: 'Километры',
             value1: 8,
             plan1: 78,
             value2: 31,
@@ -54,9 +54,9 @@ export function Cards({ className }: Props) {
         <Card
           title="ФСУ-5П"
           size="sm"
-          startPage={{
-            title1: 'Объекты',
-            title2: 'Километры',
+          footerMetrics={{
+            label1: 'Объекты',
+            label2: 'Километры',
             value1: 8,
             plan1: 78,
             value2: 31,
@@ -72,9 +72,9 @@ export function Cards({ className }: Props) {
         <Card
           title="Общее освоение"
           size="sm"
-          startPage={{
-            title1: 'Млн. руб.',
-            title2: 'Отклонение',
+          footerMetrics={{
+            label1: 'Млн. руб.',
+            label2: 'Отклонение',
             value1: 1630,
             plan1: 2190,
             value2: -1280,
@@ -83,9 +83,9 @@ export function Cards({ className }: Props) {
         <Card
           title="Хоз. способ"
           size="sm"
-          startPage={{
-            title1: 'Млн. руб.',
-            title2: 'Отклонение',
+          footerMetrics={{
+            label1: 'Млн. руб.',
+            label2: 'Отклонение',
             value1: 1630,
             plan1: 2190,
             value2: -1280,
@@ -94,9 +94,9 @@ export function Cards({ className }: Props) {
         <Card
           title="Сторонний подряд"
           size="sm"
-          startPage={{
-            title1: 'Млн. руб.',
-            title2: 'Отклонение',
+          footerMetrics={{
+            label1: 'Млн. руб.',
+            label2: 'Отклонение',
             value1: 1630,
             plan1: 2190,
             value2: -1280,
@@ -105,9 +105,9 @@ export function Cards({ className }: Props) {
         <Card
           title="ПИР"
           size="sm"
-          startPage={{
-            title1: 'Млн. руб.',
-            title2: 'Отклонение',
+          footerMetrics={{
+            label1: 'Млн. руб.',
+            label2: 'Отклонение',
             value1: 1630,
             plan1: 2190,
             value2: -1280,

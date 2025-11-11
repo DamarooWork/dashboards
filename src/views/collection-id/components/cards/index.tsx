@@ -53,8 +53,8 @@ export function Cards() {
       </Card>
       <Card
         title="Полный комплект"
-        kpiValue={statusCardData.completedCount}
-        kpiAll={statusCardData.totalCount}
+        value={statusCardData.completedCount}
+        total={statusCardData.totalCount}
       >
         <div className="flex flex-1 justify-center items-center gap-2 bg-foreground/5 rounded-b-md px-3 w-2/3 rounded-lg">
           <Progress value={percent} className="h-4" />

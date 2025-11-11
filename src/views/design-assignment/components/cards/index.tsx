@@ -40,8 +40,8 @@ export function Cards() {
     <div className="grid grid-cols-4 gap-12 shrink-0">
       <Card
         title="Утверждено"
-        kpiValue={cardsData.approvedCount}
-        kpiAll={showProgressAndKpi ? cardsData.totalCount : undefined}
+        value={cardsData.approvedCount}
+        total={showProgressAndKpi ? cardsData.totalCount : undefined}
       >
         {showProgressAndKpi && (
           <div className="flex  flex-1 justify-center items-center gap-2 bg-foreground/5 rounded-b-md   px-3 w-2/3 rounded-lg">
@@ -57,8 +57,8 @@ export function Cards() {
       </Card>
       <Card
         title="Передано"
-        kpiValue={cardsData.transferredCount}
-        kpiAll={showProgressAndKpi ? cardsData.totalCount : undefined}
+        value={cardsData.transferredCount}
+        total={showProgressAndKpi ? cardsData.totalCount : undefined}
       >
         {showProgressAndKpi && (
           <div className="flex  flex-1 justify-center items-center gap-2 bg-foreground/5 rounded-b-md  px-3 w-2/3 rounded-lg">
