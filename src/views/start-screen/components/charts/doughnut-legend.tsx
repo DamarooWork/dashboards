@@ -17,7 +17,7 @@ export function DoughnutLegend({
   onTypeSelect,
 }: DoughnutLegendProps) {
   return (
-    <div className="flex items-center justify-between gap-2 ">
+    <div className="grid grid-cols-4 justify-items-stretch gap-2 ">
       {items.map((item) => {
         const config =
           doughnutChartConfig[item.name as keyof typeof doughnutChartConfig]
@@ -33,7 +33,7 @@ export function DoughnutLegend({
             }}
             variant="outline"
             className={cn(
-              'flex flex-col justify-center border-2 items-center gap-.5 text-xl h-auto px-2 py-1.5 relative z-10 shrink-0 transition-all active:scale-90 will-change-transform',
+              'flex flex-col  border-2 gap-.5 text-xl h-auto px-2 py-1.5 relative z-10 shrink-0 transition-all active:scale-95 will-change-transform',
               isSelected || isAllSelected
                 ? 'opacity-100'
                 : 'opacity-40 hover:opacity-80'
@@ -44,7 +44,7 @@ export function DoughnutLegend({
           >
             <div className="flex items-center gap-1.5">
               <div
-                className="size-5 shrink-0 rounded-full mt-1"
+                className="size-4 shrink-0 rounded-full mt-1"
                 style={{ backgroundColor: item.fill }}
               />
               <span className="whitespace-nowrap text-3xl">

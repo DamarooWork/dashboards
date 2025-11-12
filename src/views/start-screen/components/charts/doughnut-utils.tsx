@@ -7,17 +7,17 @@ export const renderPieLabel = (props: any) => {
   const xValue = cx + radiusValue * Math.cos(-midAngle * RADIAN)
   const yValue = cy + radiusValue * Math.sin(-midAngle * RADIAN)
 
-  return (
-    <text
-      x={xValue}
-      y={yValue}
-      fill="white"
-      textAnchor="middle"
-      dominantBaseline="middle"
-      className="text-4xl translate-y-1"
-    >
-      {value}
-    </text>
-  )
+  // return (
+  //   <text
+  //     x={xValue}
+  //     y={yValue}
+  //     fill="white"
+  //     textAnchor="middle"
+  //     dominantBaseline="middle"
+  //     className="text-2xl translate-y-1"
+  //   >
+  //     {value}
+  //   </text>
+  // )
 }
 

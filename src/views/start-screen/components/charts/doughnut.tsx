@@ -1,7 +1,7 @@
 'use client'
 
-import { useRef } from 'react'
-import { Pie, PieChart, Cell } from 'recharts'
+import { useRef, useMemo } from 'react'
+import { Pie, PieChart, Cell, Sector } from 'recharts'
 import {
   ChartContainer,
   ChartTooltip,
@@ -32,11 +32,54 @@ export function Doughnut({ className }: Props) {
   useAnimatedTextContent(objectsRef, centerData.objects)
   useAnimatedTextContent(kilometersRef, centerData.kilometers.toFixed(1))
 
+  // Находим индекс выбранного типа для activeIndex
+  const activeIndex = useMemo(() => {
+    if (selectedType === null) return undefined
+    return doughnutChartData.findIndex((item) => item.name === selectedType)
+  }, [selectedType])
+
+  // Кастомная форма для активного (выбранного) сектора с увеличенным радиусом
+  const renderActiveShape = (props: any) => {
+    const { cx, cy, innerRadius, outerRadius, startAngle, endAngle, fill } =
+      props
+
+    // Увеличиваем радиус для выбранного сектора
+    const expandedOuterRadius = parseFloat(outerRadius) * 1.04
+    const expandedInnerRadius = parseFloat(innerRadius)
+
+    return (
+      <Sector
+        cx={cx}
+        cy={cy}
+        innerRadius={expandedInnerRadius}
+        outerRadius={expandedOuterRadius}
+        startAngle={startAngle}
+        endAngle={endAngle}
+        fill={fill}
+        style={{
+          transition: 'all 0.5s ease-in-out',
+        }}
+      />
+    )
+  }
+
   return (
     <section className={className}>
       <div className="relative h-full w-full">
         <ChartContainer config={doughnutChartConfig} className="h-full w-full">
-          <PieChart>
+          <PieChart
+            onClick={(data, e) => {
+              // Обрабатываем клик по пустой области графика (не по сектору)
+              // Клики по секторам обрабатываются в Pie.onClick и останавливают всплытие
+              if (e && e.nativeEvent) {
+                const target = e.nativeEvent.target as HTMLElement
+                // Проверяем, что клик не по кнопке легенды
+                if (!target.closest('button')) {
+                  handleChartClick()
+                }
+              }
+            }}
+          >
             <defs>
               {doughnutGradients.map((gradient) => (
                 <linearGradient
@@ -75,55 +118,49 @@ export function Doughnut({ className }: Props) {
               data={doughnutChartData}
               cx="50%"
               cy="50%"
-              innerRadius="60%"
+              innerRadius="78%"
               outerRadius="90%"
               paddingAngle={0}
               dataKey="objects"
-              label={renderPieLabel}
               labelLine={false}
               nameKey="name"
               style={{ cursor: 'pointer' }}
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              onClick={(data, index, e) => {
+                if (data && data.name) {
+                  e?.stopPropagation()
+                  handleTypeSelect(data.name)
+                }
+              }}
             >
               {doughnutChartData.map((entry, index) => {
                 const gradientIndex = index + 1
-                const isSelected = selectedType === entry.name
-                const hasSelection = selectedType !== null
-
                 return (
                   <Cell
                     key={`cell-${entry.name}`}
                     fill={`url(#gradient${gradientIndex})`}
-                    stroke="#ffffff"
-                    strokeWidth={hasSelection && !isSelected ? 10 : 0}
-                    opacity={hasSelection && !isSelected ? 0.3 : 1}
+                    stroke="none"
                   />
                 )
               })}
             </Pie>
           </PieChart>
         </ChartContainer>
-        {/* Кликабельная область поверх графика (не блокирует легенду) */}
-        <div
-          className="absolute inset-0 cursor-pointer"
-          onClick={(e) => {
-            // Проверяем, не кликнули ли мы на кнопку легенды
-            const target = e.target as HTMLElement
-            if (!target.closest('button')) {
-              handleChartClick()
-            }
-          }}
-          style={{ pointerEvents: 'auto' }}
-        />
         {/* Центральный текст с информацией */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="text-center -translate-y-1/3">
-            <div className="text-3xl mb-1">Объекты</div>
-            <div ref={objectsRef} className="text-5xl mb-3">
-              {centerData.objects}
+          <div className="text-center -translate-y-2/3 text-4xl">
+            <div className="flex flex-row items-end justify-center gap-2">
+              <p>Объекты:</p>
+              <p ref={objectsRef} className="text-5xl">
+                {centerData.objects}
+              </p>
             </div>
-            <div className="text-3xl mb-1">Километры</div>
-            <div ref={kilometersRef} className="text-5xl">
-              {centerData.kilometers.toFixed(1)}
+            <div className="flex flex-row items-end justify-center gap-2  text-foreground/60">
+              <p className="">Километры:</p>
+              <p ref={kilometersRef} className="text-5xl">
+                {centerData.kilometers.toFixed(1)}
+              </p>
             </div>
           </div>
         </div>
@@ -131,4 +168,3 @@ export function Doughnut({ className }: Props) {
     </section>
   )
 }
-
