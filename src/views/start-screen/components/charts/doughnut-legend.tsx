@@ -4,6 +4,7 @@ import { Button } from '@/shared/ui'
 import { cn } from '@/shared/lib/utils'
 import { doughnutChartConfig } from '../../chart-options/doughnut-data'
 import type { ChartData } from '../../chart-options/doughnut-data'
+import { ALL_TYPES_OF_WORK } from '@/shared/lib/const'
 
 interface DoughnutLegendProps {
   items: ChartData[]
@@ -22,7 +23,7 @@ export function DoughnutLegend({
         const config =
           doughnutChartConfig[item.name as keyof typeof doughnutChartConfig]
         const isSelected = selectedType === item.name
-        const isAllSelected = selectedType === null
+        const isAllSelected = selectedType === ALL_TYPES_OF_WORK
 
         return (
           <Button
