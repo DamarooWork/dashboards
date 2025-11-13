@@ -1,64 +1,36 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { startTransition } from 'react'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useFiltersStore } from '@/shared/store'
 import { ALL_TYPES_OF_WORK } from '@/shared/lib/const'
-import {
-  doughnutChartData,
-  type ChartData,
-} from '../chart-options/doughnut-data'
+import { useFilteredDoughnutData } from './use-filtered-doughnut-data'
 
 export function useDoughnutChart() {
-  const { applyFilters, year, road, typeOfWork } = useFiltersStore()
-  const [selectedType, setSelectedType] = useState<string | null>(() => {
-    // Инициализируем из store, если выбран конкретный тип работы
-    return typeOfWork && typeOfWork !== ALL_TYPES_OF_WORK ? typeOfWork : null
-  })
-
-  // Синхронизируем с store при изменении typeOfWork извне
-  useEffect(() => {
-    if (typeOfWork === ALL_TYPES_OF_WORK) {
-      setSelectedType(null)
-    } else if (
-      typeOfWork &&
-      doughnutChartData.some((item) => item.name === typeOfWork)
-    ) {
-      setSelectedType(typeOfWork)
-    }
-  }, [typeOfWork])
-
-  // Вычисляем значения для отображения в центре
-  const getCenterData = (): { objects: number; kilometers: number } => {
-    if (selectedType === null) {
-      // Если ничего не выбрано, показываем сумму всех типов
-      const totalObjects = doughnutChartData.reduce(
-        (sum, item) => sum + item.objects,
-        0
-      )
-      const totalKilometers = doughnutChartData.reduce(
-        (sum, item) => sum + item.kilometers,
-        0
-      )
-      return { objects: totalObjects, kilometers: totalKilometers }
-    } else {
-      // Показываем данные для выбранного типа
-      const selectedItem = doughnutChartData.find(
-        (item) => item.name === selectedType
-      )
-      return selectedItem
-        ? { objects: selectedItem.objects, kilometers: selectedItem.kilometers }
-        : { objects: 0, kilometers: 0 }
-    }
-  }
-
-  const centerData = getCenterData()
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const applyFilters = useFiltersStore((state) => state.applyFilters)
+  const { year, road, typeOfWork } = useFiltersStore()
+  const { chartData, centerData, isLoading } = useFilteredDoughnutData()
 
   // Обработчик выбора типа работы
   const handleTypeSelect = (type: string | null) => {
-    setSelectedType(type)
-    // Синхронизируем с store фильтров
-    const typeOfWorkValue = type === null ? ALL_TYPES_OF_WORK : type
-    applyFilters(year, road, typeOfWorkValue)
+    // Получаем актуальные значения из store напрямую
+    const currentState = useFiltersStore.getState()
+    const newTypeOfWork = type || ALL_TYPES_OF_WORK
+
+    // Обновляем store синхронно (это быстро)
+    applyFilters(currentState.year, currentState.road, newTypeOfWork)
+
+    // Обновляем URL асинхронно через startTransition (не блокирует UI)
+    startTransition(() => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('year', currentState.year)
+      params.set('road', currentState.road)
+      params.set('typeOfWork', newTypeOfWork)
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    })
   }
 
   // Обработчик клика на график (выбор всех типов)
@@ -67,10 +39,11 @@ export function useDoughnutChart() {
   }
 
   return {
-    selectedType,
+    typeOfWork,
     centerData,
     handleTypeSelect,
     handleChartClick,
+    chartData: chartData || [],
+    isLoading,
   }
 }
-

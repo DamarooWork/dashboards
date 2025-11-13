@@ -10,21 +10,26 @@ import {
 } from '@/shared/ui'
 import { useDoughnutChart } from '../../hooks'
 import {
-  doughnutChartData,
   doughnutChartConfig,
   doughnutGradients,
 } from '../../chart-options/doughnut-data'
 import { DoughnutLegend } from './doughnut-legend'
-import { renderPieLabel } from './doughnut-utils'
 import { useAnimatedTextContent } from '@/shared/lib/hooks'
+import { ALL_TYPES_OF_WORK } from '@/shared/lib/const'
 
 interface Props {
   className?: string
 }
 
 export function Doughnut({ className }: Props) {
-  const { selectedType, centerData, handleTypeSelect, handleChartClick } =
-    useDoughnutChart()
+  const {
+    typeOfWork,
+    centerData,
+    handleTypeSelect,
+    handleChartClick,
+    chartData,
+    isLoading,
+  } = useDoughnutChart()
 
   const objectsRef = useRef<HTMLDivElement>(null)
   const kilometersRef = useRef<HTMLDivElement>(null)
@@ -34,9 +39,16 @@ export function Doughnut({ className }: Props) {
 
   // Находим индекс выбранного типа для activeIndex
   const activeIndex = useMemo(() => {
-    if (selectedType === null) return undefined
-    return doughnutChartData.findIndex((item) => item.name === selectedType)
-  }, [selectedType])
+    if (
+      !typeOfWork ||
+      typeOfWork === ALL_TYPES_OF_WORK ||
+      !chartData ||
+      chartData.length === 0
+    ) {
+      return undefined
+    }
+    return chartData.findIndex((item) => item.name === typeOfWork)
+  }, [typeOfWork, chartData])
 
   // Кастомная форма для активного (выбранного) сектора с увеличенным радиусом
   const renderActiveShape = (props: any) => {
@@ -108,14 +120,14 @@ export function Doughnut({ className }: Props) {
             <ChartLegend
               content={() => (
                 <DoughnutLegend
-                  items={doughnutChartData}
-                  selectedType={selectedType}
+                  items={chartData || []}
+                  selectedType={typeOfWork || ALL_TYPES_OF_WORK}
                   onTypeSelect={handleTypeSelect}
                 />
               )}
             />
             <Pie
-              data={doughnutChartData}
+              data={chartData || []}
               cx="50%"
               cy="50%"
               innerRadius="78%"
@@ -134,7 +146,7 @@ export function Doughnut({ className }: Props) {
                 }
               }}
             >
-              {doughnutChartData.map((entry, index) => {
+              {(chartData || []).map((entry, index) => {
                 const gradientIndex = index + 1
                 return (
                   <Cell
@@ -159,7 +171,7 @@ export function Doughnut({ className }: Props) {
             <div className="flex flex-row items-end justify-center gap-2  text-foreground/60">
               <p className="">Километры:</p>
               <p ref={kilometersRef} className="text-5xl">
-                {centerData.kilometers.toFixed(1)}
+                {centerData.kilometers.toFixed(0)}
               </p>
             </div>
           </div>

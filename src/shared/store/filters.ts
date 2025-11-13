@@ -1,11 +1,11 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import { ALL_ROADS, ALL_TYPES_OF_WORK } from '../lib/const'
+import { ALL_ROADS, ALL_TYPES_OF_WORK, TYPES_OF_WORK_VALUES } from '../lib/const'
 
 interface FiltersStore {
   year: string
   road: string
-  typeOfWork: string
+  typeOfWork: typeof TYPES_OF_WORK_VALUES[number]
   applyFilters: (year: string, road: string, typeOfWork: string) => void
   resetFilters: () => void
 }

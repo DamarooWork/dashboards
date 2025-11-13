@@ -55,7 +55,7 @@ export function DoughnutLegend({
               {item.objects} шт.
             </span>
             <span className="text-2xl whitespace-nowrap">
-              {item.kilometers} км
+              {item.kilometers.toFixed(0)} км
             </span>
           </Button>
         )

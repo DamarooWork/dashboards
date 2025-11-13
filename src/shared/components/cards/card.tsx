@@ -90,19 +90,29 @@ export function Card({
               <p className="text-2xl line-clamp-1">{footerMetrics.label2}</p>
               <p className="text-2xl line-clamp-1">
                 {footerMetrics.value2}
-                {footerMetrics.plan2 && ` / ${footerMetrics.plan2}`}
+                {footerMetrics.plan2 !== undefined &&
+                  footerMetrics.plan2 !== null &&
+                  ` / ${footerMetrics.plan2}`}
               </p>
             </div>
           </div>
           <div className="flex flex-row gap-2 items-center basis-[40%] w-full self-end -mb-1">
             <Progress
-              value={Math.round(
-                (footerMetrics.value1 / footerMetrics.plan1) * 100
-              )}
+              value={
+                footerMetrics.plan1 === 0
+                  ? 0
+                  : Math.round(
+                      (footerMetrics.value1 / footerMetrics.plan1) * 100
+                    )
+              }
               className="h-4"
             />
             <span className="text-2xl">
-              {Math.round((footerMetrics.value1 / footerMetrics.plan1) * 100)}%
+              {footerMetrics.plan1 === 0
+                ? '0%'
+                : `${Math.round(
+                    (footerMetrics.value1 / footerMetrics.plan1) * 100
+                  )}%`}
             </span>
           </div>
         </div>

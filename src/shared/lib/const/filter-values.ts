@@ -26,3 +26,13 @@ export const isAllFilterValue = (
 // Экспорт конкретных значений для удобства
 export const ALL_ROADS = 'Все дороги'
 export const ALL_TYPES_OF_WORK = 'Все'
+
+
+// Все типы работ
+export const TYPES_OF_WORK_VALUES = [
+  ALL_TYPES_OF_WORK,
+  'КРН',
+  'КРС',
+  'РС',
+  'РП',
+] 
