@@ -35,6 +35,21 @@ export function Card({
 }: CardProps) {
   const hasFooterMetrics = footerMetrics?.label1
 
+  // Форматирование чисел: если label1 содержит "млн", округляем до миллионов
+  const formatValue = (num: number): string => {
+    if (!footerMetrics?.label1) return num.toString()
+
+    const isMillions = footerMetrics.label1.toLowerCase().includes('млн')
+    const value = isMillions ? num / 1_000_000 : num
+    const rounded = Math.round(value * 10) / 10 // Округление до 1 знака после запятой
+
+    // Форматирование с разделителями тысяч
+    return rounded.toLocaleString('ru-RU', {
+      minimumFractionDigits: rounded % 1 === 0 ? 0 : 1,
+      maximumFractionDigits: 1,
+    })
+  }
+
   return (
     <div
       className={cn(
@@ -83,16 +98,17 @@ export function Card({
             <div className="flex flex-col items-center">
               <p className="text-2xl">{footerMetrics.label1}</p>
               <p className="text-2xl">
-                {footerMetrics.value1}/{footerMetrics.plan1}
+                {formatValue(footerMetrics.value1)}/
+                {formatValue(footerMetrics.plan1)}
               </p>
             </div>
             <div className="flex flex-col items-center">
               <p className="text-2xl line-clamp-1">{footerMetrics.label2}</p>
               <p className="text-2xl line-clamp-1">
-                {footerMetrics.value2}
+                {formatValue(footerMetrics.value2)}
                 {footerMetrics.plan2 !== undefined &&
                   footerMetrics.plan2 !== null &&
-                  ` / ${footerMetrics.plan2}`}
+                  ` / ${formatValue(footerMetrics.plan2)}`}
               </p>
             </div>
           </div>
