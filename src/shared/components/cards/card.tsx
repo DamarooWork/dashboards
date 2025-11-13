@@ -99,10 +99,10 @@ export function Card({
           <div className="flex flex-row gap-2 items-center basis-[40%] w-full self-end -mb-1">
             <Progress
               value={
-                footerMetrics.plan1 === 0
+                footerMetrics.plan2 === 0
                   ? 0
                   : Math.round(
-                      (footerMetrics.value1 / footerMetrics.plan1) * 100
+                      (footerMetrics.value2 / (footerMetrics.plan2 ?? 0)) * 100
                     )
               }
               className="h-4"
@@ -111,7 +111,7 @@ export function Card({
               {footerMetrics.plan1 === 0
                 ? '0%'
                 : `${Math.round(
-                    (footerMetrics.value1 / footerMetrics.plan1) * 100
+                    (footerMetrics.value2 / (footerMetrics.plan2 ?? 0)) * 100
                   )}%`}
             </span>
           </div>

@@ -23,13 +23,20 @@ export function useFilteredFinDevelopment() {
     return year ? parseInt(year, 10) : null
   }, [year])
 
-  // Определяем repairName для запроса (всегда "Все" для получения суммарных данных)
+  // Определяем repairName для запроса
   const repairName = useMemo(() => {
-    return ALL_TYPES_OF_WORK
-  }, [])
+    if (!typeOfWork || typeOfWork === ALL_TYPES_OF_WORK) {
+      return ALL_TYPES_OF_WORK
+    }
+    return typeOfWork
+  }, [typeOfWork])
 
   // Получаем данные с сервера (уже отфильтрованные по году, дороге и типу работ)
-  const { data, isLoading } = useStartFinDevelopment(yearNumber, railwayId, repairName)
+  const { data, isLoading } = useStartFinDevelopment(
+    yearNumber,
+    railwayId,
+    repairName
+  )
 
   // Данные уже приходят отфильтрованными, берем первый элемент (должен быть один)
   const filteredData = useMemo(() => {
@@ -42,4 +49,3 @@ export function useFilteredFinDevelopment() {
     isLoading,
   }
 }
-
