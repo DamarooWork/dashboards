@@ -75,7 +75,7 @@ export function CmpExecutionCard() {
       distancePlan: summaryData.act_fsu_distance_plan,
     }
   }, [summaryData])
-
+  
   return (
     <Card
       className="flex flex-col justify-between"

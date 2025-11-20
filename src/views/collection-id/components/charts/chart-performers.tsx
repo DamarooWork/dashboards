@@ -142,7 +142,7 @@ export function ChartPerformers() {
         layout="vertical"
         margin={{
           left: 40,
-          right: 160,
+          right: 180,
         }}
       >
         <defs>
