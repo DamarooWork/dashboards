@@ -6,17 +6,7 @@ import { useFiltersStore } from '@/shared/store'
 import { ALL_ROADS, ALL_TYPES_OF_WORK } from '@/shared/lib/const'
 import { roads } from '@/shared/lib/data'
 import type { ChartData } from '../chart-options/doughnut-data'
-
-// Маппинг названий видов ремонта к цветам из конфига
-const repairNameToColor: Record<string, string> = {
-  КРН: '#1e40af',
-  КРС: '#6b21a8',
-  РС: '#c2410c',
-  РП: '#166534',
-}
-
-// Порядок отображения видов ремонта
-const repairOrder = ['КРН', 'КРС', 'РС', 'РП']
+import { repairNameToColor, repairOrder } from '../chart-options/doughnut-data'
 
 export function useFilteredDoughnutData() {
   const { year, road, typeOfWork } = useFiltersStore()

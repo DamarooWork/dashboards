@@ -1,9 +1,9 @@
 'use client'
 import { useState } from 'react'
-import { Button } from '@/shared/ui'
 import { Printer } from 'lucide-react'
 import { toPng } from 'html-to-image'
 import { jsPDF } from 'jspdf'
+import { MenuButton } from '../menu-button'
 
 export function PrintButton() {
   const [isPrinting, setIsPrinting] = useState(false)
@@ -233,14 +233,12 @@ export function PrintButton() {
   }
 
   return (
-    <Button
-      className="rounded-xl size-18 shadow-lg border-foreground border-2 active:scale-90 will-change-transform transition-all duration-200 relative"
-      variant="outline"
+    <MenuButton
+      icon={<Printer />}
       title="Печать страницы"
       onClick={handlePrint}
       disabled={isPrinting}
-    >
-      <Printer className="size-10" />
-    </Button>
+      className="relative"
+    />
   )
 }

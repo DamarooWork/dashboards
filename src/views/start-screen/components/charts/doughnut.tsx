@@ -9,10 +9,7 @@ import {
   ChartLegend,
 } from '@/shared/ui'
 import { useDoughnutChart } from '../../hooks'
-import {
-  doughnutChartConfig,
-  doughnutGradients,
-} from '../../chart-options/doughnut-data'
+import { doughnutChartConfig } from '../../chart-options/doughnut-data'
 import { DoughnutLegend } from './doughnut-legend'
 import { useAnimatedTextContent } from '@/shared/lib/hooks'
 import { ALL_TYPES_OF_WORK } from '@/shared/lib/const'
@@ -37,18 +34,24 @@ export function Doughnut({ className }: Props) {
   useAnimatedTextContent(objectsRef, centerData.objects)
   useAnimatedTextContent(kilometersRef, centerData.kilometers.toFixed(1))
 
-  // Находим индекс выбранного типа для activeIndex
+  // Разворачиваем данные для графика (по часовой стрелке), легенда остается без изменений
+  const reversedChartData = useMemo(() => {
+    if (!chartData || chartData.length === 0) return []
+    return [...chartData].reverse()
+  }, [chartData])
+
+  // Находим индекс выбранного типа для activeIndex в развернутом массиве
   const activeIndex = useMemo(() => {
     if (
       !typeOfWork ||
       typeOfWork === ALL_TYPES_OF_WORK ||
-      !chartData ||
-      chartData.length === 0
+      !reversedChartData ||
+      reversedChartData.length === 0
     ) {
       return undefined
     }
-    return chartData.findIndex((item) => item.name === typeOfWork)
-  }, [typeOfWork, chartData])
+    return reversedChartData.findIndex((item) => item.name === typeOfWork)
+  }, [typeOfWork, reversedChartData])
 
   // Кастомная форма для активного (выбранного) сектора с увеличенным радиусом
   const renderActiveShape = (props: any) => {
@@ -92,27 +95,6 @@ export function Doughnut({ className }: Props) {
               }
             }}
           >
-            <defs>
-              {doughnutGradients.map((gradient) => (
-                <linearGradient
-                  key={gradient.id}
-                  id={gradient.id}
-                  x1="0"
-                  y1="0"
-                  x2="0"
-                  y2="1"
-                >
-                  {gradient.stops.map((stop, index) => (
-                    <stop
-                      key={index}
-                      offset={stop.offset}
-                      stopColor={stop.stopColor}
-                      stopOpacity={stop.stopOpacity}
-                    />
-                  ))}
-                </linearGradient>
-              ))}
-            </defs>
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
@@ -127,7 +109,7 @@ export function Doughnut({ className }: Props) {
               )}
             />
             <Pie
-              data={chartData || []}
+              data={reversedChartData || []}
               cx="50%"
               cy="50%"
               innerRadius="78%"
@@ -146,16 +128,13 @@ export function Doughnut({ className }: Props) {
                 }
               }}
             >
-              {(chartData || []).map((entry, index) => {
-                const gradientIndex = index + 1
-                return (
-                  <Cell
-                    key={`cell-${entry.name}`}
-                    fill={`url(#gradient${gradientIndex})`}
-                    stroke="none"
-                  />
-                )
-              })}
+              {(reversedChartData || []).map((entry) => (
+                <Cell
+                  key={`cell-${entry.name}`}
+                  fill={entry.fill}
+                  stroke="none"
+                />
+              ))}
             </Pie>
           </PieChart>
         </ChartContainer>
@@ -171,7 +150,7 @@ export function Doughnut({ className }: Props) {
             <div className="flex flex-row items-end justify-center gap-2  text-foreground/60">
               <p className="">Километры:</p>
               <p ref={kilometersRef} className="text-5xl">
-                {centerData.kilometers.toFixed(0)}
+                {centerData.kilometers.toFixed(1)}
               </p>
             </div>
           </div>
