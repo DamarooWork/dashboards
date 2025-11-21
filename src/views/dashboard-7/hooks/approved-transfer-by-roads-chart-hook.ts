@@ -1,6 +1,6 @@
 'use client'
 
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { faker } from '@faker-js/faker'
 import { useRef, useEffect, useState } from 'react'
 
@@ -16,7 +16,7 @@ export function ApprovedTransferByRoadsChartHook() {
       const ctx = chart.ctx
 
       // Генерируем план для каждой дороги (одинаковый максимум для обоих баров)
-      const planData = roads.map(() => faker.number.int({ min: 10, max: 13 }))
+      const planData = sortedRoads.map(() => faker.number.int({ min: 10, max: 13 }))
 
       // Генерируем данные для утвержденных ЗП (основная часть)
       const approvedMainData = planData.map((plan) =>
@@ -60,7 +60,7 @@ export function ApprovedTransferByRoadsChartHook() {
       // })
 
       const data = {
-        labels: roads.map((road) => road.shortName),
+        labels: sortedRoads.map((road) => road.shortName),
         datasets: [
           // Утвержденное ЗП (основная часть - темно-зеленый)
           {

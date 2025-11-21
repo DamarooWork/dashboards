@@ -1,6 +1,6 @@
 'use client'
 
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { useRef, useEffect, useState, useMemo } from 'react'
 import { useFilteredDesignSpecStatus } from './use-filtered-design-spec-status'
 import { DesignSpecStatusItem } from '../lib/types'
@@ -29,7 +29,7 @@ export function ApprovedTransferByRoadsChartHook() {
     >()
 
     // Инициализируем все дороги с нулевыми значениями
-    roads.forEach((road) => {
+    sortedRoads.forEach((road) => {
       roadStats.set(road.id, { total: 0, approved: 0, transferred: 0 })
     })
 
@@ -50,14 +50,14 @@ export function ApprovedTransferByRoadsChartHook() {
       }
     })
 
-    // Формируем массивы данных в порядке roads
+    // Формируем массивы данных в порядке sortedRoads
     const planData: number[] = []
     const approvedMainData: number[] = []
     const approvedRemainingData: number[] = []
     const transferMainData: number[] = []
     const transferRemainingData: number[] = []
 
-    roads.forEach((road) => {
+    sortedRoads.forEach((road) => {
       const stats = roadStats.get(road.id) || {
         total: 0,
         approved: 0,
@@ -108,7 +108,7 @@ export function ApprovedTransferByRoadsChartHook() {
       // })
 
       const data = {
-        labels: roads.map((road) => road.shortName),
+        labels: sortedRoads.map((road) => road.shortName),
         datasets: [
           // Утвержденное ЗП (основная часть - темно-зеленый)
           {

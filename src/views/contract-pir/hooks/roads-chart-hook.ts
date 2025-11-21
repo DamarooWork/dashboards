@@ -1,6 +1,6 @@
 'use client'
 
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { faker } from '@faker-js/faker'
 import { useRef, useEffect, useState } from 'react'
 
@@ -14,7 +14,7 @@ export function RoadsChartHook() {
       const ctx = chart.ctx
 
       // Генерируем лимит ЦЗ для каждой дороги (максимум для синего стека)
-      const limitData = roads.map(() => faker.number.int({ min: 30, max: 50 }))
+      const limitData = sortedRoads.map(() => faker.number.int({ min: 30, max: 50 }))
 
       // Генерируем основную часть стоимости (синий бар)
       const costMainData = limitData.map((limit) =>
@@ -30,7 +30,7 @@ export function RoadsChartHook() {
       )
 
       // Генерируем общее количество объектов для каждой дороги (максимум для зеленого стека)
-      const totalObjectsData = roads.map(() =>
+      const totalObjectsData = sortedRoads.map(() =>
         faker.number.int({ min: 10, max: 20 })
       )
 
@@ -48,7 +48,7 @@ export function RoadsChartHook() {
       )
 
       const data = {
-        labels: roads.map((road) => road.shortName),
+        labels: sortedRoads.map((road) => road.shortName),
         datasets: [
           // Стоимость (основная часть - синий)
           {

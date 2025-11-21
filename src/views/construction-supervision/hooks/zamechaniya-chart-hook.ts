@@ -1,6 +1,6 @@
 'use client'
 
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { useRef, useEffect, useState, useMemo } from 'react'
 import { useBuildControlData } from './use-build-control-data'
 
@@ -30,7 +30,7 @@ export function ZamechaniyaChartHook() {
     const remainingEliminatedData: number[] = []
     const labels: string[] = []
 
-    roads.forEach((road) => {
+    sortedRoads.forEach((road) => {
       const item = dataByRailway.get(road.id)
       if (item) {
         // Используем точные названия полей из API
@@ -118,7 +118,7 @@ export function ZamechaniyaChartHook() {
     } else if (chartRef.current && isLoading) {
       // Показываем пустой график во время загрузки
       setChartData({
-        labels: roads.map((road) => road.shortName),
+        labels: sortedRoads.map((road) => road.shortName),
         datasets: [],
       })
     }

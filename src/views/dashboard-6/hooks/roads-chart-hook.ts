@@ -1,6 +1,6 @@
 'use client'
 
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { faker } from '@faker-js/faker'
 import { useRef, useEffect, useState } from 'react'
 
@@ -11,8 +11,8 @@ export function RoadsChartHook() {
   useEffect(() => {
     if (chartRef.current) {
       // Генерируем данные для плана
-      const planData = roads.map(() => faker.number.int({ min: 1, max: 30 }))
-      const remainderData = roads.map(() =>
+      const planData = sortedRoads.map(() => faker.number.int({ min: 1, max: 30 }))
+      const remainderData = sortedRoads.map(() =>
         faker.number.int({ min: 1, max: 30 })
       )
 
@@ -21,7 +21,7 @@ export function RoadsChartHook() {
         planData.reduce((sum, val) => sum + val, 0) / planData.length
 
       const data = {
-        labels: roads.map((road) => road.shortName),
+        labels: sortedRoads.map((road) => road.shortName),
         datasets: [
           {
             label: 'План',

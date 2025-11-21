@@ -14,7 +14,7 @@ import {
 } from 'chart.js'
 import datalabels from 'chartjs-plugin-datalabels'
 import { Chart } from 'react-chartjs-2'
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { dashboard7ApprovedTransferByRoadsOptions } from '../../chart-options'
 import { useDashboard7ApprovedTransferByRoadsChartHook } from '../../hooks'
 
@@ -50,7 +50,7 @@ export function ApprovedTransferByRoads() {
           type="bar"
           options={dashboard7ApprovedTransferByRoadsOptions}
           data={{
-            labels: roads.map((road) => road.shortName),
+            labels: sortedRoads.map((road) => road.shortName),
             datasets: [],
           }}
         />

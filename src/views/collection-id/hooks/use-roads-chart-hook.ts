@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useRef } from 'react'
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import { useSdCollectionStatus } from './api'
 import { useFiltersStore } from '@/shared/store'
 import { SdCollectionStatusItem } from '@/views/collection-id/lib/types'
@@ -33,7 +33,7 @@ export function useRoadsChartHook() {
     >()
 
     // Инициализируем все дороги с нулевыми значениями
-    roads.forEach((road) => {
+    sortedRoads.forEach((road) => {
       roadStats.set(road.name, { completed: 0, remaining: 0 })
     })
 
@@ -51,18 +51,18 @@ export function useRoadsChartHook() {
       }
     })
 
-    // Формируем данные для графика в порядке roads
+    // Формируем данные для графика в порядке sortedRoads
     const planData: number[] = []
     const remainderData: number[] = []
 
-    roads.forEach((road) => {
+    sortedRoads.forEach((road) => {
       const stats = roadStats.get(road.name) || { completed: 0, remaining: 0 }
       planData.push(stats.completed)
       remainderData.push(stats.remaining)
     })
 
     return {
-      labels: roads.map((road) => road.shortName),
+      labels: sortedRoads.map((road) => road.shortName),
       datasets: [
         {
           label: 'План',

@@ -1,6 +1,6 @@
 'use client'
 
-import { roads } from '@/shared/lib/data'
+import { sortedRoads } from '@/shared/lib/data'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -58,7 +58,7 @@ export function ChartRoads() {
           type="bar"
           options={roadsOptions}
           data={{
-            labels: roads.map((road) => road.shortName),
+            labels: sortedRoads.map((road) => road.shortName),
             datasets: [],
           }}
         />

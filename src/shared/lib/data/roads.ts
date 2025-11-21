@@ -1,10 +1,12 @@
+import { sortRoadsByOrder } from './road-order'
+
 export const roads = [
   { id: 1, name: 'Восточно-Сибирская', shortName: 'В-СИБ' },
   { id: 2, name: 'Горьковская', shortName: 'ГОРЬК' },
   { id: 3, name: 'Дальневосточная', shortName: 'ДВОСТ' },
   { id: 4, name: 'Забайкальская', shortName: 'ЗАБ' },
   { id: 5, name: 'Западно-Сибирская', shortName: 'З-СИБ' },
-  { id: 6, name: 'Калининградская', shortName: 'Клг' },
+  { id: 6, name: 'Калининградская', shortName: 'КЛНГ' },
   { id: 7, name: 'Красноярская', shortName: 'КРАС' },
   { id: 8, name: 'Куйбышевская', shortName: 'КБШ' },
   { id: 9, name: 'Московская', shortName: 'МОСК' },
@@ -16,3 +18,8 @@ export const roads = [
   { id: 15, name: 'Юго-Восточная', shortName: 'Ю-ВОСТ' },
   { id: 16, name: 'Южно-Уральская', shortName: 'Ю-УР' },
 ]
+
+/**
+ * Дороги, отсортированные в порядке для отображения на графиках
+ */
+export const sortedRoads = sortRoadsByOrder(roads)
