@@ -1,6 +1,5 @@
 'use client'
 
-import { sortedRoads } from '@/shared/lib/data'
 import {
   Chart as ChartJS,
   LinearScale,
@@ -32,19 +31,24 @@ ChartJS.register(
 )
 
 export function ChartUstraneniyaZamechaniy() {
-  const { chartRef, chartData } =   useUstraneniyaZamechaniyChartHook()
+  const { chartRef, chartData } = useUstraneniyaZamechaniyChartHook()
 
   return (
     <div className="w-full h-full ">
       {chartData ? (
-        <Chart ref={chartRef} type="bar" options={ustraneniyaZamechaniyOptions} data={chartData} />
+        <Chart
+          ref={chartRef}
+          type="bar"
+          options={ustraneniyaZamechaniyOptions}
+          data={chartData}
+        />
       ) : (
         <Chart
           ref={chartRef}
           type="bar"
           options={ustraneniyaZamechaniyOptions}
           data={{
-            labels: sortedRoads.map((road) => road.shortName),
+            labels: [],
             datasets: [],
           }}
         />
@@ -52,4 +56,3 @@ export function ChartUstraneniyaZamechaniy() {
     </div>
   )
 }
-
