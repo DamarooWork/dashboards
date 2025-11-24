@@ -6,7 +6,7 @@ import { useTechRemarkData } from './use-tech-remark-data'
 export function UstraneniyaZamechaniyChartHook() {
   const chartRef = useRef<any>(null)
   const [chartData, setChartData] = useState<any>(null)
-  const { data, isLoading, isFetching, error } = useTechRemarkData()
+  const { data, isLoading, isFetching, error, refetch } = useTechRemarkData()
 
   // Преобразуем данные API в формат для графика
   const processedData = useMemo(() => {
@@ -14,12 +14,19 @@ export function UstraneniyaZamechaniyChartHook() {
       return null
     }
 
+    // Сортируем данные по длине названия категории (от меньшего к большему)
+    const sortedData = [...data].sort((a, b) => {
+      const aName = a.category_name || ''
+      const bName = b.category_name || ''
+      return aName.length - bName.length
+    })
+
     // Формируем массивы данных для каждой категории работ из API
     const eliminatedData: number[] = []
     const plannedData: number[] = []
     const labels: string[] = []
 
-    data.forEach((item: any) => {
+    sortedData.forEach((item: any) => {
       const categoryName = item.category_name
       if (categoryName) {
         // Используем точные названия полей из API
@@ -112,5 +119,6 @@ export function UstraneniyaZamechaniyChartHook() {
     isLoading,
     isFetching,
     error,
+    refetch,
   }
 }
