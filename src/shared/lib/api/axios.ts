@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { getAuthValue } from './auth-value'
+import { getPathWithBase } from '@/shared/lib/const'
 
 
 // Создаем экземпляр axios с базовой конфигурацией
@@ -8,7 +9,7 @@ import { getAuthValue } from './auth-value'
 const getBaseURL = () => {
  // Всегда используем прокси для клиентских запросов
   // Это решает проблему Mixed Content при загрузке страницы по HTTPS
-  return '/api/proxy'
+  return getPathWithBase('/api/proxy')
 }
 
 export const apiClient = axios.create({

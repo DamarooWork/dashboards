@@ -3,6 +3,7 @@ import type { NextConfig } from 'next'
 const targetIP = process.env.NEXT_PUBLIC_API_URL
 
 const nextConfig: NextConfig = {
+  basePath: '/dashboards_panel',
   // Проксирование запросов для разработки
   // В Next.js rewrites работает для SSR/SSG запросов
   // Для клиентских API запросов используйте API route /api/proxy/[...path]

@@ -1,6 +1,7 @@
 'use client'
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
 import { getAuthValue, setAuthValue } from '@/shared/lib/api/auth-value'
+import { getPathWithBase } from '@/shared/lib/const'
 
 interface AuthContextType {
   isAuthReady: boolean
@@ -42,7 +43,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       try {
         // Вызываем API route, который использует переменные окружения на сервере
-        const response = await fetch('/api/auth/login', {
+
+        const response = await fetch(getPathWithBase('/api/auth/login'), {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
