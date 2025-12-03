@@ -22,7 +22,7 @@ export function Filters() {
           className="relative"
         >
           {isNonBasicFilter && (
-            <div className="absolute -top-1 -right-1 size-3.5 bg-red-500 rounded-full border-1 border-background" />
+            <div className="absolute -top-2 -right-2 size-3.5 bg-red-500 rounded-full border border-background" />
           )}
         </MenuButton>
       </SheetTrigger>

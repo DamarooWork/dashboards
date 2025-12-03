@@ -118,14 +118,37 @@ export function ApprovedTransferByRoadsChartHook() {
             stack: 'approved',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.9,
+            categoryPercentage: 1,
             borderRadius: {
               bottomLeft: 0,
               bottomRight: 0,
             },
             borderSkipped: false,
             datalabels: {
-              color: '#fff',
+              display: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value !== undefined && value !== null && value > 0
+              },
+              color: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? '#10b981' : '#fff'
+              },
+              anchor: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? 'end' : 'center'
+              },
+              align: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? 'top' : 'center'
+              },
+              offset: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? -5 : 0
+              },
+
+              font: {
+                size: 24,
+              },
             },
           },
           // Утвержденное ЗП (остаток - серый)
@@ -136,7 +159,7 @@ export function ApprovedTransferByRoadsChartHook() {
             stack: 'approved',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.9,
+            categoryPercentage: 1,
             borderRadius: {
               topLeft: 0,
               topRight: 0,
@@ -144,10 +167,24 @@ export function ApprovedTransferByRoadsChartHook() {
             borderSkipped: false,
             datalabels: {
               color: '#000',
-              display: true,
+              display: (context: any) => {
+                const value = planData[context.dataIndex]
+                return value !== undefined && value !== null && value > 0
+              },
               align: 'right' as const,
               anchor: 'end' as const,
-              offset: 6,
+              offset: (context: any) => {
+                const value = planData[context.dataIndex]
+                const digitCount = value.toString().length
+                if (digitCount === 1) {
+                  return 14
+                } else if (digitCount === 2) {
+                  return 10
+                } else if (digitCount === 3) {
+                  return 6
+                }
+                return 6 // для чисел с 4+ цифрами
+              },
               font: {
                 size: 24,
               },
@@ -164,14 +201,37 @@ export function ApprovedTransferByRoadsChartHook() {
             stack: 'transferred',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.9,
+            categoryPercentage: 1,
             borderRadius: {
               bottomLeft: 0,
               bottomRight: 0,
             },
             borderSkipped: false,
             datalabels: {
-              color: '#fff',
+              display: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value !== undefined && value !== null && value > 0
+              },
+              color: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? '#2563eb' : '#fff'
+              },
+              anchor: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? 'end' : 'center'
+              },
+              align: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? 'top' : 'center'
+              },
+              offset: (context: any) => {
+                const value = context.dataset.data[context.dataIndex]
+                return value <= 3 ? -5 : 0
+              },
+
+              font: {
+                size: 24,
+              },
             },
           },
           // Переданное ЗП (остаток - серый)
@@ -182,7 +242,7 @@ export function ApprovedTransferByRoadsChartHook() {
             stack: 'transferred',
             order: 1,
             barPercentage: 1,
-            categoryPercentage: 0.9,
+            categoryPercentage: 1,
             borderRadius: {
               topLeft: 0,
               topRight: 0,

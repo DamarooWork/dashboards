@@ -22,7 +22,7 @@ export function MenuButton({
   asChild,
 }: Props) {
   const baseClassName =
-    'rounded-lg size-14 shadow-lg border-foreground border-2 active:scale-90 will-change-transform transition-all duration-200'
+    'rounded-lg size-14 shadow-sm border-foreground border-2 active:scale-90 will-change-transform transition-all duration-200'
   const iconClassName = 'size-8'
   // Применяем класс к иконке
   const existingClassName = icon.props?.className || ''

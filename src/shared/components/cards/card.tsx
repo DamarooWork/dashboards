@@ -94,9 +94,9 @@ export function Card({
 
       {hasFooterMetrics && (
         <div className="flex flex-row justify-between gap-4 bg-foreground/5 rounded-b-md -mx-4 px-4 -mb-2 py-2">
-          <div className="flex flex-row gap-4 flex-1">
+          <div className="flex flex-row gap-2 flex-1">
             <div className="flex flex-col items-center">
-              <p className="text-2xl">{footerMetrics.label1}</p>
+              <p className="text-2xl line-clamp-1">{footerMetrics.label1}</p>
               <p className="text-2xl">
                 {formatValue(footerMetrics.value1)}/
                 {formatValue(footerMetrics.plan1)}

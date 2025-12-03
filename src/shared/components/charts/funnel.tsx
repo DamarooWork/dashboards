@@ -10,7 +10,7 @@ export interface FunnelItem {
   formatValue?: (value: number, percent: number) => string
   /**
    * Минимальная ширина в процентах для данного элемента.
-   * По умолчанию: 20% для всех элементов, кроме первого (100%).
+   * По умолчанию: 10% для всех элементов, кроме первого (100%).
    */
   minWidthPercent?: number
 }
@@ -25,28 +25,33 @@ interface FunnelProps {
   /**
    * Минимальная ширина в процентах для всех элементов (кроме первого).
    * Используется, если minWidthPercent не указан для конкретного элемента.
-   * По умолчанию: 20%
+   * По умолчанию: 10%
    */
   defaultMinWidthPercent?: number
   /**
    * Высота каждого сегмента воронки в пикселях.
-   * По умолчанию: 64px (h-16 в Tailwind)
+   * По умолчанию: 88px
    */
   itemHeight?: number
 }
 
 /**
- * Универсальный компонент воронки для визуализации иерархических данных.
- * Поддерживает любое количество элементов с настраиваемым форматированием.
- * Цвета применяются автоматически с градиентом от синего (сверху) к более светлым оттенкам.
+ * Премиальный компонент воронки для визуализации иерархических данных.
+ * Показывает вложенность значений с визуальными индикаторами потерь между уровнями.
+ *
+ * Особенности:
+ * - Точные пропорции без искажений
+ * - Визуальные индикаторы потерь между уровнями
+ * - Полупрозрачные границы для показа вложенности
+ * - Профессиональный корпоративный дизайн
  *
  * @example
  * ```tsx
  * <Funnel
  *   items={[
- *     { label: 'Лимит после', value: 100, formatValue: (v) => `${v} млн` },
- *     { label: 'Лимит ЦЗ', value: 80 },
- *     { label: 'Стоимость', value: 60 }
+ *     { label: 'Лимит по смете', value: 100, formatValue: (v, p) => `${p} млн` },
+ *     { label: 'Лимит ЦЗ', value: 60, formatValue: (v, p) => `${p} млн` },
+ *     { label: 'Стоимость', value: 35, formatValue: (v, p) => `${p} млн` }
  *   ]}
  * />
  * ```
@@ -54,37 +59,65 @@ interface FunnelProps {
 export function Funnel({
   className,
   items,
-  defaultMinWidthPercent = 20,
-  itemHeight = 64,
+  defaultMinWidthPercent = 10,
+  itemHeight = 88,
 }: FunnelProps) {
   if (!items || items.length === 0) {
     return null
   }
 
-  // Вычисляем проценты относительно первого (максимального) значения
   const maxValue = items[0]?.value || 1
+
   const percentages = items.map((item, index) => {
-    if (index === 0) return 100 // Первый элемент всегда 100%
-    return maxValue > 0 ? Math.round((item.value / maxValue) * 100) : 0
+    if (index === 0) return 100
+    return maxValue > 0 ? (item.value / maxValue) * 100 : 0
   })
 
-  // Цветовая палитра для градиентов (автоматически применяется)
+  // Корпоративная цветовая палитра
   const colorPalette = [
-    { from: '#3b82f6', to: '#2563eb' }, // blue-500 to blue-600
-    { from: '#60a5fa', to: '#3b82f6' }, // blue-400 to blue-500
-    { from: '#93c5fd', to: '#60a5fa' }, // blue-300 to blue-400
-    { from: '#bfdbfe', to: '#93c5fd' }, // blue-200 to blue-300
-    { from: '#dbeafe', to: '#bfdbfe' }, // blue-100 to blue-200
+    {
+      primary: '#1e3a8a',
+      secondary: '#2563eb',
+      light: '#3b82f6',
+      text: '#ffffff',
+      border: '#60a5fa',
+    },
+    {
+      primary: '#2563eb',
+      secondary: '#3b82f6',
+      light: '#60a5fa',
+      text: '#ffffff',
+      border: '#93c5fd',
+    },
+    {
+      primary: '#3b82f6',
+      secondary: '#60a5fa',
+      light: '#93c5fd',
+      text: '#ffffff',
+      border: '#bfdbfe',
+    },
+    {
+      primary: '#60a5fa',
+      secondary: '#93c5fd',
+      light: '#bfdbfe',
+      text: '#1e3a8a',
+      border: '#dbeafe',
+    },
+    {
+      primary: '#93c5fd',
+      secondary: '#bfdbfe',
+      light: '#dbeafe',
+      text: '#1e3a8a',
+      border: '#eff6ff',
+    },
   ]
 
-  // Получаем цвета для элемента из палитры
-  const getItemColors = (index: number) => {
+  const getItemStyle = (index: number) => {
     return (
       colorPalette[Math.min(index, colorPalette.length - 1)] || colorPalette[0]
     )
   }
 
-  // Форматируем значение
   const formatValue = (item: FunnelItem, percent: number) => {
     if (item.formatValue) {
       return item.formatValue(item.value, percent)
@@ -92,34 +125,27 @@ export function Funnel({
     return `${item.value}`
   }
 
-  // Вычисляем ширины для каждого элемента (в процентах)
   const widths = items.map((item, index) => {
     if (index === 0) return 100
     const percent = percentages[index]
-    const minWidth =
-      item.minWidthPercent ?? (index === 0 ? 100 : defaultMinWidthPercent)
+    const minWidth = item.minWidthPercent ?? defaultMinWidthPercent
     return Math.max(percent, minWidth)
   })
 
   return (
     <div className={className}>
-      <div className="flex flex-col h-full justify-center items-center gap-0 py-6 w-3/4 mx-auto">
+      <div className="flex flex-col h-full justify-center items-center gap-2 py-8 px-8 w-full max-w-4xl mx-auto">
         {items.map((item, index) => {
-          const colors = getItemColors(index)
+          const style = getItemStyle(index)
           const isFirst = index === 0
           const isLast = index === items.length - 1
 
-          // Ширина верхней части (для первого элемента = 100%, для остальных = ширина предыдущего)
           const topWidth = index === 0 ? 100 : widths[index - 1]
-          // Ширина нижней части (текущего элемента)
           const bottomWidth = widths[index]
 
-          // Вычисляем отступ слева для центрирования (50% - половина ширины)
           const topLeftOffset = (100 - topWidth) / 2
           const bottomLeftOffset = (100 - bottomWidth) / 2
 
-          // Создаем clip-path для трапеции
-          // Точки полигона: верх-левый, верх-правый, низ-правый, низ-левый
           const clipPath = `polygon(
             ${topLeftOffset}% 0%, 
             ${topLeftOffset + topWidth}% 0%, 
@@ -127,60 +153,109 @@ export function Funnel({
             ${bottomLeftOffset}% 100%
           )`
 
-          // Скругление только для первого элемента сверху и последнего снизу
-          let borderRadius = '0'
-          if (isFirst && isLast) {
-            borderRadius = '1.25rem'
-          } else if (isFirst) {
-            borderRadius = '1.25rem 1.25rem 0 0'
-          } else if (isLast) {
-            borderRadius = '0 0 1.25rem 1.25rem'
-          }
+          const difference = index > 0 ? topWidth - bottomWidth : 0
 
           return (
-            <div
-              key={index}
-              className="w-full relative"
-              style={{ height: `${itemHeight}px` }}
-            >
-              <div
-                className="absolute inset-0 flex items-center justify-center gap-6 "
-                style={{
-                  left: 0,
-                  right: 0,
-                  background: `linear-gradient(135deg, ${colors.from}, ${colors.to})`,
-                  borderRadius,
-                  clipPath,
-                  boxShadow: `0 8px 24px -4px ${colors.from}40, 0 4px 8px -2px ${colors.to}30, inset 0 1px 0 0 rgba(255, 255, 255, 0.1)`,
-                  filter: 'drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))',
-                  backdropFilter: 'blur(10px)',
-                }}
-              >
-                {/* Декоративный blur эффект */}
+            <div key={index} className="w-full relative">
+              {/* Визуальный индикатор потерь */}
+              {index > 0 && difference > 2 && (
                 <div
-                  className="absolute inset-0 opacity-20 blur-xl"
+                  className="absolute -top-2 left-0 right-0 flex justify-center"
                   style={{
-                    background: `radial-gradient(circle at center, ${colors.from}, transparent)`,
-                    borderRadius,
-                    clipPath,
+                    left: `${bottomLeftOffset + bottomWidth / 2}%`,
+                    right: `${100 - (topLeftOffset + topWidth / 2)}%`,
                   }}
-                />
-
-                {/* Контент поверх blur */}
-                <div className="relative z-10 flex items-center justify-center gap-6">
-                  <span className="text-white font-semibold text-xl tracking-wide drop-shadow-lg">
-                    {item.label}
-                  </span>
-                  <span
-                    className="text-white font-bold text-2xl tracking-tight drop-shadow-lg"
-                    style={{
-                      textShadow:
-                        '0 2px 8px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2)',
-                    }}
-                  >
-                    {formatValue(item, percentages[index])}
-                  </span>
+                >
+                  <div className="flex items-center gap-2 px-3 py-1 bg-red-50 border border-red-200 rounded-full">
+                    <span className="text-xs font-medium text-red-700">
+                      -{Math.round(difference)}%
+                    </span>
+                  </div>
                 </div>
+              )}
+
+              <div
+                className="relative overflow-hidden"
+                style={{ height: `${itemHeight}px` }}
+              >
+                {/* Основной блок */}
+                <div
+                  className="absolute inset-0 rounded-2xl border-2"
+                  style={{
+                    background: `linear-gradient(145deg, ${style.primary} 0%, ${style.secondary} 50%, ${style.light} 100%)`,
+                    clipPath,
+                    borderColor: `${style.border}80`,
+                    boxShadow: `
+                      0 8px 32px rgba(30, 58, 138, 0.2),
+                      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                      inset 0 -1px 0 rgba(0, 0, 0, 0.1)
+                    `,
+                  }}
+                >
+                  {/* Внутреннее свечение */}
+                  <div
+                    className="absolute inset-0 rounded-2xl opacity-20"
+                    style={{
+                      background: `radial-gradient(circle at 50% 0%, ${style.light}, transparent)`,
+                      clipPath,
+                    }}
+                  />
+
+                  {/* Контент - внутри блока с clip-path */}
+                  <div
+                    className="absolute inset-0 flex items-center justify-center px-10"
+                    style={{ clipPath }}
+                  >
+                    <div className="flex flex-col items-center gap-1.5">
+                      <span
+                        className="font-bold text-lg tracking-tight leading-tight"
+                        style={{ color: style.text }}
+                      >
+                        {item.label}
+                      </span>
+                      <div className="flex items-baseline gap-2">
+                        <span
+                          className="font-extrabold text-3xl tracking-tight leading-none"
+                          style={{
+                            color: style.text,
+                            textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                          }}
+                        >
+                          {formatValue(item, percentages[index])}
+                        </span>
+                        {index === 0 ? (
+                          <span
+                            className="text-xs font-semibold opacity-90"
+                            style={{ color: style.text }}
+                          >
+                            100%
+                          </span>
+                        ) : (
+                          <span
+                            className="text-xs font-medium opacity-80"
+                            style={{ color: style.text }}
+                          >
+                            {Math.round(percentages[index])}%
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Декоративные углы */}
+                {isFirst && (
+                  <>
+                    <div className="absolute top-2 left-2 w-3 h-3 border-t-2 border-l-2 border-white/30 rounded-tl-lg" />
+                    <div className="absolute top-2 right-2 w-3 h-3 border-t-2 border-r-2 border-white/30 rounded-tr-lg" />
+                  </>
+                )}
+                {isLast && (
+                  <>
+                    <div className="absolute bottom-2 left-2 w-3 h-3 border-b-2 border-l-2 border-white/30 rounded-bl-lg" />
+                    <div className="absolute bottom-2 right-2 w-3 h-3 border-b-2 border-r-2 border-white/30 rounded-br-lg" />
+                  </>
+                )}
               </div>
             </div>
           )
