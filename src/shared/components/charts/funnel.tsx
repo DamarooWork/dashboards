@@ -60,7 +60,7 @@ export function Funnel({
   className,
   items,
   defaultMinWidthPercent = 10,
-  itemHeight = 88,
+  itemHeight = 66,
 }: FunnelProps) {
   if (!items || items.length === 0) {
     return null
