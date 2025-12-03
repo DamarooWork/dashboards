@@ -208,14 +208,14 @@ export function Funnel({
                   >
                     <div className="flex flex-col items-center gap-1.5">
                       <span
-                        className="font-bold text-lg tracking-tight leading-tight"
+                        className=" text-lg tracking-tight leading-tight"
                         style={{ color: style.text }}
                       >
                         {item.label}
                       </span>
                       <div className="flex items-baseline gap-2">
                         <span
-                          className="font-extrabold text-3xl tracking-tight leading-none"
+                          className="text-3xl tracking-tight leading-none"
                           style={{
                             color: style.text,
                             textShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
@@ -225,14 +225,14 @@ export function Funnel({
                         </span>
                         {index === 0 ? (
                           <span
-                            className="text-xs font-semibold opacity-90"
+                            className="text-lg"
                             style={{ color: style.text }}
                           >
                             100%
                           </span>
                         ) : (
                           <span
-                            className="text-xs font-medium opacity-80"
+                            className="text-lg font-medium"
                             style={{ color: style.text }}
                           >
                             {Math.round(percentages[index])}%
