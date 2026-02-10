@@ -15,10 +15,11 @@ export default async function RootLayout({
   return (
     <html lang="ru">
       <head>
-        <link rel="icon/jpg" href="icon.jpg" />
+        <link rel="icon" type="image/png" href="icon.png" />
       </head>
       <Providers>
         <body
+          suppressHydrationWarning
           className={`flex flex-col antialiased text-foreground max-w-[3840px] mx-auto h-screen overflow-hidden relative`}
         >
           <main className="flex flex-col gap-12 h-full px-20 pb-20 pt-8 overflow-hidden">

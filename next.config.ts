@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
     if (process.env.NODE_ENV === 'development') {
       return [
         {
-          // Проксируем все пути, кроме начинающихся с /@/ или /api/
-          source: '/:path((?!@|api).*)',
+          // Проксируем все пути, кроме начинающихся с /@/, /api/ или /videos/
+          source: '/:path((?!@|api|videos).*)',
           destination: `${targetIP}/:path*`,
         },
       ]
