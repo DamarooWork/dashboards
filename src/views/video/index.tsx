@@ -54,9 +54,7 @@ export function VideoPage({ src }: VideoPageProps) {
       />
       <VideoPlayerControlBar>
         <VideoPlayerPlayButton />
-
         <VideoPlayerTimeRange className="mx-2" />
-        <VideoPlayerTimeDisplay />
         <VideoPlayerTimeDisplay showDuration />
         <VideoPlayerMuteButton />
         <VideoPlayerVolumeRange />
